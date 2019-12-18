@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Connexion à l'administration</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body class="adminlogin">
+        <div>
+            <h2 class="adminlogin__title">Connexion à l'administration</h2>
+                
+            {% if hasError %}
+                <div class="alert alert-danger">
+                    <p><i class="fas fa-exclamation-circle"></i> Les informations que vous avez fournies ne sont pas bonnes.</p>
+                </div>
+            {% endif %}
+
+            <form method="POST" class="form">
+                <div class="form__group">
+                    <label for="_username">Email</label>
+                    <input type="text" class="form-control" placeholder="Email" name="_username" value="{{ username }}">
+                </div>
+            
+                <div class="form__group">
+                    <label for="_password">Mot de passe</label>
+                    <input type="password" class="form-control" placeholder="Mot de passe" name="_password">
+                </div>
+                <div class="form__group">
+                    <input type="submit" value="Accéder à l'administration">
+                </div>
+            </form>
+        </div>
+    </body>
+
+<script src="https://kit.fontawesome.com/4916c16f18.js" crossorigin="anonymous"></script>
+
+</html>

@@ -1,0 +1,193 @@
+.productpage
+    margin: 0
+    padding: 30px 5%
+
+    @media screen and (min-width: $bp-large)
+        padding: 50px 3%
+    
+    &__container
+        display: flex
+        flex-wrap: wrap
+        
+        &_product
+            width: 100%
+
+            @media screen and (min-width: $bp-large)
+                margin-left: 2%
+                width: 80%
+            
+            &-breadscrumb
+
+                @media screen and (min-width: $bp-large)
+                    float: left
+
+                    height: max-content
+                
+
+            &-back:visited,
+            &-back
+
+                background-color: $blue
+                margin-top: .5em
+                padding: .5em 2em
+
+                color: $white
+
+                transition: all .5s
+
+                @media screen and (min-width: $bp-large)
+                    float: right
+
+                &:active,
+                &:focus,
+                &:hover
+                    color: $yellow
+
+                    transition: all .5s
+
+            &-infos
+                flex-direction: column
+
+                margin: 20px auto
+                width: 100%
+
+                @media screen and (min-width: $bp-medium)
+                    flex-direction: row
+                    flex-wrap: wrap
+
+                &-image
+                    float: left
+                    overflow: hidden
+
+                    height: 250px
+                    width: 100%
+
+                    @media screen and (min-width: $bp-medium)
+                        width: 50%
+
+                    img
+                        height: 120%
+                        width: auto
+
+                div:last-of-type
+                    margin: 0 auto
+                    padding: 20px
+
+                &-name
+                    font-weight: 400
+                    text-align: center
+
+                    @media screen and (min-width: $bp-large)
+                        font-size: 1.5em
+
+                &-price
+                    margin: 0
+
+                    font-size: 1.5em
+                    font-weight: 600
+                    text-align: center
+
+                    @media screen and (min-width: $bp-large)
+                        font-size: 1.8em
+
+                    span
+                        font-weight: 300
+
+                &-description
+                    width: 100%
+
+                    @media screen and (min-width: $bp-medium)
+                        margin-top: 20px
+
+                .products-left
+                    margin: 10px auto 0
+
+                    color: red
+
+                    @media screen and (min-width: $bp-large)
+                        margin: 10px 0 0 auto
+
+    
+    &-add
+    p
+        margin-right: 15px
+
+    form 
+        flex-direction: column
+        
+        margin: 0 auto
+        max-width: none !important
+
+        @media screen and (min-width: $bp-large)
+            margin: 0 0 0 auto
+            width: max-content
+
+    .select
+	    position: relative
+
+    .select__container
+        position: relative
+
+        background-color: #fff
+        border: #777 1px solid
+        margin-left: auto
+        max-width: 600px
+            
+        overflow: hidden
+
+        select
+            -webkit-appearance: none
+            -moz-appearance: none
+            appearance: none
+            overflow: hidden
+
+            border: 0
+            border-radius: 0
+            height: 100%
+            margin: 0
+            padding: .75em
+            width: 110%
+                    
+            text-overflow: ellipsis
+
+            cursor: pointer
+
+        &::after
+            content: ''
+            display: block
+            position: absolute
+
+            border-color: transparent
+            border-style: solid
+            border-top-color: $blue
+            border-width: 6px
+            height: 0
+            margin-top: -3px
+            width: 0
+
+            right: .75em
+            top: 50%
+                    
+            pointer-events: none
+
+
+    .form__group
+        max-width: 300px
+
+        @media screen and (min-width: $bp-medium) 
+            width: 100%
+
+        input[type="submit"]
+            min-width: 300px
+
+            @media screen and (min-width: $bp-medium)
+                margin: 0
+                    
+        select
+            width: 100% !important
+
+
+        &:last-of-type
+            margin: 0
+            width: max-content
+

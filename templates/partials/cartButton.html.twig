@@ -1,0 +1,10 @@
+<a href="{{ path('cartpage') }}" class="cart_button">
+    <i class="fas fa-shopping-cart"></i>
+    <span>
+        {% if app.user %}
+            {{ totalItems }}
+        {% else %}
+            0
+        {% endif %}
+    </span>
+</a>

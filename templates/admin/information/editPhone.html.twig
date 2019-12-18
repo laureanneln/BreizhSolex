@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier le numéro de téléphone{% endblock %}
+
+{% block body %}
+
+    <section class="admininfos container edit">
+
+        <a href="{{ path('admininformations') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour aux informations</a>
+
+        <h2>Modifier le numéro de téléphone</h2>
+
+        <form method="post" class="form flex">
+            <div class="form__group">
+                                
+                {% if form.phone.vars.errors|length %}
+                        <div class="invalid">
+                            { form_errors(form.phone) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                
+                {{ form_widget(form.phone) }}
+            </div>
+        
+            <div class="form__group">
+                <input type="submit" value="Modifier">
+            </div>
+    
+            {{ form_rest(form) }}
+    
+        </form>
+
+    </section>
+
+{% endblock %}

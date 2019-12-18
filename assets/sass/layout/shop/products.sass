@@ -1,0 +1,60 @@
+.shop
+    margin: 0
+    padding: 30px 5%
+
+    @media screen and (min-width: $bp-large)
+        padding: 50px 3%
+    
+    &__container
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+
+        &_products
+            height: max-content
+            width: 100%
+
+            @media screen and (min-width: $bp-large)
+                width: 78%
+            
+            &-title
+                margin: 0
+                width: 100%
+
+                font-family: 'Abril FatFace', serif
+                letter-spacing: 3px
+                text-transform: uppercase
+
+            &-product
+                background-color: $white
+                box-shadow: 0 0 10px rgba(0, 0, 0, .6)
+                margin: 10px 1%
+                width: 48%
+
+                transition: all .3s
+
+                @media screen and (min-width: $bp-small)
+                    margin: 10px 1.5%
+                    width: 30%
+
+                @media screen and (min-width: $bp-medium)
+                    margin: 10px 1%
+                    width: 23%
+
+                @media screen and (min-width: $bp-large)
+                    width: 23%
+
+                    &:last-of-type, &:nth-of-type(11)
+                        display: none
+
+                @media screen and (min-width: $bp-xl)
+                    width: 18%
+
+                    &:last-of-type, &:nth-of-type(11)
+                        display: block
+
+                &:active,
+                &:focus,
+                &:hover
+                    transform: scale(1.025)
+                    transition: all .1s

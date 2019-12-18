@@ -1,0 +1,107 @@
+.account
+    position: relative
+
+    padding: 30px 5%
+    
+    @media screen and (min-width: $bp-large)
+        padding: 50px 3%
+
+    > a
+        @media screen and (min-width: $bp-large)
+            position: absolute
+
+            right: 5%
+            top: 30px
+
+
+    h2
+        margin: 0
+
+        text-align: center
+        text-transform: uppercase
+
+    .account__container_box-orders
+
+        table
+            border-collapse: collapse
+            width: 100%
+
+            span, a
+                display: block
+
+                margin: 0 auto
+                width: max-content
+
+            td
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+                padding: 15px 10px
+
+                text-align: center
+
+    &__container
+        align-items: flex-start
+
+        &_box
+            background-color: #f9f9f9
+            margin: 20px 0
+
+            @media screen and (min-width: $bp-small)
+                width: 100%
+
+            @media screen and (min-width: $bp-large)
+                width: 48%
+
+            h4
+                background-color: $blue
+                margin: 0
+                padding: 10px
+
+                color: #fff
+                text-align: center
+                text-transform: uppercase
+
+            &-orders
+                padding: 20px
+
+                article
+
+                    h5
+                        margin: 0
+
+                        font-size: 1.1em
+
+                    p
+                        margin: 10px 0 30px 0
+
+                    a
+                        display: inline
+
+                        transition: all .5s
+
+                        &:hover
+                            color: $yellow
+
+                            transition: all .5s
+
+            &-infos
+                padding: 20px
+
+                p
+                    margin-top: 0
+                    width: 48%
+
+                    span
+                        font-weight: bold
+                        text-transform: uppercase
+
+            a
+                margin: 0 auto 20px
+
+            .account_address
+                margin: 0
+                padding: 5px 0
+                width: 100%
+
+                a
+                    display: inline
+    

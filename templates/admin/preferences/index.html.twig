@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des préférences{% endblock %}
+
+{% block body %}
+
+    <section class="adminpreferences listing">
+        <h2>Gestion des préférences</h2>
+        
+            <div class="admininfos__container flex wrap between">
+                <article class="admininfos__container_infos">
+
+                    <h3>Stock minimum</h3>
+                    <p style="text-align: center;">{{ pref.minStock }}</p>
+                    <a href="{{ path('adminpreferences_minstock', {'id' : pref.id }) }}" class="btn btn-info" style="width: max-content; padding: 10px 15px; margin: 0 auto;">Modifier</a>
+                        
+                </article>
+
+                <article class="admininfos__container_infos">
+
+                    <h3>TVA</h3>
+                    <p style="text-align: center;">{{ pref.taxe }} %</p>
+                    <a href="" class="btn btn-info" style="width: max-content; padding: 10px 15px; margin: 0 auto;">Modifier</a>
+                            
+                </article>
+            </div>
+
+    </section>
+
+{% endblock %}

@@ -1,0 +1,336 @@
+body 
+    margin: 0
+    width: 100vw
+
+    font-family: 'Lato', sans-serif
+
+main
+    width: 100%
+
+header
+
+    position: relative
+
+.container 
+    margin: 0 auto
+    max-width: 1440px
+
+/* Texts */
+.no-text
+    margin: 0
+    
+    font-size: 0
+
+.text-center
+    text-align: center
+
+/* Links */
+a
+    display: block
+
+    color: $blue
+    text-decoration: none
+
+img 
+    display: block
+
+/* Lists */
+ul
+    list-style-type: none
+    margin: 0
+    padding: 0
+
+/* Boxes */
+.flex
+    display: flex
+    align-items: center
+
+.wrap
+    flex-wrap: wrap
+
+
+.between
+    justify-content: space-between
+
+.around
+    justify-content: space-around
+
+.breadscrum
+    color: $yellow
+
+    a
+        display: inline
+
+        color: #000
+
+        &:hover
+            color: $blue
+
+/* Loader */
+.loader
+    display: flex
+    align-items: center
+
+    background-color: $blue
+    height: 100vh
+    width: 100vw
+
+    position: fixed
+    left: 0
+    top: 0
+    z-index: 1000
+
+    &_image
+        margin: 0 auto
+
+/* Alerts */
+.alert
+    padding: 5px 10px
+
+    font-size: .9em
+
+    &-danger
+        background-color: #f7dddc
+        border: 1px solid #f4cfce
+
+        color: #712b29
+
+    &-success
+        background-color: #dbf2e3
+        border: 1px solid #cdedd8
+
+        color: #27633c
+
+    &-info
+        background-color: #d2ebf5
+        border: 1px solid #c0e3f2
+
+        color: #093040
+
+/* Buttons */
+.btn
+    padding: 10px 15px
+    width: fit-content
+
+    color: #fff
+
+    transition: all .5s
+
+    &:active,
+    &:focus,
+    &:hover
+        transition: all .5s
+
+    &-primary
+        background-color: $blue
+
+        &:active,
+        &:focus,
+        &:hover
+            color: $yellow
+        
+    &-success
+        background-color: #4BBF73
+
+
+        &:active,
+        &:focus,
+        &:hover
+            background-color: #3ca861
+
+    &-danger
+        background-color: #d9534f
+
+
+        &:active,
+        &:focus,
+        &:hover
+            background-color: #d23430
+
+    &-info
+        background-color: #1F9BCF
+
+
+        &:active,
+        &:focus,
+        &:hover
+            background-color: #1a82ae
+
+/* Badges */
+.badge
+    border-radius: 20px
+    margin: 5px 0
+    padding: 5px 10px
+
+    color: #fff
+    font-size: .8rem
+    font-weight: normal
+    text-transform: none
+
+    &-info
+        background-color: #1F9BCF
+
+    &-success
+        background-color: #4BBF73
+        
+    &-warning
+        background-color: #f0ad4e
+
+    
+
+/* Forms */
+.select2-selection--single
+    border: 1px solid rgba(0, 0, 0, .1) !important
+
+.form
+    margin: 0 auto
+    max-width: 600px
+    width: 100%
+
+    .invalid
+        position: relative
+
+        margin-bottom: 5px
+
+        color: #d9534f
+        font-size: .8em
+
+        i
+            position: absolute
+
+            font-size: 1.5em
+
+            bottom: -32px
+            right: 10px
+
+    &__group
+        margin: 20px auto
+        width: 100%
+
+        label
+            display: block
+
+            margin-bottom: 5px
+
+            text-transform: uppercase
+
+        input, textarea
+                box-sizing: border-box
+                display: block
+
+                border: 1px solid rgba(0, 0, 0, .1)
+                padding: 10px
+                width: 100%
+
+                outline: none
+
+        input::placeholder
+            color: rgba(0, 0, 0, .3)
+
+        input[type="submit"]
+            background-color: $blue
+            padding: 10px 30px
+
+            color: $white
+            font-size: 1.2em
+            text-transform: uppercase
+
+            cursor: pointer
+            transition: all .5s
+
+            &:active,
+            &:focus,
+            &:hover
+                color: $yellow
+
+                transition: all .5s
+
+            @media screen and (min-width: $bp-medium)
+                margin: 0 auto
+                width: max-content
+
+        &_withicon
+            position: relative
+
+            &-icon
+                padding: 10px
+
+                color: rgba(0, 0, 0, .2)
+                
+                position: absolute
+
+            input
+                padding-left: 35px
+
+    &__radios
+        ul
+            display: none
+        div
+            display: flex
+            align-content: center
+
+        input
+            display: inline
+
+            margin-right: 5px
+            width: auto
+
+        label
+            display: inline
+
+            margin-right: 20px
+
+/* Boxes */
+.box
+    position: relative
+
+    flex-direction: column
+    overflow: hidden
+
+    background-color: #fff
+    border: 1px solid #dddddd
+    margin: 10px 0
+    width: 100%
+
+    text-align: center
+
+    @media screen and (min-width: $bp-small)
+        width: 48%
+
+    @media screen and (min-width: $bp-medium)
+        width: 30%
+
+    @media screen and (min-width: $bp-large)
+        width: 24%
+
+    h4, p
+        position: relative
+                
+        z-index: 50 
+
+    h4
+        margin-bottom: 15px
+        margin-top: 0
+        padding: 20px 10px 0 10px
+
+        font-size: 1.2em
+        font-weight: 400
+
+    p
+        margin: 0
+        padding: 0 10px 20px 10px
+
+        font-size: 1.3em
+        font-weight: 600
+
+    i
+        position: absolute
+
+        opacity: .2
+
+        color: #dddddd
+        font-size: 8em
+
+        bottom: -35px
+        left: -20px
+        z-index: 0

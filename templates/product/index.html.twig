@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+
+    <section class="shop">
+        
+        <div class="shop__container container">
+
+            {% include "/partials/categories.html.twig" %}
+
+            <div class="shop__container_products flex wrap between container">
+                {% for product in products %}
+                    <article class="shop__container_products-product">
+                        {% include "/product/_product.html.twig" %}
+                    </article>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+<nav class="topbar">
+    <ul>
+        <li><a href="{{ path('homepage') }}">
+            <i class="fas fa-eye"></i>
+            Voir le site
+        </a></li>
+        <li><a href="{{ path('adminlogout') }}">
+            <i class="fas fa-sign-out-alt"></i>
+            Déconnexion
+        </a></li>
+    </ul>
+</nav>
+
+<nav class="leftbar">
+    <label for="menu" class="toggle"><i class="fas fa-chevron-right"></i></label>
+    <input type="checkbox" id="menu">
+
+    <ul class="topbar_list">
+        <li><a href="{{ path('admindashboard')}}">
+                <i class="fas fa-home"></i>
+            Dashboard
+        </a></li>
+
+        <br>
+
+        <li>Vente</li>
+        <li><a href="{{ path('adminusers') }}">
+                <i class="fas fa-users"></i>
+            Clients
+        </a></li>
+        <li><a href="{{ path('adminorders') }}">
+            <i class="fas fa-clipboard-list"></i>
+            Commandes
+        </a></li>
+
+        <br>
+
+        <li>Boutique</li>
+        <li><a href="{{ path('admincategories') }}">
+            <i class="fas fa-tags"></i>
+            Catégories
+        </a></li>
+        <li><a href="{{ path('adminproducts') }}">
+            <i class="fas fa-motorcycle"></i>
+            Produits
+        </a></li>
+
+        <br>
+
+        <li>Gérer</li>
+        <li><a href="{{ path('adminstock') }}">
+            <i class="fas fa-boxes"></i>
+            Stocks
+        </a></li>
+        <li><a class="disabled">
+            <i class="fas fa-file-invoice-dollar"></i>
+            Factures
+        </a></li>
+
+        <br>
+
+        <li>Modifier</li>
+        <li><a href="{{ path('admininformations') }}">
+                <i class="fas fa-store"></i>
+                Informations
+            </a></li>
+        <li><a href="{{ path('adminabout') }}">
+            <i class="fas fa-info-circle"></i>
+            Page "à propos"
+        </a></li>
+
+        <br>
+
+        <li><a href="{{ path('adminpreferences') }}">
+            <i class="fas fa-cogs"></i>
+            Préférences
+        </a></li>
+    </ul>
+</nav>

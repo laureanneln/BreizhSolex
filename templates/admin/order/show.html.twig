@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Commande N°{{ order.id }}{% endblock %}
+
+{% block body %}
+    <section class="adminorder container listing">
+        {% if order.status.label == 'En attente' %}
+            {% set status = 'warning' %}
+        {% elseif order.status.label == 'Envoyée' %}
+            {% set status = 'info' %}
+        {% elseif order.status.label == 'Terminée' %}
+            {% set status = 'success' %}
+        {% endif %}
+
+
+        <a href="{{ path('adminorders') }}" class="adminback btn btn-primary" style="margin-left: auto;"><i class="fas fa-arrow-left"></i> Retour à la liste des commandes</a>
+        
+        <h2>Commande N°{{ order.id }} <span class="badge badge-{{ status }}">{{ order.status.label }}</span></h2>
+        <small>Le {{ order.orderDate | date('d/m/Y')}} à {{ order.orderDate | date('H:i:s')}}</small>
+
+        <p><i class="fas fa-user"></i> {{ order.user.lastName }} {{ order.user.firstName }}</p>
+        <p><i class="fas fa-home"></i> {{ order.address }}</p>
+        <p><i class="fas fa-euro-sign"></i> {{ order.totalPrice | number_format(2, ',', ' ') }} &euro;</p>
+        <p><i class="fas fa-truck"></i> {{ order.deliveryPrice | number_format(2, ',', ' ') }} &euro;</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID produit</th>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.items %}
+                    <tr>
+                        <td>{{ item.product.id }}</td>
+                        <td><img src="{{ item.product.image }}" alt=""></td>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ (item.product.taxePrice * item.quantity) | number_format(2, ',', ' ')}} &euro;</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
+{% endblock %}

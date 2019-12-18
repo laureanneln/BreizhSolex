@@ -1,0 +1,28 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier la quantité de {{ product.name }}{% endblock %}
+
+{% block body %}
+
+    <section class="adminproduct container edit">
+        <a href="{{ path('adminstock') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour au stock</a>
+        <h2>Modifier la quantité de {{ product.name }}</h2>
+        
+        <form method="post" class="form">
+            <div class="form__group quantity">
+                <div class="quantity__button"><i class="fas fa-caret-up"></i></div>
+                    {{ form_widget(form.quantity) }}
+                <div class="quantity__button"><i class="fas fa-caret-down"></i></div>
+            </div>
+    
+            <div class="form__group">
+                <input type="submit" value="Modifier">
+            </div>
+
+            {{ form_rest(form) }}
+
+        </form>
+
+    </section>
+
+{% endblock %}

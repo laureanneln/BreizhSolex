@@ -1,0 +1,36 @@
+{
+  "name": "breizhsolex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.28.0",
+    "autoprefixer": "^9.6.1",
+    "clean-css-cli": "^4.3.0",
+    "node-sass": "^4.12.0",
+    "postcss-cli": "^6.1.3",
+    "rimraf": "^2.7.1"
+  },
+  "scripts": {
+    "build": "npm run build-clean && npm run build-sass && npm run build-autoprefix && npm run build-cleancss",
+    "build-autoprefix": "postcss --use autoprefixer --map false --output public/css/style.css public/css/style.css",
+    "build-cleancss": "cleancss -o public/css/style.min.css public/css/style.css",
+    "build-clean": "rimraf css",
+    "build-sass": "node-sass --output-style expanded --source-map true assets/sass/style.sass public/css/style.css",
+    "deploy": "npm run build",
+    "start": "npm run build-sass -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^6.5.3",
+    "jquery": "^3.3.1",
+    "jquery.waitforimages": "^2.4.0",
+    "owl.carousel": "^2.3.4",
+    "popper.js": "^1.14.4",
+    "wow.js": "^1.2.2"
+  }
+}

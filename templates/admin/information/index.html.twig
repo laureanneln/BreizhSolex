@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des informations{% endblock %}
+
+{% block body %}
+
+    <section class="admininfos container">
+
+        <h2>Gestion des informations</h2>
+
+        <div class="admininfos__container flex wrap between">
+            <article class="admininfos__container_infos">
+                <h3>Horaires de l'atelier</h3>
+                <table>
+                    {% for hour in hours %}
+                        <tr>
+                            <td>{{ hour.dayName }}</td>
+                            {% if hour.openingHour|date("H:i") == '00:00' %}
+                                <td>Fermé</td>
+                            {% else %}
+                                <td>{{ hour.openingHour|date("H:i") }} - {{ hour.closingHour|date("H:i") }}</td>
+                            {% endif %}
+                            <td><a href="{{ path('adminhour_edit', {'day_name': hour.dayName}) }}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </article>
+
+            <article class="admininfos__container_infos">
+                    <h3>Informations de l'atelier</h3>
+                    
+                    <table>
+                    {% for info in infos %}
+                        <tr>
+                            <td><strong>Numéro de téléphone</strong></td>
+                            <td>{{ info.phone }}</td>
+                            <td><a href="{{ path('adminphone_edit', {'id': info.id}) }}" class="btn btn-info" style="width: max-content"><i class="fas fa-pencil-alt"></i> Modifier</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adresse</strong></td>
+                            <td>{{ info.address }}, {{ info.zipCode }} {{ info.city }}</td>
+                            <td><a href="{{ path('adminaddress_edit', {'id': info.id}) }}" class="btn btn-info" style="width: max-content"><i class="fas fa-pencil-alt"></i> Modifier</a></td>
+                        </tr>
+                    {% endfor %}
+                </article>
+        </div>
+
+    </section>
+
+{% endblock %}

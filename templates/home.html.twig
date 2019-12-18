@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<style>
+
+    header {
+        background-color: transparent;
+    }
+    
+    nav {
+        position: absolute;
+        top: 0;
+    }
+</style>
+
+    <section class="loader wow animated fadeOut delay-2s">
+        <img src="{{ asset('images/loader.svg') }}" alt="Loader" class="loader_image">
+    </section>
+
+    <section class="header" style="background-image: url({{ asset('images/home_bg.jpg') }})">
+        
+        <div class="header__titles wow animated slideInLeft delay-2s">
+            <div class="header__titles_slider owl-carousel owl-theme">
+                <div class="header__titles_slider-item">
+                    <h2>Vente de pièces neuves et d'occasion</h2>
+                </div>
+                <div class="header__titles_slider-item">
+                    <h2>Réparation et restauration</h2>
+                </div>
+                <div class="header__titles_slider-item">
+                    <h2>Préparation de solex de compétition</h2>
+                </div>
+            </div>
+
+            <div class="header__titles_buttons flex">
+                <a href="{{ path('productspage') }}" class="header__titles_buttons-button">Accéder à la boutique</a>
+                <a href="#" class="header__titles_buttons-button">Nous trouver</a>
+            </div>
+        </div>
+
+        <div class="header__solex wow animated slideInRight delay-2s">
+            <img src="{{ asset('images/solex.png') }}" alt="Homme roulant sur un solex" class="header__solex_image">
+        </div>
+
+        <div class='header__scroll-icon'><div/>
+    </section>
+
+    <section class="last">
+        <h3 class="last__title container">Les derniers produits ajoutés</h3>
+
+        <div class="last__container flex wrap between container">
+            {% for product in products %}
+                <article class="last__container_product">
+                    {% include "/product/_product.html.twig" %}
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2664.8039041914335!2d-1.609932784512453!3d48.09472606212372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480ed8ccbd75dd69%3A0x8b99cc3b8f21df06!2sBreizhSolex!5e0!3m2!1sfr!2sfr!4v1570198593385!5m2!1sfr!2sfr" width="100%" height="500" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    </section>
+
+{% endblock %}

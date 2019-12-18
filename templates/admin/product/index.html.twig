@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des produits{% endblock %}
+
+{% block body %}
+
+    <section class="adminproducts container listing">
+
+        <h2>Gestion des produits</h2>
+        <small>Total : {{ total }}</small>
+
+        <a href="{{ path('adminproduct_create') }}" class="btn btn-success"><i class="fas fa-plus"></i> Ajouter un produit</a>
+
+        <table class="admintable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Reference</th>
+                    <th>Prix H.T.</th>
+                    <th>Prix T.T.C.</th>
+                    <th>Sous-catégorie</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td><img src="{{ product.image }}" alt="{{ product.name }}"></td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.reference }}</td>
+                        <td>{{ product.noTaxePrice| number_format(2, ',', ' ') }} &euro;</td>
+                        <td>{{ product.taxePrice| number_format(2, ',', ' ') }} &euro;</td>
+                        <td>{{ product.subcategory.name }}</td>
+                        <td>
+                            <a href="{{ path('adminproduct_edit', {'id': product.id}) }}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                            <a href="{{ path('adminproduct_delete', {'id': product.id}) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
+
+{% endblock %}

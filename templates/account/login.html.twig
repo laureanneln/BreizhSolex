@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+    <section class="login container">
+
+        <h2 class="login__title">Se connecter</h2>
+
+        {% for flash_message in app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        {% if hasError %}
+            <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> L'adresse mail ou le mot de passe est incorrect.</div>
+        {% endif %}
+        
+        <form action="{{ path('loginpage') }}" method="POST" class="login__form form">
+            <div class="form__group">
+                <label for="email">Email</label>
+                <div class="form__group_withicon">
+                    <i class="fas fa-user form__group_withicon-icon"></i>
+                    <input type="text" name="_username" id="email" placeholder="Adresse email" class="form-control" value="{{ username }}" required >
+                </div>
+            </div>
+                            
+            <div class="form__group">
+                <label for="password">Mot de passe</label>
+                <div class="form__group_withicon">
+                    <i class="fas fa-key form__group_withicon-icon"></i>
+                    <input type="password" name="_password" id="password" placeholder="Mot de passe" class="form-control" required>
+                </div>
+            </div>
+                            
+            <div class="form__group">
+                <input type="submit" value="Se connecter">
+            </div>
+        </form>
+
+        <p class="login__firstvisit">Première visite ? <a href="{{ path('registrationpage') }}">Créer un compte</a></p>
+
+    </section>
+
+{% endblock %}

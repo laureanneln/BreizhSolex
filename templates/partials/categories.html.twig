@@ -1,0 +1,15 @@
+<nav class="catnav">
+    <ul>
+        {% for category in categories %}
+            <li class="catnav-category"><a title="Afficher le sous-menu">{{ category.name }}<i class="fas fa-plus"></i></a>
+                {% if category.subcategories is not empty %}
+                    <ul>
+                        {% for subcategory in category.subcategories %}
+                            <li><a href="{{ path('subcategorypage', {'slug' : subcategory.slug}) }}">> {{ subcategory.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

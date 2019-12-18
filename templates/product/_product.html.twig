@@ -1,0 +1,8 @@
+<a href="{{ path('productpage', {'slug' : product.slug}) }}" class="product">
+    <div class="product__container"><img src="{{ product.image }}" alt="{{ product.name }}" class="product__container_image"></div>
+    <h5 class="product__name text-center">{{ product.name }}</h5>
+    <p class="product__price text-center">{{ product.taxePrice | number_format(2, ',', ' ') }} <span>&euro;</span></p>
+    <hr class="product__line">
+</a>
+
+{% include "/partials/addButton.html.twig" %}

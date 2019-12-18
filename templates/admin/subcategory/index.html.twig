@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des catégories{% endblock %}
+
+{% block body %}
+
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+            {% for message in messages %}
+                {{ message | raw }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <section class="adminproducts container listing">
+
+        <h2>Gestion des catégories</h2>
+        
+
+        <div class="flex add">
+            <a href="{{ path('admincategory_create') }}" class="btn btn-success"><i class="fas fa-plus"></i> Ajouter une catégorie</a>
+            <a href="{{ path('adminsubcategory_create') }}" class="btn btn-success" style="margin-left: 10px"><i class="fas fa-plus"></i> Ajouter une sous-catégorie</a>
+        </div>
+        
+
+        <table class="category" style="border-collapse: collapse">
+            {% for category in categories %}
+                <tr class="category-row">
+                    <td style="width: 10%">{{ category.position }}</td>
+                    <td style="width: 100%">{{ category.name }}</td>
+                    <td>Total</td>
+                    <td class="flex">
+                        <a href="{{ path('admincategory_edit', {id : category.id})}}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                        <a  {% if category.subcategories|length == 0 %}href="{{ path('admincategory_delete', {id : category.id})}}"{% endif %} class="btn btn-danger {% if category.subcategories|length >= 1 %}disabled"{% endif %} " style="margin-left: 10px"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                    </td>
+                </tr>
+                {% for subcategory in category.subcategories %}
+                    <tr>
+                        <td style="width: 10%">{{ subcategory.position }}</td>
+                        <td style="width: 100%">{{ subcategory.name }}</td>
+                        <td>{{ subcategory.products | length }} produit{% if (subcategory.products | length) > 1 %}s{% endif %}</td>
+                        <td class="flex" style="margin-left: auto">
+                            <a href="{{ path('adminsubcategory_edit', {id : subcategory.id})}}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                            <a  {% if subcategory.products|length == 0 %}href="{{ path('adminsubcategory_delete', {id : subcategory.id})}}"{% endif %} class="btn btn-danger {% if subcategory.products|length >= 1 %}disabled"{% endif %} " style="margin-left: 10px"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            {% endfor %}
+        </table>
+        
+    </section>
+    
+{% endblock %}

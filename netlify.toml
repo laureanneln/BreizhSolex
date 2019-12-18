@@ -1,0 +1,8 @@
+[build]
+
+command = "php bin/console server:run"
+publish = "build_production"
+
+[context.production.environment]
+
+PHP_VERSION="7.2"

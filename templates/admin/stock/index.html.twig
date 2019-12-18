@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion du stock{% endblock %}
+
+{% block body %}
+
+    <section class="adminproducts container listing">
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <h2>Gestion du stock</h2>
+
+        <table class="admintable">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th>Nom</th>
+                        <th>Reference</th>
+                        <th>Quantité</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        {% set minstock = "" %}
+                        {% if product.quantity <  pref.minStock %} 
+                            {% set minstock = "minstock" %}
+                        {% endif %}
+                        <tr>
+                            <td class="{{ minstock }}">{{ product.id }}</td>
+                            <td class="{{ minstock }}"><img src="{{ product.image }}" alt="{{ product.name }}"></td>
+                            <td class="{{ minstock }}">{{ product.name }}</td>
+                            <td class="{{ minstock }}">{{ product.reference }}</td>
+                            <td class="value {{ minstock }}"> {{ product.quantity }}</td>
+                            <td class="{{ minstock }}">
+                                    <a href="{{ path('adminstock_edit', {'id': product.id}) }}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+    </section>
+
+{% endblock %}

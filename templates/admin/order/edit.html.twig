@@ -1,0 +1,34 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier le status de la commande #{{ order.id }}{% endblock %}
+
+{% block body %}
+
+    <section class="container edit">
+        <a href="{{ path('adminorders') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des produits</a>
+        
+        <h2>Modifier le status de la commande #{{ order.id }}</h2>
+        
+        <form method="post" class="form">
+            <div class="form__group">
+                {% if form.status.vars.errors|length %}
+                    <div class="invalid">
+                            { form_errors(form.status) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+            
+                {{ form_widget(form.status) }}
+            </div>
+    
+            <div class="form__group">
+                <input type="submit" value="Modifier">
+            </div>
+
+            {{ form_rest(form) }}
+
+        </form>
+
+    </section>
+
+{% endblock %}

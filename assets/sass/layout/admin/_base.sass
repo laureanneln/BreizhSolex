@@ -1,0 +1,132 @@
+.disabled
+    opacity: .5
+
+small
+    opacity: .5
+    
+.adminlogin
+    display: flex
+
+    align-items: center
+    justify-content: center
+
+    background-image: url(../../images/home_bg.jpg)
+    background-size: cover
+    height: 100vh
+
+    &__title
+        color: $white
+        text-align: center
+
+    label
+        color: $white
+
+.edit
+    h2
+        text-align: center
+
+    .select2-container
+        width: 100% !important
+    
+.adminback
+    background-color: $blue
+    margin: 0 0 40px auto
+    width: max-content
+
+    color: #fff
+
+    transition: all .5s
+
+    &:active,
+    &:focus,
+    &:hover
+        color: $yellow
+
+        transition: all .5s
+
+.listing
+    position: relative
+
+    table
+        .btn-info, .btn-danger, .btn-success
+            margin: 5px 0
+            padding: 10px 0
+            width: 100%
+
+            font-size: 0
+
+            i
+                font-size: 1rem
+
+            @media screen and (min-width: $bp-large)
+                font-size: 1em
+
+    > .btn-success, .add
+        margin: 10px 0
+        width: max-content
+
+        @media screen and (min-width: $bp-large)
+            position: absolute
+
+            margin: 0
+
+            right: 0
+            top: 0
+
+    table
+        border-collapse: collapse
+        width: 100%
+        
+        th, td
+            padding: 20px 10px !important
+
+            font-size: .9em
+            text-align: center
+
+        img
+            display: block
+
+            margin: 0 auto
+
+            height: auto
+            width: 200px
+
+    .dataTables_wrapper
+        overflow: scroll
+    
+    .dataTable
+        border-bottom: none
+        border-collapse: collapse
+
+        margin-bottom: 30px
+        margin-top: 80px
+
+    .dataTable thead, thead
+        background-color: $blue
+
+        th
+            border-bottom: none
+
+            color: #fff
+
+    td
+        background-color: #fff
+        border-bottom: 1px solid rgba(0, 0, 0, .1)
+
+    
+    .dataTables_length, .dataTables_filter
+        margin-top: 20px
+    
+
+.category-row
+    border-top: 20px solid #f9f9f9
+    td
+        background-color: #e2e2e2 !important
+        padding: 10px !important
+
+.minstock
+    background-color: rgba(255, 0, 0, .1) !important
+
+.minstock.value
+    color: red
+    font-weight: bold

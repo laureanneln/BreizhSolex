@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ subcategory.name }}{% endblock %}
+
+{% block body %}
+
+    <section class="shop">
+        <div class="shop__container container">
+
+            {% include "/partials/categories.html.twig" %}
+
+            <div class="shop__container_products flex wrap container">
+
+                <h2 class="shop__container_products-title">{{ subcategory.name }}</h2>
+                
+                <p class="breadscrum" style="width: 100%"><a href="{{ path("productspage") }}">Produits</a> > <a href="{{ path("subcategorypage", {'slug' : subcategory.slug}) }}">{{ subcategory.name }}</a></p>
+
+                {% for product in products %}
+                    <article class="shop__container_products-product">
+                        {% include "/product/_product.html.twig" %}
+                    </article>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

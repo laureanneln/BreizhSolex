@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adresse de livraison{% endblock %}
+
+{% block body %}
+
+    <section class="address flex wrap between">
+
+            <h2 class="cart__title">Adresse de livraison</h2>
+
+            <div class="address__recap">
+                <h3>Récapitulatif de la commande</h3>
+                <p>Articles : <span>{{ totalItems }}</span></p>
+                <p>Sous-total : <span>{{ subTotal | number_format(2, ',', ' ') }} &euro;</span></p>
+                <p>Livraison : <span>3,00 &euro;</span></p>
+                <hr>
+                <p>Total : <strong>{{ (subTotal + 3) | number_format(2, ',', ' ') }} &euro;</strong></p>
+            </div>
+
+            <div class="address__choice">
+                <h3>Choisir une adresse</h3>
+
+                {% if app.user.addresses | length != 0 %}
+
+                    <form action="{{ path('processpage') }}">
+                        {% for address in app.user.addresses %}
+                        <label class="account_address" style="display: block; margin: 5px 0;">
+                        <input type="radio" name="address" value="{{ address.id }}"
+                        {% if loop.first %}
+                            checked
+                        {% endif %}> 
+                        <strong>{{ address.postName }}</strong> – {{ address.address }} {{ address.address2 }}, {{ address.zipcode }} {{ address.city }}</label>
+                        {% endfor %}
+                    </ul>
+
+                {% else %}
+
+                    <p>Pas d'adresse</p>
+                
+                {% endif %}
+                    <a href="#" btn btn-primary>Ajouter une adresse</a>
+
+                    <br>
+
+                    <button type="submit" class="btn btn-primary">Valider l'adresse de livraison</button>
+                </form>
+
+            </div>
+
+            <div class="address__update flex wrap">
+
+                <i class="far fa-times-circle"></i>
+
+                <form method="post" class="form">
+                    <h3>Ajouter une adresse de livraison</h3>
+
+                    <div class="form__group">
+                        <label>Nom</label>
+                                    
+                        {% if form.post_name.vars.errors|length %}
+                            <div class="invalid">
+                                    {{ form_errors(form.post_name) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+                    
+                        {{ form_widget(form.post_name) }}
+                    </div>
+
+                    <div class="form__group">
+                        <label>Adresse</label>
+                                    
+                        {% if form.address.vars.errors|length %}
+                            <div class="invalid">
+                                    {{ form_errors(form.address) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+                    
+                        {{ form_widget(form.address) }}
+                    </div>
+        
+                    <div class="form__group">
+                        <label>Complément d'adresse</label>
+                            
+                        {% if form.address2.vars.errors|length %}
+                            <div class="invalid">
+                                {{ form_errors(form.address2) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+            
+                        {{ form_widget(form.address2) }}
+                    </div>
+            
+                    <div class="form__group">
+                        <label>Code postal</label>
+            
+                        {% if form.zip_code.vars.errors|length %}
+                            <div class="invalid">
+                                {{ form_errors(form.zip_code) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+            
+                        {{ form_widget(form.zip_code) }}
+                    </div>
+        
+                    <div class="form__group">
+                        <label>Ville</label>
+            
+                        {% if form.city.vars.errors|length %}
+                            <div class="invalid">
+                                {{ form_errors(form.city) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+                            
+                        {{ form_widget(form.city) }}
+                    </div>
+            
+                    <div class="form__group">
+                        <input type="submit" value="Enregistrer">
+                    </div>
+        
+                    {{ form_rest(form) }}
+        
+                </form>
+            </div>
+
+    </section>
+
+{% endblock %}

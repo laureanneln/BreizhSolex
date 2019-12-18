@@ -1,0 +1,215 @@
+.cart
+    padding: 30px 5%
+    
+    @media screen and (min-width: $bp-large)
+        padding: 50px 3%
+
+    &__title
+        margin-top: 0
+
+        color: rgba(0, 0, 0, .2)
+        font-family: 'Abril FatFace', serif
+        font-size: 2em
+        letter-spacing: 3px
+        text-align: center
+        text-transform: uppercase
+
+    &__table
+        border-collapse: collapse
+        width: 100%
+
+        th
+            padding: 10px
+
+        &_row
+            border-top: 1px solid rgba(0, 0, 0, 0.2)
+
+            td
+                background-color: #fefefe
+                padding: 10px
+
+                text-align: center
+
+            &-image
+                padding: 0
+                max-width: 200px
+
+                img
+                    margin: 0 auto
+                    max-width: 200px
+
+        form
+            position: relative
+
+        input
+            border: none
+            margin: 0 20px !important
+            width: 10%
+
+            font-size: 1.1em !important
+            text-align: center
+
+        i
+            cursor: pointer
+
+        input[type='submit']
+            position: absolute
+
+            border: 1px solid rgba(0, 0, 0, .1)
+            border-radius: 20px
+            margin: 10px 0 0 0 !important
+            width: 30%
+
+            color: rgba(0, 0, 0, 0.4)
+            font-size: .7em !important
+
+            cursor: pointer
+
+            bottom: -25px
+            left: 50%
+            transform: translate(-50%, 0)
+
+    div
+        margin: 0 auto
+        width: 95%
+
+        p 
+            width: 100%
+
+        p:last-of-type
+            text-align: right
+
+    > a
+        margin: 50px auto 0
+
+        text-align: center
+
+        @media screen and (min-width: $bp-medium)
+            width: 70%
+
+        @media screen and (min-width: $bp-large)
+            width: 50%
+
+.address
+    padding: 30px 5%
+    
+    @media screen and (min-width: $bp-large)
+        padding: 50px 3%
+
+    h2
+        width: 100%
+
+    &__recap
+        display: flex
+        flex-direction: column
+
+        background-color: #f9f9f9
+        margin: 20px 0
+        width: 100%
+
+        @media screen and (min-width: $bp-large)
+            width: 20%
+        
+        h3
+            background-color: $blue
+            margin: 0
+            padding: 15px
+
+            color: #fff
+            font-size: .9em
+            text-align: center
+            text-transform: uppercase
+
+        p
+            display: flex
+
+            margin: 10px 0
+            padding: 0 15px
+
+            &:first-of-type
+                margin-top: 20px
+
+            &:last-of-type
+                margin-bottom: 20px
+
+            span, strong
+                margin-left: auto
+
+        hr
+            background-color: $dark-grey
+            border: none
+            height: 1px
+            width: 95%
+
+    &__choice
+        width: 100%
+
+        @media screen and (min-width: $bp-large)
+            width: 75%
+
+        h3
+            font-size: 1em
+            text-transform: uppercase
+
+        a
+            display: inline
+
+            margin-left: 10px
+
+            font-size: .9em
+
+        button
+            display: block
+
+            border: none
+            margin: 30px auto 0
+
+            font-size: 1em
+
+            cursor: pointer
+
+    &__update
+        position: fixed
+
+        background-color: rgba(249, 249, 249, .95)
+        height: 100%
+        padding: 20px
+        width: 100%
+
+        bottom: 50%
+        left: 50%
+        transform: translate(-50%, 50%)
+        z-index: 100
+
+        i
+            position: absolute
+
+            color: $blue
+            font-size: 2.5em
+
+            top: 50px
+            right: 50px
+
+            cursor: pointer
+
+        form
+            padding: 20px
+
+        h3
+            margin: 10px 0
+            width: 100%
+
+            text-align: center
+            text-transform: uppercase
+
+.validation
+    padding: 30px 5%
+    
+    @media screen and (min-width: $bp-large)
+        padding: 50px 3%
+
+    h3, p
+        text-align: center
+
+    a
+        margin: 50px auto 0

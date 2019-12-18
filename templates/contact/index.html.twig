@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <section class="contact flex wrap between container">
+        
+        <div class="contact__message">
+                <h2 class="contact__informations_title">Par message</h2>
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+
+                <input type="submit" value="Envoyer">
+
+                {{ form_end(form) }}
+        </div>
+
+        <div class="contact__informations">
+            <h2 class="contact__informations_title">Sur rendez-vous</h2>
+
+            {% for information in informations %}
+
+                {% set splitArray = information.phone|split('', 2) %}
+                {% set phone = splitArray|join('.') %}
+
+                <a href="tel:{{ information.phone }}" class="contact__informations_phone">
+                    <i class="fas fa-phone fa-rotate-90"></i>
+                    {{ phone }}
+                </a>
+
+                <address class="contact__informations_address">
+                    <span>{{ information.address }}</span>
+                    <span>{{ information.zipCode }} {{ information.city }}</span>
+                </address>
+            
+            {% endfor %}
+
+            {% set trans_day_hash = { 
+                "Monday": "Lundi", 
+                "Tuesday": "Mardi", 
+                "Wednesday": "Mercredi", 
+                "Thursday": "Jeudi", 
+                "Friday": "Vendredi", 
+                "Saturday": "Samedi", 
+                "Sunday": "Dimanche" 
+            } %}
+
+            <table class="contact__informations_hours">
+                {% for hour in hours %}
+                    <tr>
+                        <td class="contact__informations_hours-day">{{ hour.dayName }}</td>
+                        <td class="contact__informations_hours-hour" {% if trans_day_hash['now' | date('l')] != hour.dayName %} style="opacity: .5;" {% endif %}>
+                            {% if hour.openingHour | date('H:i:s') != '00:00:00' and hour.closingHour | date('H:i:s') != '00:00:00' %}
+                                {{ hour.openingHour | date('H:i') }} - {{ hour.closingHour | date('H:i') }}
+                            {% else %}
+                                Fermé
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </section>
+{% endblock %}

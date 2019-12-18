@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ product.name }} {% endblock %}
+
+{% block body %}
+
+    <section class="productpage">
+
+            <div class="productpage__container container">
+
+                {% include "/partials/categories.html.twig" %}
+
+                <div class="productpage__container_product">
+
+                    <div class="flex between">
+                            <p class="breadscrum" style="width: 100%"><a href="{{ path("productspage") }}">Produits</a> > <a href="{{ path("subcategorypage", {'slug' : product.subcategory.slug}) }}">{{ product.subcategory.name }}</a></p>
+
+                        <a href="{{ path('subcategorypage', {'slug' : product.subcategory.slug}) }}" class="productpage__container_product-back">Retour</a>
+                    </div>
+
+                    <div class="productpage__container_product-infos flex">
+                        <div class="productpage__container_product-infos-image"><img src="{{ product.image }}" alt="{{ product.name }}"></div>
+                        
+                        <div>
+                            <h3 class="productpage__container_product-infos-name">{{ product.name }}</h3>
+                            <p class="productpage__container_product-infos-price">{{ product.taxePrice | number_format(2, ',', ' ')}} <span>&euro; T.T.C.</span></p>
+                        </div>
+
+                        <p class="productpage__container_product-infos-description">{{ product.description }}</p>
+                        {% if product. quantity <= pref.minStock %}
+                            <p class="products-left">Il n'en reste plus que {{ product.quantity }} !</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="productpage__container_product-add flex wrap">
+                        
+                        {% if app.user %}
+                            <form action="{{ path('product_add', {'id' : product.id}) }}" class="flex wrap">
+
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                
+                                <div class="form__group select">
+                                    <label for="quantity">Sélectionnez une quantité</label>
+                                    <div class="select__container">
+                                        <select name="quantity" id="quantity">
+                                            {% for i in 0..product.quantity %}
+                                                <option value="{{ i }}">{{ i }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form__group">
+                                    <input type="submit" value="Ajouter au panier">
+                                </div>
+
+                            </form>
+
+                        {% else %}
+                            <a href="{{ path('loginpage') }}" class="btn btn-primary" style="margin-left: auto;">Se connecter pour ajouter au panier</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+
+    </section>
+
+    
+
+{% endblock %}

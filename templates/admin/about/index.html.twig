@@ -1,0 +1,34 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion de la page "À propos"{% endblock %}
+
+{% block body %}
+
+    <section class="admininfos adminabout container">
+
+        <h2>Gestion de la page "À propos"</h2>
+
+        <a href="{{ path('adminabout_create') }}" class="btn btn-success" style="margin: 10px 0 0 auto"><i class="fas fa-plus"></i> Ajouter</a>
+
+        <div class="admininfos__container flex wrap between">
+            {% for about in abouts %}
+                <article class="admininfos__container_infos">
+                    <h3>{{ about.name }}</h3>
+                    
+                        <div style="padding: 15px">
+                            {{ about.content|raw }}
+                        </div>
+
+                        <div class="flex" style="width: max-content; margin-left: auto;">
+                            <a href="{{ path('adminabout_edit', {'id': about.id}) }}" class="btn btn-info" style="margin-right: 15px"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                            <a href="{{ path('adminabout_delete', {'id': about.id}) }}" class="btn btn-danger" style="margin-right: 15px"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                        </div>
+
+                </article>
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+{% endblock %}

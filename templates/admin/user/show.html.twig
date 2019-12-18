@@ -1,0 +1,38 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}#{{ user.id }} {{ user.firstName }} {{ user.lastName }}{% endblock %}
+
+{% block body %}
+    <section class="adminusers container listing">
+
+        <a href="{{ path('adminusers') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des clients</a>
+
+        <h2>#{{ user.id }} {{ user.firstName }} {{ user.lastName }}</h2>
+
+        <div>
+            {% set splitArray = user.phoneNumber|split('', 2) %}
+            {% set phone = splitArray|join('.') %}
+            <p class="flex"><i class="fas fa-home"></i> {{ user.address }}, {{ user.zipCode }} {{ user.city }}</p>
+            <p class="flex"><i class="fas fa-phone"></i> <a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></p>
+        </div>
+
+        <div class="adminusers__orders">
+            {% if user.customerOrders | length == 0 %}
+                <h3>Aucune commande</h3>  
+            {% else %}
+                <h3>Historique des commandes ({{ user.customerOrders | length }})</h3>
+                {% for order in user.customerOrders %}
+                    <div  class="adminusers__orders_order">
+                        <p>#{{ order.id }}</p>
+                        <p>Le {{ order.orderDate|date("m/d/Y") }} à {{ order.orderDate|date("H:i:s") }}</p>
+                        <p>{{ order.items | length }} produits</p>
+                        <p>Prix total : {{ order.totalPrice | number_format(2, ',', ' ')}} &euro;</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            
+        </div>
+       
+    </section>
+{% endblock %}

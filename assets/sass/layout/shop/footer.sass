@@ -1,0 +1,134 @@
+/* footer */
+footer
+    background-color: $dark-grey
+    padding: 30px 3%
+
+    a:visited,
+    a
+        color: $white
+
+    .footer
+        flex-direction: column
+
+        @media screen and (min-width: $bp-medium)
+            flex-direction: row
+            flex-wrap: wrap
+            justify-content: space-between
+
+        &__logo
+
+            @media screen and (min-width: $bp-medium)
+                margin-bottom: 50px
+                width: 100%
+
+            @media screen and (min-width: $bp-large)
+                width: 30%
+
+            &_container
+                margin: 0 auto
+                width: 40%
+
+                @media screen and (min-width: $bp-large)
+                    width: 100%
+
+                &-image
+                    width: 100%
+            
+            &_infos
+                margin: 20px auto 0
+                max-width: 450px
+                width: 100%
+
+                &-info
+                    transition: all .5s
+                    
+                &-info:active,
+                &-info:focus,
+                &-info:hover
+                    color: $yellow
+
+                    transition: all .5s
+        
+        &__place
+            margin-top: 30px
+
+            color: $white
+
+            @media screen and (min-width: $bp-medium)
+                width: 45%
+
+            @media screen and (min-width: $bp-large)
+                width: 20%
+
+            &_name
+                margin: 0
+
+                font-family: 'Abril Fatface', cursive
+                font-size: 1.8em
+                letter-spacing: 3px
+                text-align: center
+                text-transform: uppercase
+
+            &_address
+                margin: 10px 0
+
+                span
+                    display: block
+
+                    text-align: center
+                    font-size: 1.2em
+                    font-style: normal
+                
+                span:last-of-type
+                    font-weight: 200
+
+            &_hours 
+                margin: 0 auto
+
+                &-day, &-hour
+                    font-weight: 300
+
+                &-day
+                    text-align: right
+
+        &__links
+            @media screen and (min-width: $bp-medium)
+                width: 45%
+
+            @media screen and (min-width: $bp-large)
+                width: 25%
+
+            &_solex
+                margin: 30px auto
+                width: 200px
+
+                @media screen and (min-width: $bp-large)
+                    margin: 30px 0 30px auto
+                    width: 150px
+
+                &-image
+                    height: auto
+                    width: 100%
+            
+            &_container
+                &-link
+                    a
+                        margin: 0 0 10px
+
+                        text-align: center
+                        text-transform: uppercase
+
+                        @media screen and (min-width: $bp-large)
+                            text-align: right
+
+        &__copyright
+            color: rgba(255, 255, 255, .5)
+            font-weight: 300
+
+            @media screen and (min-width: $bp-medium)
+                margin: 30px auto 0
+
+                text-align: center
+
+            @media screen and (min-width: $bp-large)
+                width: 100%

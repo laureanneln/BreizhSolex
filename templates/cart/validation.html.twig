@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande enregistrée{% endblock %}
+
+{% block body %}
+
+    <section class="validation">
+
+            <h2 class="cart__title">Commande enregistrée</h2>
+
+            <h3>Votre commande a bien été enregistrée</h3>
+
+            <p>Votre commande est la commande n°{{ order }}.</p>
+
+            <p>Vous receverez un mail récapitulatif dans quelques instants.</p>
+
+            <a href="{{ path('homepage') }}" class="btn btn-primary">Retour à la page d'accueil</a>
+
+    </section>
+
+{% endblock %}

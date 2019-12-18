@@ -1,0 +1,130 @@
+.admin
+    display: flex
+
+    header
+        background-color: transparent
+
+    .topbar
+        position: absolute
+
+        background-color: $yellow
+        width: 100vw
+        
+        top: 0
+
+        ul
+            display: flex
+
+            margin-left: auto
+            padding: 15px
+            width: max-content
+
+            li
+                margin-left: 20px
+
+                a:visited,
+                a
+                    color: #000
+                    
+                    &:active,
+                    &:focus,
+                    &:hover
+                        color: $blue
+
+    .leftbar
+        position: relative
+
+        background-color: $dark-grey
+        height: 100%
+        width: max-content
+
+        input 
+            position: absolute
+
+            opacity: 0
+
+            right: 0
+            top: 0
+            z-index: -1
+
+        .toggle
+            display: block
+            position: absolute
+
+            background-color: $dark-grey
+            border: none
+            border-radius: 0 5px 5px 0
+            padding: 10px 5px
+            width: 30px
+
+            color: $white
+            font-size: 1.5em
+            text-align: center
+
+            right: -35px
+
+            cursor: pointer
+            outline: none
+
+        ul
+            padding: 10px 10px 15px
+            
+            li
+                font-size: 0
+
+            a
+                margin-bottom: 10px
+
+                color: #fff
+                font-size: 0
+
+                i
+                    width: 40px
+
+                    font-size: 1.5rem
+                    text-align: center
+
+                &:active,
+                &:focus,
+                &:hover
+                    opacity: .8
+                    
+                    
+    /* If checkbox is checked */
+    #menu:checked~.topbar_list
+        li
+            color: $yellow
+            font-size: .8rem
+            text-transform: uppercase
+                
+            a:visited,
+            a
+                margin: 5px 0
+
+                font-size: 1rem
+                text-transform: initial
+
+                i
+                    margin-right: 5px
+                    width: 20px
+
+                    font-size: 1rem
+
+    #menu:checked~.toggle
+        border-radius: 5px 0 0 5px
+
+        transform: rotate(180deg)
+
+    main
+        background-color: #f9f9f9
+        margin-top: 49px
+        min-height: calc(100vh - 150px)
+        padding: 30px 5%
+
+        @media screen and (min-width: $bp-large)
+            padding: 50px 3%
+
+        h2
+            margin: 0
+
+            text-transform: uppercase

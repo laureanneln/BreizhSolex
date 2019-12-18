@@ -1,0 +1,62 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier la sous-catégorie {{ subcategory.name }}{% endblock %}
+
+{% block body %}
+
+    <section class="admincat container edit">
+
+        <a href="{{ path('admincategories') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des catégories</a>
+
+        <h2>Modifier la sous-catégorie {{ subcategory.name }}</h2>
+
+        <form method="post" class="form">
+            <div class="form__group">
+                <label>Nom</label> 
+                {% if form.name.vars.errors|length %}
+                        <div class="invalid">
+                            { form_errors(form.name) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                
+                {{ form_widget(form.name)}}
+            </div>
+
+            <div class="form__group">
+                <label>Position</label> 
+                {% if form.position.vars.errors|length %}
+                        <div class="invalid">
+                            { form_errors(form.position) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                
+                {{ form_widget(form.position) }}
+            </div>
+
+            <div class="form__group">
+                    <label>Catégorie associée</label> 
+                    {% if form.category.vars.errors|length %}
+                            <div class="invalid">
+                                { form_errors(form.category) }}
+                            <i class="fas fa-times"></i>
+                        </div>
+                    {% endif %}
+                    
+                    {{ form_widget(form.category) }}
+                </div>
+        
+            <div class="form__group">
+                <input type="submit" value="Modifier">
+            </div>
+    
+            {{ form_rest(form) }}
+
+            <div class="alert alert-info"><i class="fas fa-question-circle"></i> Les positions des sous-catégories seront échangées s'il y a changement.</div>
+    
+        </form>
+
+    </section>
+
+{% endblock %}

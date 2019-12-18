@@ -1,0 +1,88 @@
+.category
+    .flex
+        width: max-content
+        
+        a
+            display: block
+
+            padding: 10px 20px
+            width: max-content
+    
+.admininfos
+    &__container
+        margin-top: 20px
+        
+        &_infos
+            background-color: #fff
+            margin-top: 20px
+            padding-bottom: 15px
+            width: 100%
+
+            @media screen and (min-width: $bp-large)
+                width: 48%
+
+            h3
+                background-color: $blue
+                margin: 0
+                padding: 15px
+
+                color: #fff
+                font-weight: normal
+                letter-spacing: 1px
+                text-align: center
+                text-transform: uppercase
+
+            table
+                padding: 15px
+                width: 100%
+
+                td
+                    padding: 5px
+                    text-align: center
+
+            a
+                margin: 10px auto 0
+    
+    form
+
+        label
+            margin-left: 10px
+            
+
+        .select2
+            margin: 0 10px
+            width: inherit !important
+
+        &__group > div
+            display: flex
+
+            width: 100%
+
+.hours
+    form
+        flex-direction: column
+        
+        width: max-content
+
+.sf-toolbar-clearer
+    height: 0 !important
+
+.adminabout article
+    @media screen and (min-width: $bp-large)
+        width: 100%
+
+        div
+            padding: 15px
+            
+            p
+                text-align: justify
+
+.category
+    td
+        border-bottom: none
+
+.admincat select option:first-of-type
+    display: none
+
+#select2-category_position-results li:first-of-type, #select2-subcategory_position-results li:first-of-type
+    display: none

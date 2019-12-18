@@ -1,0 +1,96 @@
+{% extends ['base.html.twig', 'partials/form.html.twig'] %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+    <section class="registration container">
+        <h2 class="registration__title">Créer un compte</h2>
+{# 
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %} #}
+
+
+        <form method="post" class="form">
+            {# <div class="form__group form__radios">
+                {{ form_errors(form.title) }}
+                {{ form_widget(form.title) }}
+            </div> #}
+            
+            <div class="form__group">
+                {{ form_label(form.firstName) }}
+                
+                {% if form.firstName.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.firstName) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+
+                {{ form_widget(form.firstName) }}
+            </div>
+
+            <div class="form__group">
+                {{ form_label(form.lastName) }}
+
+                {% if form.lastName.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.lastName) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+
+                {{ form_widget(form.lastName) }}
+            </div>
+
+            <div class="form__group">
+                {{ form_label(form.email) }}
+
+                {% if form.email.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.email) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+
+                {{ form_widget(form.email) }}
+            </div>
+
+            <div class="form__group">
+                {{ form_label(form.password) }}
+
+                {% if form.password.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.password) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+
+                {{ form_widget(form.password) }}
+            </div>
+
+            <div class="form__group">
+                {{ form_label(form.passwordConfirm) }}
+
+                {% if form.passwordConfirm.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.passwordConfirm) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                
+                {{ form_widget(form.passwordConfirm) }}
+            </div>
+
+            <div class="form__group">
+                <input type="submit" value="Créer un compte">
+            </div>
+
+            {{ form_rest(form) }}
+        </form>
+    </div>
+
+{% endblock %}

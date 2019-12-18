@@ -1,0 +1,134 @@
+header 
+    background-color: $blue
+    
+/* Navbar */
+.nav
+    padding: 20px 5%
+
+    &__logo
+        min-width: 150px
+        width: 20%
+
+        &_image
+            height: auto
+            width: 100%
+    
+    &__checkbox
+        opacity: 0
+
+        position: absolute
+        left: 0
+        top: 0
+
+        @media screen and (min-width: $bp-medium)
+            display: none
+
+    /* If checkbox is checked */
+    &__checkbox:checked~.main_menu
+        transform: translateX(0)
+        transition: all .5s
+
+    &__checkbox:checked~.menu_cross
+        transform: translateX(0)
+        transition: all .5s
+    
+    /* Burger icon */
+    .burger_icon
+        color: $white
+        font-size: 2.5em
+
+        cursor: pointer
+
+        @media screen and (min-width: $bp-medium)
+            display: none
+
+    /* Cross icon */
+    .menu_cross
+        color: $white
+        font-size: 3em
+
+        cursor: pointer
+        transform: translateX(-200vh)
+        transition: all .5s
+
+        position: absolute
+        right: 20px
+        top: 20px
+        z-index: 200
+
+        @media screen and (min-width: $bp-large)
+            display: none
+
+    /* Links list */
+    .main_menu
+        flex-direction: column
+
+        background-color: rgba(59, 59, 59, .9)
+        height: 100vh
+        padding-top: 30vw
+        width: 100vw
+
+        transform: translateX(-200vh)
+        transition: all .5s
+
+        position: fixed
+        left: 0
+        top: 0
+        z-index: 100
+
+        @media screen and (min-width: $bp-medium)
+            flex-direction: row
+            justify-content: space-around
+
+            background-color: transparent
+            height: auto
+            padding: 0
+            width: 100%
+
+            transform: translateX(0)
+            position: relative
+
+        /* Links */
+        li
+            margin: 5vw 0
+
+            @media screen and (min-width: $bp-medium)
+                margin: 20px 0 
+
+            a:visited,
+            a
+                color: $white
+                font-size: 10vw
+
+                transition: all .5s
+
+                &:active,
+                &:focus,
+                &:hover
+                    color: $yellow
+
+                    transition: all .5s
+
+                @media screen and (min-width: $bp-medium)
+                    font-size: .8em
+                    text-transform: uppercase
+
+                @media screen and (min-width: $bp-large)
+                    font-size: 1em
+
+    /* Cart link */
+    .cart_button:visited,
+    .cart_button
+        color: $white
+        font-size: 1.5em
+
+        @media screen and (min-width: $bp-medium)
+            width: 10%
+            
+            font-size: 1em
+
+        span
+            margin-left: 10px
+
+
+                

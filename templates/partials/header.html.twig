@@ -1,0 +1,25 @@
+<nav role="navigation" class="nav container flex between">
+    
+
+    <a href="{{ path('homepage') }}" class="nav__logo">
+        <img src="{{ asset('images/logo_white-version.png') }}" alt="Breizh Solex" class="nav__logo_image">
+    </a>
+
+    <input type="checkbox" class="nav__checkbox">
+    <label for="menu_checkbox" class="burger_icon">&#9776;</label>
+
+    <label for="menu_checkbox" class="menu_cross"><i class="fas fa-times"></i></label>
+
+    <ul class="main_menu flex">
+        <li><a href="{{ path('aboutpage') }}">À propos</a></li>
+        <li><a href="{{ path('productspage') }}">Produits</a></li>
+        <li><a href="{{ path('contactpage') }}">Contact</a></li>
+        {% if app.user %}
+            <li><a href="{{ path('accountpage') }}">Compte</a></li>
+            <li><a href="{{ path('logoutpage') }}">Déconnexion</a></li>
+        {% else %}
+            <li><a href="{{ path('loginpage') }}">Connexion</a></li>
+        {% endif %}
+    </ul>
+    {{ render(controller('App\\Controller\\HeaderController::index')) }}
+</nav>

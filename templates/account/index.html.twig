@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte{% endblock %}
+
+{% block body %}
+
+{% set user = app.user %}
+
+<section class="container account">
+    <h2>Bonjour, {{ user.firstName }} {{ user.lastName }}</h2>
+
+    <br>
+
+    <div class="account__container flex wrap between">
+       
+        <div class="account__container_box">
+            <h4>Vos informations</h4>
+
+            <div class="account__container_box-infos flex wrap between">
+                {% set splitArray = user.phoneNumber|split('', 2) %}
+                {% set phone = splitArray|join('.') %}
+
+                <p><span>Prénom</span> <br> {{ user.firstName }}</p>
+                <p><span>Nom</span> <br> {{ user.lastName }}</p>
+                <p><span>Téléphone</span> <br> 
+                    {% if user.phoneNumber %}
+                    {{ phone }}
+                    {% else %}
+                    Non renseigné
+                    {% endif %}
+                </p>
+                <p><span>Email</span> <br> {{ user.email }}</p>
+            </div>
+
+            <a href="{{ path('accountpage_editinfos', {'id' : user.id}) }}" class="btn btn-primary">Modifier ces informations</a>
+        </div>
+
+        <div class="account__container_box">
+            <h4>Vos adresses</h4>
+
+            <div class="account__container_box-infos flex wrap between">
+                {% if user.addresses | length != 0 %}
+                    {% for address in user.addresses %} 
+                        <p class="account_address"><i class="fas fa-caret-right"></i> <strong>{{ address.postName }}</strong> – {{ address.address }} {{ address.address2 }}, {{ address.zipcode }} {{ address.city }} – <a href="{{ path('accountpage_editaddress', {'id' : address.id}) }}">Modifier</a> / <a href="{{ path('accountpage_deleteaddress', {'id' : address.id}) }}">Supprimer</a></p>
+                    {% endfor %}
+                {% else %}
+                    <p>Aucune adresse enregistrée</p>
+                {% endif %}
+
+            </div>
+
+            <a href="{{ path('accountpage_addaddress') }}" class="btn btn-primary">Ajouter une adresse</a>
+            
+        </div>
+
+        <div class="account__container_box">
+                <h4>Votre mot de passe</h4>
+    
+                <div class="account__container_box-infos flex wrap between">
+    
+                    <a href="{{ path('accountpage_editpassword', {'id' : user.id}) }}" class="btn btn-primary" style="margin-bottom: 0;">Modifier le mot de passe</a>
+                   
+                </div>
+            </div>
+
+        <div class="account__container_box">
+            <h4>Vos dernières commandes</h3>
+
+                <div class="account__container_box-orders">
+
+                    {% if user.customerOrders | length == 0 %}
+                        <p>Aucune commande</p>
+                    {% else %}
+                        {% for order in orders %}
+                            {% if order.status.label == 'En attente' %}
+                                {% set status = 'warning' %}
+                            {% elseif order.status.label == 'Envoyée' %}
+                                {% set status = 'info' %}
+                            {% elseif order.status.label == 'Terminée' %}
+                                {% set status = 'success' %}
+                            {% endif %}
+
+                            <article>
+                                <h5><i class="fas fa-caret-right"></i> Commande du {{ order.orderDate | date("d/m/Y") }}</h5>
+                                <p>{{ order.items | length }} article{% if order.items | length > 1 %}s{% endif %} – Total : {{ order.totalPrice | number_format(2, ',', ' ')}} &euro; 
+                                    <span class="badge badge-{{ status }}">{{ order.status.label }}</span> 
+                                    <a href="{{ path('accountpage_order', {'id' : order.id}) }}"><i class="far fa-eye"></i></a></p>
+                            </article>
+
+                        {% endfor %}
+
+                        <a href="{{ path('accountpage_orders') }}" class="btn btn-primary">Voir toutes les commandes</a>
+                    {% endif %}
+
+                </div>
+
+                
+        </div>
+
+        
+    </div>
+</section>
+
+{% endblock %}

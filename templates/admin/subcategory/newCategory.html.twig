@@ -1,0 +1,47 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nouvelle catégorie{% endblock %}
+
+{% block body %}
+
+    <section class="adminproduct container edit">
+        <a href="{{ path('admincategories') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des catégories</a>
+        <h2>Ajout d'une catégorie</h2>
+        
+        <form method="post" class="form">
+            <div class="form__group">
+                <label>Nom</label> 
+                {% if form.name.vars.errors|length %}
+                        <div class="invalid">
+                            { form_errors(form.name) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                        
+                {{ form_widget(form.name)}}
+            </div>
+        
+            <div class="form__group" style="display: none;">
+                {% if form.position.vars.errors|length %}
+                        <div class="invalid">
+                            { form_errors(form.position) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                        
+                {{ form_widget(form.position) }}
+            </div>
+    
+            <div class="form__group">
+                <input type="submit" value="Ajouter la catégorie">
+            </div>
+
+            {{ form_rest(form) }}
+
+            <div class="alert alert-info"><i class="fas fa-question-circle"></i> La catégorie se placera automatiquement à la fin de la liste. Sa position pourra être changée par la suite.</div>
+
+        </form>
+
+    </section>
+
+{% endblock %}

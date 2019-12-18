@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+
+    <section class="cart">
+
+        {% if app.user %}
+
+            <h2 class="cart__title">Panier</h2>
+
+            {% if cart.items | length > 0 %}
+                <table class="cart__table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Nom</th>
+                            <th>Prix unitaire</th>
+                            <th>Quantité</th>
+                            <th>Prix total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart.items %}
+                            <tr class="cart__table_row">
+                                <td class="cart__table_row-image"><img src="{{ item.product.image }}" alt=""></td>
+                                <td class="cart__table_row-name"><a href="{{ path("productpage", {'slug' : item.product.slug}) }}">{{ item.product.name }}</a></td>
+                                <td class="cart__table_row-price">{{ item.product.taxePrice | number_format(2, ',', ' ') }} &euro;</td>
+                                <td class="cart__table_row-quantity">
+                                    <form action="{{ path('product_update', {'id': item.id}) }}">
+                                        <div class="quantity">
+                                            <i class="fas fa-minus-circle"></i>
+                                            <input type="text" value="{{ item.quantity }}" name="quantity">
+                                            <i class="fas fa-plus-circle"></i>
+                                            <br>
+                                            <input type="submit" value="Enregistrer" class="save">
+                                        </div>
+                                        
+                                    </form>
+                                </td>
+                                <td class="cart__table_row-total">{{ (item.product.taxePrice * item.quantity) | number_format(2, ',', ' ') }} &euro;</td>
+                                <td>
+                                    <a href="{{ path("product_delete", {'id': item.id}) }}" id="delete-item"><i class="fas fa-times"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <br>
+
+                <div class="flex">
+                    <p>Sous-total</p>
+                    <p>{{ subTotal | number_format(2, ',', ' ') }} <span>&euro;</span></p>
+                </div>
+                <div class="flex">
+                    <p>Livraison</p>
+                    <p>3.00 <span>€</span></p>
+                </div>
+
+                <hr>
+
+                <div class="flex">
+                    <p>Total</p>
+                    <p>{{ (subTotal + 3) | number_format(2, ',', ' ') }} <span>&euro;</span></p>
+                </div>
+
+                <a href="{{ path('addresspage') }}" class="btn btn-primary">Valider le panier</a>
+            {% else %}
+
+                <p style="text-align: center;">Vous panier est vide !</p>
+                <a href="{{ path('productspage') }}" class="btn btn-primary">Voir les produits</a>
+
+            {% endif %}
+                    
+        {% else %}
+
+            <p style="text-align: center;">Vous devez vous connectez pour ajouter des produits à votre panier !</p>
+            <a href="{{ path('loginpage') }}" class="btn btn-primary">Aller à la page de connexion</a>
+
+        {% endif %}
+
+    </section>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une adresse{% endblock %}
+
+{% block body %}
+
+    <section class="container account">
+        <a href="{{ path('accountpage') }}" class="btn btn-primary adminback "><i class="fas fa-arrow-left"></i> Retour aux informations</a>
+
+        <h2>Ajouter une adresse</h2>
+        
+        <form method="post" class="form">
+            <div class="form__group">
+                <label>Nom</label>
+                            
+                {% if form.post_name.vars.errors|length %}
+                    <div class="invalid">
+                            {{ form_errors(form.post_name) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+            
+                {{ form_widget(form.post_name) }}
+            </div>
+
+            <div class="form__group">
+                <label>Adresse</label>
+                            
+                {% if form.address.vars.errors|length %}
+                    <div class="invalid">
+                            {{ form_errors(form.address) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+            
+                {{ form_widget(form.address) }}
+            </div>
+
+            <div class="form__group">
+                <label>Complément d'adresse</label>
+                    
+                {% if form.address2.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.address2) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+    
+                {{ form_widget(form.address2) }}
+            </div>
+    
+            <div class="form__group">
+                <label>Code postal</label>
+    
+                {% if form.zip_code.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.zip_code) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+    
+                {{ form_widget(form.zip_code) }}
+            </div>
+
+            <div class="form__group">
+                <label>Ville</label>
+    
+                {% if form.city.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.city) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                    
+                {{ form_widget(form.city) }}
+            </div>
+    
+            <div class="form__group">
+                <input type="submit" value="Enregistrer">
+            </div>
+
+            {{ form_rest(form) }}
+
+        </form>
+
+    </section>
+
+{% endblock %}

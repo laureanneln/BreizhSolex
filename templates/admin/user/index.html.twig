@@ -1,0 +1,45 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des clients{% endblock %}
+
+{% block body %}
+    <section class="adminusers container listing">
+
+        <h2>Gestion des clients</h2>
+        <small>Total : {{ total }}</small>
+
+        <table class="admintable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Adresse</th>
+                    <th>Date d'inscription</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    {% if user.registerDate|date("m/d/Y") != '01/01/1970' %} <!-- Exclude Admin -->
+                        {% set splitArray = user.phoneNumber|split('', 2) %}
+                        {% set phone = splitArray|join('.') %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.lastName }}</td>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.email }}</td>
+                            <td><a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></td>
+                            <td>{{ user.address }} <br> {{ user.zipCode }} {{ user.city }}</td>
+                            <td>{{ user.registerDate|date("m/d/Y") }}</td>
+                            <td><a href="{{ path('adminuser', {'id': user.id}) }}" class="btn btn-info"><i class="fas fa-eye"></i></a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </section>
+{% endblock %}

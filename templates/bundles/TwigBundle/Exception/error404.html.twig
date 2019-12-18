@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cette page n'existe pas{% endblock %}
+
+{% block body %}
+
+    <section class="error container">
+        <h1>Erreur 404</h1>
+
+        <div class="alert alert-danger">
+            <p>
+                Il semblerait que cette page n'existe pas.
+            </p>  
+        </div>
+        <a href="{{ path('homepage') }}">Retour à l'accueil</a>
+    </section>
+
+{% endblock %}

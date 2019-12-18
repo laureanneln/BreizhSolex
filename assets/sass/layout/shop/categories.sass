@@ -1,0 +1,51 @@
+.catnav
+    margin-bottom: 30px
+    width: 100%
+
+    @media screen and (min-width: $bp-large)
+        width: 18%
+
+    &-category
+
+        border-bottom: 1px solid #fff
+        
+        @media screen and (min-width: $bp-large)
+            border-bottom: none
+            margin-bottom: 20px
+
+        > a
+            display: flex
+
+            background-color: $blue
+            padding: 10px 15px
+            word-break: break-word
+
+            color: $white
+            font-weight: 600
+            text-transform: uppercase
+
+            cursor: pointer
+
+            i
+                margin-left: auto
+
+        ul
+            background-color: #F9F9F9
+            padding: 10px
+
+            li
+                a:visited,
+                a
+                    margin: 5px 0
+
+                    color: $black
+                    font-weight: 300
+
+                    transition: all .5s
+
+                    &:active,
+                    &:focus,
+                    &:hover
+                        color: $yellow
+
+                        transition: all .5s
