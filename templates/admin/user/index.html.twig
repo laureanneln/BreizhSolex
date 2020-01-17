@@ -32,8 +32,14 @@
                             <td>{{ user.firstName }}</td>
                             <td>{{ user.email }}</td>
                             <td><a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></td>
-                            <td>{{ user.address }} <br> {{ user.zipCode }} {{ user.city }}</td>
-                            <td>{{ user.registerDate|date("m/d/Y") }}</td>
+                            <td>
+                                {% if user.address %}
+                                    {{ user.address }} <br> {{ user.zipCode }} {{ user.city }}
+                                {% else %}
+                                    Pas d'adresse
+                                {% endif %}    
+                            </td>
+                            <td>{{ user.registerDate|date("d/m/Y") }}</td>
                             <td><a href="{{ path('adminuser', {'id': user.id}) }}" class="btn btn-info"><i class="fas fa-eye"></i></a></td>
                         </tr>
                     {% endif %}

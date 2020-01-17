@@ -16,13 +16,13 @@
     }
 </style>
 
-    <section class="loader wow animated fadeOut delay-2s">
+    <section id="loader" class="loader">
         <img src="{{ asset('images/loader.svg') }}" alt="Loader" class="loader_image">
     </section>
 
     <section class="header" style="background-image: url({{ asset('images/home_bg.jpg') }})">
         
-        <div class="header__titles wow animated slideInLeft delay-2s">
+        <div class="header__titles wow animated slideInLeft">
             <div class="header__titles_slider owl-carousel owl-theme">
                 <div class="header__titles_slider-item">
                     <h2>Vente de pièces neuves et d'occasion</h2>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="header__solex wow animated slideInRight delay-2s">
+        <div class="header__solex wow animated slideInRight">
             <img src="{{ asset('images/solex.png') }}" alt="Homme roulant sur un solex" class="header__solex_image">
         </div>
 

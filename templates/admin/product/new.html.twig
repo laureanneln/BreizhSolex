@@ -8,18 +8,18 @@
         <a href="{{ path('adminproducts') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des produits</a>
         <h2>Ajout d'un produit</h2>
         
-        <form method="post" class="form">
+        <form method="post" class="form" enctype="multipart/form-data">
             <div class="form__group">
-                {{ form_label(form.image) }}
+                {{ form_label(form.imageFile) }}
                             
-                {% if form.image.vars.errors|length %}
+                {% if form.imageFile.vars.errors|length %}
                     <div class="invalid">
-                            { form_errors(form.image) }}
+                            { form_errors(form.imageFile) }}
                         <i class="fas fa-times"></i>
                     </div>
                 {% endif %}
             
-                {{ form_widget(form.image) }}
+                {{ form_widget(form.imageFile) }}
             </div>
 
             <div class="form__group">
@@ -48,7 +48,7 @@
                 {{ form_widget(form.reference) }}
             </div>
     
-            <div class="form__group">
+            <div class="form__group" style="font-size: 0;">
                 {{ form_label(form.taxePrice) }}
     
                 {% if form.taxePrice.vars.errors|length %}
@@ -59,6 +59,7 @@
                 {% endif %}
     
                 {{ form_widget(form.taxePrice) }}
+                <p class="unit">&euro;</p>
             </div>
     
             <div class="form__group">
@@ -73,19 +74,6 @@
     
                 {{ form_widget(form.description) }}
             </div>
-
-            <div class="form__group">
-                {{ form_label(form.quantity) }}
-        
-                {% if form.quantity.vars.errors|length %}
-                    <div class="invalid">
-                        {{ form_errors(form.quantity) }}
-                        <i class="fas fa-times"></i>
-                    </div>
-                {% endif %}
-        
-                {{ form_widget(form.quantity) }}
-            </div>
     
             <div class="form__group">
                 {{ form_label(form.height) }}
@@ -98,6 +86,7 @@
                 {% endif %}
                     
                 {{ form_widget(form.height) }}
+                <p class="unit">cm</p>
             </div>
 
             <div class="form__group">
@@ -111,6 +100,7 @@
                 {% endif %}
                         
                 {{ form_widget(form.width) }}
+                <p class="unit">cm</p>
             </div>
 
             <div class="form__group">
@@ -124,10 +114,11 @@
                 {% endif %}
                     
                 {{ form_widget(form.weight) }}
+                <p class="unit">g</p>
             </div>
 
             <div class="form__group">
-                {{ form_label(form.subcategory) }}
+                <label>Sous-catégorie</label>
         
                 {% if form.subcategory.vars.errors|length %}
                     <div class="invalid">
@@ -146,6 +137,10 @@
             {{ form_rest(form) }}
 
         </form>
+
+        <div class="alert alert-info">
+            <i class="fas fa-question-circle"></i> La quantité sera automatiquement mise à 1. Elle pourra être modifiée dans la page "stock".
+        </div>
 
     </section>
 

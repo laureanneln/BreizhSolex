@@ -8,7 +8,6 @@ main
     width: 100%
 
 header
-
     position: relative
 
 .container 
@@ -86,6 +85,7 @@ ul
 /* Alerts */
 .alert
     padding: 5px 10px
+    width: 100%
 
     font-size: .9em
 
@@ -176,6 +176,9 @@ ul
     &-warning
         background-color: #f0ad4e
 
+    &-danger
+        background-color: #d23430
+
     
 
 /* Forms */
@@ -204,14 +207,33 @@ ul
             right: 10px
 
     &__group
+        position: relative
+
         margin: 20px auto
         width: 100%
+
+        .unit
+            position: absolute
+
+            background-color: rgba(0, 0, 0, .1)
+            margin: 0
+            height: 35px
+            width: 40px
+
+            font-size: .9rem
+            line-height: 35px
+            text-align: center
+            text-transform: uppercase
+
+            right: 0
+            bottom: 0
 
         label
             display: block
 
             margin-bottom: 5px
 
+            font-size: 1rem
             text-transform: uppercase
 
         input, textarea
@@ -261,6 +283,14 @@ ul
 
             input
                 padding-left: 35px
+
+        &_password
+            position: absolute
+
+            font-size: .8em
+
+            top: -20px
+            right: 0
 
     &__radios
         ul

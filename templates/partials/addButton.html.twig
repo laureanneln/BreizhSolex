@@ -3,8 +3,12 @@
     <input type="hidden" name="product_id" value="{{ product.id }}">
     
     {% if app.user %}
-        <input type="submit" value="Ajouter au panier" class="product__add-to-cart text-center">
+        {% if product.quantity == 0 or product.id in outOfStock %}
+            <p class="product__add-to-cart text-center" style="cursor: inherit; opacity: .6;">Stock épuisé</p>
+        {% else %}
+            <input type="submit" value="Ajouter au panier" class="product__add-to-cart text-center">
+        {% endif %}
     {% else %}
-        <p class="product__add-to-cart text-center" style="cursor: inherit; opacity: .6;">Connectez-vous pour ajouter au panier</p class="product__add-to-cart text-center">
+        <p class="product__add-to-cart text-center" style="cursor: inherit; opacity: .6;">Connectez-vous pour ajouter au panier</p>
     {% endif %}
 </form>

@@ -1,24 +1,42 @@
+
   $('.save').hide();
 
   // Plus moins panier
     $('.fa-plus-circle').on('click',function(){
         $(this).closest('.quantity').find('.save').show();
-        var $qty=$(this).closest('.quantity').find('input[type="text"]');
+        var $qty=$(this).closest('.quantity').find('input[type="number"]');
         var currentVal = parseInt($qty.val());
-        $qty.val(currentVal + 1);
+        var max = $qty.attr('max');
+
+        if (currentVal < max) {
+            $qty.val(currentVal + 1);
+        }
       });
     
       $('.fa-minus-circle').on('click',function(){
         $(this).closest('.quantity').find('.save').show();
-        var $qty=$(this).closest('.quantity').find('input[type="text"]');
+        var $qty=$(this).closest('.quantity').find('input[type="number"]');
         var currentVal = parseInt($qty.val());
-        $qty.val(currentVal - 1);
+
+        if (currentVal > 0) {
+            $qty.val(currentVal - 1);
+        }
+        
       });
 
     // Hide update address
+    $('.address__add').hide();
     $('.address__update').hide();
 
-    $('.address__choice a').on('click', function() {
+    $('.address__choice #addAddress').on('click', function() {
+        $('.address__add').show();
+    });
+
+    $('.address__add .far').on('click', function() {
+        $('.address__add').hide();
+    });
+
+    $('.address__choice #updateAddress').on('click', function() {
         $('.address__update').show();
     });
 
@@ -65,13 +83,17 @@ $('.owl-carousel').owlCarousel({
     }
 });
 
-$('*').waitForImages(function() {
-    setTimeout(function() {
-        new WOW().init();
-    }, 3000);
-    setTimeout(function() {
-        $('.loader').css('display', 'none');
-    }, 3000);
+$('*').waitForImages(true).done(function() {
+
+    new WOW().init();
+    $('#loader').addClass("animated fadeOut");
+
+    setTimeout(function(){
+        $('#loader').css('display', 'none');
+    },1100);
+
+    
+    
 });
 
 // About tabs
@@ -99,4 +121,3 @@ function openCity(evt, cityName) {
   
   // Get the element with id="defaultOpen" and click on it
   document.getElementById("defaultOpen").click();
-

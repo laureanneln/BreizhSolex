@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
-use DateTime;
 use App\Entity\Item;
 use App\Entity\Address;
 use App\Entity\CustomerOrder;
+use App\Form\BillAddressType;
 use App\Form\UserAddressType;
-use App\Repository\AddressRepository;
 use App\Repository\CartRepository;
+use App\Repository\ItemRepository;
 use App\Repository\StatusRepository;
+use App\Repository\AddressRepository;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CustomerOrderRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -54,10 +56,15 @@ class CartController extends AbstractController {
      * @param ObjectManager $manager
      * @return Response
      */
-    public function delete(Item $item, ObjectManager $manager) {
+    public function delete(Item $item, EntityManagerInterface $manager) {
 
         $manager->remove($item);
         $manager->flush();
+
+        $this->addFlash(
+            'success',
+            '<i class="fas fa-check-circle"></i> Le produit a bien été supprimé du panier.'
+        );
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
@@ -71,7 +78,7 @@ class CartController extends AbstractController {
      * @param ObjectManager $manager
      * @return Response
      */
-    public function update(Item $item, ObjectManager $manager) {
+    public function update(Item $item, EntityManagerInterface $manager) {
 
         $quantity = $_GET['quantity'];
 
@@ -85,6 +92,11 @@ class CartController extends AbstractController {
 
         $manager->flush();
 
+        $this->addFlash(
+            'success',
+            '<i class="fas fa-check-circle"></i> La quantité a bien été modifiée.'
+        );
+
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
@@ -95,9 +107,14 @@ class CartController extends AbstractController {
      * @IsGranted("ROLE_USER")
      * @return Response
      */
-    public function chooseAddress(CartRepository $repo, ObjectManager $manager, Request $request){
+    public function chooseAddress(CartRepository $repo, EntityManagerInterface $manager, Request $request){
+        
         
         $cart = $repo->findOneBy(['user' => $this->getUser()]);
+
+        if (count($cart->getItems()) == 0) {
+            return $this->redirectToRoute("cartpage");
+        }
         $totalItems = 0;
         $subTotal = 0;
 
@@ -111,14 +128,38 @@ class CartController extends AbstractController {
 
         $address = new Address();
 
-        $form = $this->createForm(UserAddressType::class, $address);
+        $formAdd = $this->createForm(UserAddressType::class, $address);
 
-        $form->handleRequest($request);
+        $formAdd->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formAdd->isSubmitted() && $formAdd->isValid()) {
             $address->setUser($this->getUser());
             $manager->persist($address);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> L\'adresse a bien été ajoutée.'
+            );
+
+            return $this->redirectToRoute("addresspage");
+        }
+
+        $user = $this->getUser();
+
+        $formUp = $this->createForm(BillAddressType::class, $user);
+
+        $formUp->handleRequest($request);
+
+        if ($formUp->isSubmitted() && $formUp->isValid()) {
+            $address->setUser($this->getUser());
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> L\'adresse de facturation a bien été modifiée.'
+            );
 
             return $this->redirectToRoute("addresspage");
         }
@@ -127,7 +168,8 @@ class CartController extends AbstractController {
             'cart' => $cart,
             'totalItems' => $totalItems,
             'subTotal' => $subTotal,
-            'form' => $form->createView()
+            'formAdd' => $formAdd->createView(),
+            'formUp' => $formUp->createView()
         ]);
     }
 
@@ -135,7 +177,7 @@ class CartController extends AbstractController {
      * @Route("/processing", name="processpage")
      * @IsGranted("ROLE_USER")
      */
-    public function process(CartRepository $repo, StatusRepository $sta, ObjectManager $manager, CustomerOrderRepository $or, ProductRepository $pro, AddressRepository $ad){
+    public function process(ItemRepository $item, \Swift_Mailer $mailer, CartRepository $repo, StatusRepository $sta, EntityManagerInterface $manager, CustomerOrderRepository $or, ProductRepository $pro, AddressRepository $ad){
 
         $cart = $repo->findOneBy(['user' => $this->getUser()]);
 
@@ -164,7 +206,7 @@ class CartController extends AbstractController {
         $manager->flush();
 
         $customerOrder = $or->findOneBy(['id' => $order->getId()]);
-
+        
         foreach ($cart->getItems() as $item) {
             $item->setCustomerOrder($customerOrder);
             $item->setCart(null);
@@ -174,6 +216,21 @@ class CartController extends AbstractController {
         };
 
         $manager->flush();
+
+        $message = (new \Swift_Message('Récapitulatif de votre commande #' . $order->getId()))
+        ->setFrom('laure-anne@leneel.fr')
+        ->setTo('laure-anne@leneel.fr')
+        ->setBody(
+            $this->renderView(
+                'emails/orderSuccess.html.twig', [
+                    'order' => $order,
+                    'user' => $this->getUser()
+                ]
+            ),
+            'text/html'
+        );
+
+        $mailer->send($message);
         
         return $this->redirectToRoute("validationpage");
     }

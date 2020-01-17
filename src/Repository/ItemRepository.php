@@ -22,19 +22,17 @@ class ItemRepository extends ServiceEntityRepository
     // /**
     //  * @return Item[] Returns an array of Item objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByOrder($value)
     {
         return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
+            ->andWhere('i.order_id = :val')
             ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     public function findOneByProductAndCart($value1, $value2): ?Item
     {

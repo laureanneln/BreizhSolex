@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Item;
 use App\Entity\Product;
 use App\Repository\CartRepository;
+use App\Repository\ItemRepository;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use Doctrine\Persistence\ObjectManager;
 use App\Repository\PreferenceRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\Item;
-use App\Repository\ItemRepository;
 
 class ProductController extends AbstractController {
     /**
@@ -19,14 +21,41 @@ class ProductController extends AbstractController {
      * 
      * @Route("/boutique", name="productspage")
      */
-    public function index(ProductRepository $pro, CategoryRepository $cat) {
+    public function index(ProductRepository $pro, CategoryRepository $cat, CartRepository $repo) {
 
         $products = $pro->findAll();
         $categories = $cat->findAll();
 
+        $outOfStock = [];
+
+        if ($this->getUser()) {
+
+            foreach ($products as $product) {
+                if ($product->getQuantity() == 0) {
+                    array_push($outOfStock, $product->getId());
+                }
+                $leftQuantity = $product->getQuantity();
+    
+                $cart = $repo->findOneBy(['user' => $this->getUser()]);
+                
+                foreach($cart->getItems() as $item) {
+                    if ($item->getProduct()->getId() == $product->getId()) {
+                        
+                        $leftQuantity = $leftQuantity - $item->getQuantity();
+    
+                        if ($leftQuantity == 0) {
+                            array_push($outOfStock, $product->getId());
+                        }
+                    }
+                }
+    
+            }
+        }
+
         return $this->render('product/index.html.twig', [
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'outOfStock' => $outOfStock
         ]);
     }
 
@@ -37,14 +66,27 @@ class ProductController extends AbstractController {
      * 
      * @return Response
      */
-    public function show(Product $product, CategoryRepository $cat, PreferenceRepository $pref) {
+    public function show(Product $product, CategoryRepository $cat, PreferenceRepository $pref, CartRepository $repo) {
 
         $categories = $cat->findAll();
+
+        $leftQuantity = $product->getQuantity();
+
+        $cart = $repo->findOneBy(['user' => $this->getUser()]);
+        
+        foreach($cart->getItems() as $item) {
+            if ($item->getProduct()->getId() == $product->getId()) {
+                $leftQuantity = $leftQuantity - $item->getQuantity();
+
+                break;
+            }
+        }
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'categories' => $categories,
-            'pref' => $pref->findOneBy(array('id' => 1))
+            'pref' => $pref->findOneBy(array('id' => 1)),
+            'leftQuantity' => $leftQuantity
         ]);
     }
 
@@ -56,7 +98,7 @@ class ProductController extends AbstractController {
      * @param Item $item
      * @return Response
      */
-    public function add(CartRepository $repo, ObjectManager $manager, ProductRepository $pro, ItemRepository $it) {
+    public function add(CartRepository $repo, EntityManagerInterface $manager, ProductRepository $pro, ItemRepository $it) {
             $cart = $repo->findOneBy(['user' => $this->getUser()]);
 
             $quantity = $_GET['quantity'];
@@ -89,6 +131,11 @@ class ProductController extends AbstractController {
                     $manager->persist($item);
                     $manager->flush();
                 }
+
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> Le produit a bien été ajouté au panier.'
+            );
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
     }

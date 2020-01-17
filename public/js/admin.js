@@ -7,7 +7,7 @@ $(document).ready( function () {
 
 // Select 2
 $(document).ready(function() {
-  $('.form__group select').select2();
+  $('.form select').select2();
 });
 
 // Stock

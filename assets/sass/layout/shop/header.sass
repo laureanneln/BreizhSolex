@@ -1,13 +1,40 @@
 header 
     background-color: $blue
+
+#admin
+    position: fixed
+
+    background-color: $blue
+    border-left: 1px solid $white
+    border-top: 1px solid $white
+    border-top-left-radius: 10px
+    padding: 15px
+
+    color: $white
+    font-size: 1.5em
+
+    bottom: 0
+    right: 0
+    z-index: 200
+
+    transition: all .5s
+
+    &:hover
+        color: $yellow
+
+        transition: all .5s
     
 /* Navbar */
 .nav
     padding: 20px 5%
 
     &__logo
+        position: relative
+
         min-width: 150px
         width: 20%
+
+        z-index: 10
 
         &_image
             height: auto
@@ -38,6 +65,8 @@ header
         font-size: 2.5em
 
         cursor: pointer
+
+        z-index: 100
 
         @media screen and (min-width: $bp-medium)
             display: none
@@ -119,8 +148,15 @@ header
     /* Cart link */
     .cart_button:visited,
     .cart_button
+        display: flex
+        position: relative
+
+        width: fit-content
+
         color: $white
         font-size: 1.5em
+
+        z-index: 10
 
         @media screen and (min-width: $bp-medium)
             width: 10%

@@ -1,0 +1,23 @@
+{% apply inline_css %}
+    <style>
+        #main {
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        img {
+            height: auto;
+            width: 200px;
+        }
+    </style>
+
+    <div id="main">
+
+        <h3>{{ user.firstName }} {{ user.lastName }} (#{{ user.id }}) a annulé sa commande #{{ order.id }}.</h3>
+
+        <p>Mail automatique</p>
+        <img src="https://laureanne-leneel.fr/main_logo.png" alt="Breizh Solex">
+    </div>
+{% endapply %}
+
+

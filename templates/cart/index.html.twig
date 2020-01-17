@@ -5,6 +5,13 @@
 {% block body %}
 
     <section class="cart">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
 
         {% if app.user %}
 
@@ -32,7 +39,7 @@
                                     <form action="{{ path('product_update', {'id': item.id}) }}">
                                         <div class="quantity">
                                             <i class="fas fa-minus-circle"></i>
-                                            <input type="text" value="{{ item.quantity }}" name="quantity">
+                                            <input type="number" max="{{ item.product.quantity }}" value="{{ item.quantity }}" name="quantity">
                                             <i class="fas fa-plus-circle"></i>
                                             <br>
                                             <input type="submit" value="Enregistrer" class="save">

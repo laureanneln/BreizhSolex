@@ -7,6 +7,7 @@ use App\Form\ApplicationType;
 use Proxies\__CG__\App\Entity\Subcategory;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -19,9 +20,9 @@ class ProductType extends ApplicationType
     {
         $builder
             ->add(
-                'image',
-                TextType::class,
-                $this->getConfiguration('Image', 'Image du produit')
+                'imageFile',
+                FileType::class,
+                $this->getConfiguration('Image', 'Image du produit', ['mapped' => false, 'required' => false])
             )
             ->add(
                 'name',
@@ -36,7 +37,7 @@ class ProductType extends ApplicationType
             ->add(
                 'taxePrice',
                 MoneyType::class,
-                $this->getConfiguration('Prix', 'Prix du produit')
+                $this->getConfiguration('Prix (T.T.C.)', 'Prix du produit')
             )
             ->add(
                 'description',
@@ -46,17 +47,17 @@ class ProductType extends ApplicationType
             ->add(
                 'height',
                 NumberType::class,
-                $this->getConfiguration('Hauteur (en cm)', 'Hauteur du produit')
+                $this->getConfiguration('Hauteur', 'Hauteur du produit')
             )
             ->add(
                 'width',
                 NumberType::class,
-                $this->getConfiguration('Largeur (en cm)', 'Largeur du produit')
+                $this->getConfiguration('Largeur', 'Largeur du produit')
             )
             ->add(
                 'weight',
                 NumberType::class,
-                $this->getConfiguration('Poids (en g)', 'Poids du produit')
+                $this->getConfiguration('Poids', 'Poids du produit')
             )
             ->add(
                 'subcategory',

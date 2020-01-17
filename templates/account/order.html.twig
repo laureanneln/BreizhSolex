@@ -4,15 +4,17 @@
 
 {% block body %}
 
-{% set user = app.user %}
+    {% set user = app.user %}
 
-{% if order.status.label == 'En attente' %}
-    {% set status = 'warning' %}
-{% elseif order.status.label == 'Envoyée' %}
-    {% set status = 'info' %}
-{% elseif order.status.label == 'Terminée' %}
-    {% set status = 'success' %}
-{% endif %}
+    {% if order.status.label == 'En attente' %}
+        {% set status = 'warning' %}
+    {% elseif order.status.label == 'Envoyée' %}
+        {% set status = 'info' %}
+    {% elseif order.status.label == 'Terminée' %}
+        {% set status = 'success' %}
+    {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+        {% set status = 'danger' %}
+    {% endif %}
 
     <section class="container account">
         <a href="{{ path('accountpage_orders') }}" class="btn btn-primary adminback "><i class="fas fa-arrow-left"></i> Retour aux commandes</a>
@@ -62,6 +64,13 @@
                 <p>Total</p>
                 <p>{{ (subTotal + 3) | number_format(2, ',', ' ') }} <span>&euro;</span></p>
             </div>
+
+            {% if order.status.label == 'En attente' %}
+                <a href="{{ path('accountpage_cancel', {'id' : order.id}) }}" class="btn btn-danger">
+                    <i class="fas fa-times"></i> 
+                    Annuler la commande
+                </a>
+            {% endif %}
 
             <a href="" class="btn btn-primary">Récupérer la facture</a>
         </div>

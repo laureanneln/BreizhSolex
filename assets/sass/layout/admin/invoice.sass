@@ -1,0 +1,98 @@
+.admininvoice
+    .tab
+        button
+            position: relative
+
+            background-color: rgba(0, 0, 0, .1)
+            border: 1px solid rgba(0, 0, 0, .2)
+            border-bottom: $white
+            border-radius: 5px 5px 0 0
+            margin-right: 10px
+            padding: 5px 15px
+
+            color: rgba(0, 0, 0, .4)
+            font-size: 1.1em
+
+            cursor: pointer
+
+        .active
+            background-color: $white
+
+            color: #000
+
+            &::after
+                content: ''
+                display: block
+                position: absolute
+
+                background-color: $white
+                height: 1px
+                width: 100%
+
+                bottom: -1px
+                left: 0
+                z-index: 100
+
+    .tabcontent
+        background-color: $white
+        border: 1px solid rgba(0, 0, 0, .2)
+        padding: 20px
+
+    .new-product
+        display: flex
+
+        align-items: center
+
+        margin: 10px 0
+
+        button
+            display: flex
+
+            border: none
+
+            cursor: pointer
+
+            i
+                display: flex
+
+                margin: auto 10px auto 0
+
+        .form__group
+            display: flex
+
+            justify-content: space-between
+
+            margin: 0
+
+            select
+                width: 80%
+
+            input
+                margin-right: 15px
+                width: 15%
+        
+    .customer-infos
+        display: flex
+
+        flex-wrap: wrap
+        justify-content: space-between
+
+        .form__group
+            margin-top: 0
+            width: 48%
+
+        &+div label
+            display: none
+    
+    h3 
+        margin: 20px 0 10px
+        width: 100%
+
+        color: rgba(0, 0, 0, .2)
+        text-align: center
+        text-transform: uppercase
+
+    #add-product
+        display: block
+        
+        margin: 10px auto

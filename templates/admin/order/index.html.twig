@@ -21,18 +21,25 @@
             </thead>
             <tbody>
                 {% for order in orders %}
-                    {% if order.status.label == 'En attente' %}
-                        {% set status = 'warning' %}
-                    {% elseif order.status.label == 'Envoyée' %}
-                        {% set status = 'info' %}
-                    {% elseif order.status.label == 'Terminée' %}
-                        {% set status = 'success' %}
-                    {% endif %}
+                {% if order.status.label == 'En attente' %}
+                    {% set status = 'warning' %}
+                {% elseif order.status.label == 'Envoyée' %}
+                    {% set status = 'info' %}
+                {% elseif order.status.label == 'Terminée' %}
+                    {% set status = 'success' %}
+                {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+                    {% set status = 'danger' %}
+                {% endif %}
+
+                {% set total = 0 %}
+                {% for item in order.items %}
+                    {% set total = total + item.quantity %}
+                {% endfor %} 
 
                     <tr>
                         <td>{{ order.id }}</td>
                         <td>#{{ order.user.id }} - {{ order.user.firstName }} {{ order.user.lastName }}</td>
-                        <td>{{ order.items | length }}</td>
+                        <td>{{ total }}</td>
                         <td>{{ order.totalPrice | number_format(2, ',', ' ')}} &euro;</td>
                         <td><span class="badge badge-{{ status }}">{{ order.status.label }}</span></td>
                         <td>

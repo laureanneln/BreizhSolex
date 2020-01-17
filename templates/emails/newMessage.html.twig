@@ -1,0 +1,35 @@
+{% apply inline_css %}
+    <style>
+        #main {
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        #mention {
+            font-size: .9em;
+        }
+
+        img {
+            height: auto;
+            width: 200px;
+        }
+    </style>
+
+    <div id="main">
+
+        <h3>Vous avez une nouvelle prise de contact provenant de BreizhSolex.</h3>
+
+        <p><strong>Nom : </strong>{{ lastName }}</p>
+        <p><strong>Prénom : </strong>{{ firstName }}</p>
+        <p><strong>Téléphone : </strong>{{ phone }}</p>
+        <p><strong>Email : </strong>{{ email }}</p>
+        <p><strong>Message : </strong>{{ message }}</p>
+
+        <br>
+
+        <p id="mention">Ce mail est envoyé automatiquement depuis votre site.</p>
+        <img src="https://laureanne-leneel.fr/main_logo.png" alt="Breizh Solex">
+    </div>
+{% endapply %}
+
+

@@ -4,6 +4,14 @@
 
 {% block body %}
     <section class="contact flex wrap between container">
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
         
         <div class="contact__message">
                 <h2 class="contact__informations_title">Par message</h2>

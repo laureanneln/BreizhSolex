@@ -1,0 +1,31 @@
+{% apply inline_css %}
+    <style>
+        #main {
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        img {
+            height: auto;
+            width: 200px;
+        }
+    </style>
+
+    <div id="main">
+
+        <h3>Bonjour {{ user.firstName }} {{ user.lastName }} !</h3>
+
+        <p>Votre inscription a bien été prise en compte.</p>
+
+        <br>
+
+        <p>Vous pouvez dès à présent vous connecter sur <a href="breizhsolex.com">breizhsolex.com</a>.</p>
+
+        <br>
+
+        <p>À bientôt !</p>
+        <img src="https://laureanne-leneel.fr/main_logo.png" alt="Breizh Solex">
+    </div>
+{% endapply %}
+
+

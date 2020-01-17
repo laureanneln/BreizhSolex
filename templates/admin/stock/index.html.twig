@@ -35,7 +35,7 @@
                         {% endif %}
                         <tr>
                             <td class="{{ minstock }}">{{ product.id }}</td>
-                            <td class="{{ minstock }}"><img src="{{ product.image }}" alt="{{ product.name }}"></td>
+                            <td class="{{ minstock }}"><img src="../images/products/{{ product.image }}" alt="{{ product.name }}"></td>
                             <td class="{{ minstock }}">{{ product.name }}</td>
                             <td class="{{ minstock }}">{{ product.reference }}</td>
                             <td class="value {{ minstock }}"> {{ product.quantity }}</td>

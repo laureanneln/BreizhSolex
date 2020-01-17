@@ -1,11 +1,14 @@
+{% if app.user and app.user.id == 43 %}
+    <a href="{{ path('admindashboard') }}" id="admin">> Accéder à l'administration</a>
+{% endif %}
+
 <nav role="navigation" class="nav container flex between">
-    
 
     <a href="{{ path('homepage') }}" class="nav__logo">
         <img src="{{ asset('images/logo_white-version.png') }}" alt="Breizh Solex" class="nav__logo_image">
     </a>
 
-    <input type="checkbox" class="nav__checkbox">
+    <input type="checkbox" id="menu_checkbox" class="nav__checkbox">
     <label for="menu_checkbox" class="burger_icon">&#9776;</label>
 
     <label for="menu_checkbox" class="menu_cross"><i class="fas fa-times"></i></label>

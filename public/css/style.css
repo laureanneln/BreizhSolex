@@ -96,6 +96,7 @@ ul {
 /* Alerts */
 .alert {
   padding: 5px 10px;
+  width: 100%;
   font-size: .9em;
 }
 
@@ -184,6 +185,10 @@ ul {
   background-color: #f0ad4e;
 }
 
+.badge-danger {
+  background-color: #d23430;
+}
+
 /* Forms */
 .select2-selection--single {
   border: 1px solid rgba(0, 0, 0, 0.1) !important;
@@ -210,13 +215,29 @@ ul {
 }
 
 .form__group {
+  position: relative;
   margin: 20px auto;
   width: 100%;
+}
+
+.form__group .unit {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 0;
+  height: 35px;
+  width: 40px;
+  font-size: .9rem;
+  line-height: 35px;
+  text-align: center;
+  text-transform: uppercase;
+  right: 0;
+  bottom: 0;
 }
 
 .form__group label {
   display: block;
   margin-bottom: 5px;
+  font-size: 1rem;
   text-transform: uppercase;
 }
 
@@ -267,6 +288,13 @@ ul {
 
 .form__group_withicon input {
   padding-left: 35px;
+}
+
+.form__group_password {
+  position: absolute;
+  font-size: .8em;
+  top: -20px;
+  right: 0;
 }
 
 .form__radios ul {
@@ -353,6 +381,26 @@ header {
   background-color: #003672;
 }
 
+#admin {
+  position: fixed;
+  background-color: #003672;
+  border-left: 1px solid #fff;
+  border-top: 1px solid #fff;
+  border-top-left-radius: 10px;
+  padding: 15px;
+  color: #fff;
+  font-size: 1.5em;
+  bottom: 0;
+  right: 0;
+  z-index: 200;
+  transition: all .5s;
+}
+
+#admin:hover {
+  color: #FCC200;
+  transition: all .5s;
+}
+
 /* Navbar */
 .nav {
   padding: 20px 5%;
@@ -364,8 +412,10 @@ header {
 }
 
 .nav__logo {
+  position: relative;
   min-width: 150px;
   width: 20%;
+  z-index: 10;
 }
 
 .nav__logo_image {
@@ -400,6 +450,7 @@ header {
   color: #fff;
   font-size: 2.5em;
   cursor: pointer;
+  z-index: 100;
 }
 
 @media screen and (min-width: 768px) {
@@ -496,8 +547,12 @@ header {
 
 .nav .cart_button:visited,
 .nav .cart_button {
+  display: flex;
+  position: relative;
+  width: fit-content;
   color: #fff;
   font-size: 1.5em;
+  z-index: 10;
 }
 
 @media screen and (min-width: 768px) {
@@ -526,6 +581,7 @@ header {
 
 .product__container_image {
   height: 120%;
+  margin: auto;
   width: auto;
 }
 
@@ -620,6 +676,7 @@ header {
 }
 
 .header {
+  position: relative;
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1165,17 +1222,6 @@ header {
   }
 }
 
-.productpage__container_product-infos .products-left {
-  margin: 10px auto 0;
-  color: red;
-}
-
-@media screen and (min-width: 1024px) {
-  .productpage__container_product-infos .products-left {
-    margin: 10px 0 0 auto;
-  }
-}
-
 .productpage p {
   margin-right: 15px;
 }
@@ -1264,6 +1310,17 @@ header {
 .productpage .form__group:last-of-type {
   margin: 0;
   width: max-content;
+}
+
+.products-left {
+  margin: 10px auto 0;
+  color: red;
+}
+
+@media screen and (min-width: 1024px) {
+  .products-left {
+    margin: 10px 0 0 auto;
+  }
 }
 
 .contact {
@@ -1469,8 +1526,9 @@ header {
 
 .cart__table input {
   border: none;
-  margin: 0 20px !important;
-  width: 10%;
+  margin: 0 10px !important;
+  min-width: 40px;
+  width: 20%;
   font-size: 1.1em !important;
   text-align: center;
 }
@@ -1615,7 +1673,7 @@ header {
   cursor: pointer;
 }
 
-.address__update {
+.address__update, .address__add {
   position: fixed;
   background-color: rgba(249, 249, 249, 0.95);
   height: 100%;
@@ -1627,7 +1685,7 @@ header {
   z-index: 100;
 }
 
-.address__update i {
+.address__update i, .address__add i {
   position: absolute;
   color: #003672;
   font-size: 2.5em;
@@ -1636,11 +1694,11 @@ header {
   cursor: pointer;
 }
 
-.address__update form {
+.address__update form, .address__add form {
   padding: 20px;
 }
 
-.address__update h3 {
+.address__update h3, .address__add h3 {
   margin: 10px 0;
   width: 100%;
   text-align: center;
@@ -2161,7 +2219,7 @@ small {
   display: block;
   margin: 0 auto;
   height: auto;
-  width: 200px;
+  width: 100px;
 }
 
 .listing .dataTables_wrapper {
@@ -2476,6 +2534,145 @@ small {
 
 #select2-category_position-results li:first-of-type, #select2-subcategory_position-results li:first-of-type {
   display: none;
+}
+
+.adminusers__orders {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.adminusers__orders h3 {
+  width: 100%;
+}
+
+.adminusers__orders_order {
+  background-color: #fff;
+  margin-bottom: 30px;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .adminusers__orders_order {
+    width: 45%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .adminusers__orders_order {
+    width: 30%;
+  }
+}
+
+.adminusers__orders_order a {
+  display: inline-block;
+}
+
+.adminusers__orders_order-date {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: .9em;
+}
+
+.adminusers__orders_order-details {
+  margin: 5px 0 1em;
+}
+
+.admininvoice .tab button {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: #fff;
+  border-radius: 5px 5px 0 0;
+  margin-right: 10px;
+  padding: 5px 15px;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.admininvoice .tab .active {
+  background-color: #fff;
+  color: #000;
+}
+
+.admininvoice .tab .active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  height: 1px;
+  width: 100%;
+  bottom: -1px;
+  left: 0;
+  z-index: 100;
+}
+
+.admininvoice .tabcontent {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+.admininvoice .new-product {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.admininvoice .new-product button {
+  display: flex;
+  border: none;
+  cursor: pointer;
+}
+
+.admininvoice .new-product button i {
+  display: flex;
+  margin: auto 10px auto 0;
+}
+
+.admininvoice .new-product .form__group {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.admininvoice .new-product .form__group select {
+  width: 80%;
+}
+
+.admininvoice .new-product .form__group input {
+  margin-right: 15px;
+  width: 15%;
+}
+
+.admininvoice .customer-infos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.admininvoice .customer-infos .form__group {
+  margin-top: 0;
+  width: 48%;
+}
+
+.admininvoice .customer-infos + div label {
+  display: none;
+}
+
+.admininvoice h3 {
+  margin: 20px 0 10px;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.admininvoice #add-product {
+  display: block;
+  margin: 10px auto;
 }
 
 /*# sourceMappingURL=style.css.map */

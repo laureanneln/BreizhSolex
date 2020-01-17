@@ -22,8 +22,7 @@ class CustomerOrderRepository extends ServiceEntityRepository
     /**
      * @return CustomerOrder[] Returns an array of CustomerOrder objects
      */
-    public function findByUser($value)
-    {
+    public function findByUser($value) {
         return $this->createQueryBuilder('c')
             ->andWhere('c.user = :val')
             ->setParameter('val', $value)
@@ -34,15 +33,24 @@ class CustomerOrderRepository extends ServiceEntityRepository
         ;
     }
 
-    /*
-    public function findOneBySomeField($value): ?CustomerOrder
+    public function findAllByUser($value) {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.user = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.order_date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    public function findOneById($value): ?CustomerOrder
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+            ->andWhere('c.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

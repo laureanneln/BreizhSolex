@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialisation du mot de passe{% endblock %}
+
+{% block body %}
+
+    <section class="login container">
+
+        <h2 class="login__title">Réinitialisation du mot de passe</h2>
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <form method="post" class="form">
+            <p>Demandez à réinitialiser votre mot de passe en renseignant votre mail.</p>
+            
+            <div class="form__group">
+                <label>Email</label> 
+                {% if form.email.vars.errors|length %}
+                        <div class="invalid">
+                            { form_errors(form.email) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                
+                {{ form_widget(form.email) }}
+            </div>
+        
+            <div class="form__group">
+                <input type="submit" value="Envoyer">
+            </div>
+    
+            {{ form_rest(form) }}
+    
+        </form>
+    </section>
+
+{% endblock %}

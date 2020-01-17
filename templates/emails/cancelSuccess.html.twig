@@ -1,0 +1,31 @@
+{% apply inline_css %}
+    <style>
+        #main {
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        img {
+            height: auto;
+            width: 200px;
+        }
+    </style>
+
+    <div id="main">
+
+        <h3>Bonjour {{ user.firstName }} {{ user.lastName }} !</h3>
+
+        <p>L'annulation de votre commande a bien été prise en compte.</p>
+
+        <br>
+
+        <p>Pour toute question, n'hésitez pas à envoyer un mail à l'adresse <a href="mailto:gilbertchristophe@sfr.fr">gilbertchristophe@sfr.fr</a> ou à appeler au <a href="tel:0662859670">06.62.85.96.70</a></p>
+
+        <br>
+
+        <p>À bientôt !</p>
+        <img src="https://laureanne-leneel.fr/main_logo.png" alt="Breizh Solex">
+    </div>
+{% endapply %}
+
+

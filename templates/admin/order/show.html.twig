@@ -10,15 +10,18 @@
             {% set status = 'info' %}
         {% elseif order.status.label == 'Terminée' %}
             {% set status = 'success' %}
+        {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+            {% set status = 'danger' %}
         {% endif %}
 
 
         <a href="{{ path('adminorders') }}" class="adminback btn btn-primary" style="margin-left: auto;"><i class="fas fa-arrow-left"></i> Retour à la liste des commandes</a>
         
         <h2>Commande N°{{ order.id }} <span class="badge badge-{{ status }}">{{ order.status.label }}</span></h2>
-        <small>Le {{ order.orderDate | date('d/m/Y')}} à {{ order.orderDate | date('H:i:s')}}</small>
+        <small>Le {{ order.orderDate | date('d/m/Y', "Europe/Paris")}} à {{ order.orderDate | date('H:i:s', "Europe/Paris")}}</small>
 
         <p><i class="fas fa-user"></i> {{ order.user.lastName }} {{ order.user.firstName }}</p>
+        <p><i class="fas fa-file-invoice-dollar"></i> {{ order.user.address }} {{ order.user.address2 }}, {{ order.user.zipcode }} {{ order.user.city }}</p>
         <p><i class="fas fa-home"></i> {{ order.address }}</p>
         <p><i class="fas fa-euro-sign"></i> {{ order.totalPrice | number_format(2, ',', ' ') }} &euro;</p>
         <p><i class="fas fa-truck"></i> {{ order.deliveryPrice | number_format(2, ',', ' ') }} &euro;</p>
@@ -45,6 +48,8 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        <a class="btn btn-primary" style="margin: 20px auto 0;"><i class="fas fa-file-download"></i> Télécharger la facture</a>
 
     </section>
 {% endblock %}

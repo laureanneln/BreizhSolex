@@ -1,0 +1,37 @@
+{% block _invoice_items_widget %}
+
+    <h3>Liste de produits de la commande</h3>
+
+    {{ form_widget(form) }}
+
+    <input type="hidden" id="widgets-counter" value="0"> 
+
+    <div class="form__group">
+        <button type='button' id="add-item" class="btn btn-success" style="border: none; cursor: pointer;"><i class="fas fa-plus"></i> Ajouter un produit</button>
+    </div>
+
+{% endblock %}
+
+{% block _invoice_items_entry_row %}
+
+    {{ form_widget(form) }}
+
+{% endblock %}
+
+{% block _invoice_items_entry_widget %}
+    <div class="new-product" id="block_{{id}}">
+        {{ form_errors(form) }}
+        <div class="form__group">
+            {{ form_widget(form.product) }}
+            {{ form_errors(form.product) }}
+                        
+            {{ form_widget(form.quantity) }}
+            {{ form_errors(form.quantity) }}
+        </div>
+
+        <div>
+            <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger"><i class="fas fa-times"></i> Supprimer</button>
+        </div>
+    </div>
+
+{% endblock %}

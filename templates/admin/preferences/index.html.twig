@@ -6,6 +6,14 @@
 
     <section class="adminpreferences listing">
         <h2>Gestion des préférences</h2>
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin: 15px 0; width: 98%;">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
         
             <div class="admininfos__container flex wrap between">
                 <article class="admininfos__container_infos">
@@ -20,7 +28,7 @@
 
                     <h3>TVA</h3>
                     <p style="text-align: center;">{{ pref.taxe }} %</p>
-                    <a href="" class="btn btn-info" style="width: max-content; padding: 10px 15px; margin: 0 auto;">Modifier</a>
+                    <a href="{{ path('adminpreferences_taxe', {'id' : pref.id }) }}" class="btn btn-info" style="width: max-content; padding: 10px 15px; margin: 0 auto;">Modifier</a>
                             
                 </article>
             </div>

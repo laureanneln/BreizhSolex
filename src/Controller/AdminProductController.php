@@ -2,17 +2,30 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Product;
 use App\Form\ProductType;
+use Cocur\Slugify\Slugify;
 use App\Repository\ProductRepository;
+use App\Repository\PreferenceRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class AdminProductController extends AbstractController
-{
+class AdminProductController extends AbstractController {
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
+    
     /**
      * Permet d'afficher la liste des produits
      * @Route("/admin/produits", name="adminproducts")
@@ -34,7 +47,7 @@ class AdminProductController extends AbstractController
      * 
      * @return Response
      */
-    public function create(Request $request, ObjectManager $manager) {
+    public function create(Request $request, EntityManagerInterface $manager, PreferenceRepository $pref) {
         $product = new Product();
 
         $form = $this->createForm(ProductType::class, $product);
@@ -42,9 +55,34 @@ class AdminProductController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $file = $form['imageFile']->getData();
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $directory = $this->params->get('products_directory');
+            $file->move($directory, $fileName);
+
+            $product->setImage($fileName);
+
+            $tva = $pref->findOneBy(['id' => 1])->getTaxe();
+
+            $price = $form['taxePrice']->getData();
+            $noTaxePrice = $price - (($price / 120) * $tva);
+            $name = $form['name']->getData();
+
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($name);
+
+            $product->setQuantity(1);
+            $product->setNoTaxePrice($noTaxePrice);
+            $product->setAddedDate(new \DateTime('now'));
+            $product->setSlug($slug);
 
             $manager->persist($product);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> Le produit a bien été ajouté. La quantité peut maintenant être modifiée dans la page "stock".'
+            );
 
             return $this->redirectToRoute('adminproducts');
         };
@@ -62,14 +100,42 @@ class AdminProductController extends AbstractController
      * @param Product $product
      * @return Response
      */
-    public function edit(Product $product, Request $request, ObjectManager $manager) {
+    public function edit(Product $product, Request $request, EntityManagerInterface $manager, PreferenceRepository $pref) {
+        $oldFile = $product->getImage();
+
         $form = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form['imageFile']->getData()) {
+                $file = $form['imageFile']->getData();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $directory = $this->params->get('products_directory');
+                $file->move($directory, $fileName);
+    
+                $product->setImage($fileName);
+            }
+
+            $tva = $pref->findOneBy(['id' => 1])->getTaxe();
+            $price = $form['taxePrice']->getData();
+            $noTaxePrice = $price - (($price / 120) * $tva);
+            $name = $form['name']->getData();
+
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($name);
+
+            $product->setNoTaxePrice($noTaxePrice);
+            $product->setSlug($slug);
+            
             $manager->persist($product);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> Le produit a bien été modifié.'
+            );
 
             return $this->redirectToRoute("adminproducts");
         }
@@ -93,6 +159,11 @@ class AdminProductController extends AbstractController
 
         $manager->remove($product);
         $manager->flush();
+
+        $this->addFlash(
+            'success',
+            '<i class="fas fa-check-circle"></i> Le produit a bien été supprimé.'
+        );
 
         return $this->redirectToRoute('adminproducts');
     }

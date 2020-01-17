@@ -6,6 +6,14 @@
 
     <section class="productpage">
 
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
             <div class="productpage__container container">
 
                 {% include "/partials/categories.html.twig" %}
@@ -27,7 +35,7 @@
                         </div>
 
                         <p class="productpage__container_product-infos-description">{{ product.description }}</p>
-                        {% if product. quantity <= pref.minStock %}
+                        {% if product.quantity <= pref.minStock and product.quantity > 0 and leftQuantity != 0 %}
                             <p class="products-left">Il n'en reste plus que {{ product.quantity }} !</p>
                         {% endif %}
                     </div>
@@ -35,26 +43,31 @@
                     <div class="productpage__container_product-add flex wrap">
                         
                         {% if app.user %}
-                            <form action="{{ path('product_add', {'id' : product.id}) }}" class="flex wrap">
+                            {% if leftQuantity == 0 %}
+                                <p class="products-left">Stock épuisé !</p>
+                            {% else %}
+                                <form action="{{ path('product_add', {'id' : product.id}) }}" class="flex wrap">
 
-                                <input type="hidden" name="product_id" value="{{ product.id }}">
-                                
-                                <div class="form__group select">
-                                    <label for="quantity">Sélectionnez une quantité</label>
-                                    <div class="select__container">
-                                        <select name="quantity" id="quantity">
-                                            {% for i in 0..product.quantity %}
-                                                <option value="{{ i }}">{{ i }}</option>
-                                            {% endfor %}
-                                        </select>
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    
+                                    <div class="form__group select">
+                                        <label for="quantity">Sélectionnez une quantité</label>
+                                        <div class="select__container">
+                                            <select name="quantity" id="quantity">
+
+                                                {% for i in 1..leftQuantity %}
+                                                    <option value="{{ i }}">{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <div class="form__group">
-                                    <input type="submit" value="Ajouter au panier">
-                                </div>
+                                    
+                                    <div class="form__group">
+                                        <input type="submit" value="Ajouter au panier">
+                                    </div>
 
-                            </form>
+                                </form>
+                            {% endif %}
 
                         {% else %}
                             <a href="{{ path('loginpage') }}" class="btn btn-primary" style="margin-left: auto;">Se connecter pour ajouter au panier</a>

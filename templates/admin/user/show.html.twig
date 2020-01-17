@@ -12,9 +12,11 @@
         <div>
             {% set splitArray = user.phoneNumber|split('', 2) %}
             {% set phone = splitArray|join('.') %}
-            <p class="flex"><i class="fas fa-home"></i> {{ user.address }}, {{ user.zipCode }} {{ user.city }}</p>
-            <p class="flex"><i class="fas fa-phone"></i> <a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></p>
-        </div>
+            <p class="flex"><i class="fas fa-home" style="margin-right: 5px;"></i> {{ user.address }}, {{ user.zipCode }} {{ user.city }}</p>
+            {% if user.phoneNumber %}
+                <p class="flex"><i class="fas fa-phone fa-rotate-90" style="margin-right: 5px;"></i> <a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></p>
+            {% endif %}
+            </div>
 
         <div class="adminusers__orders">
             {% if user.customerOrders | length == 0 %}
@@ -22,11 +24,20 @@
             {% else %}
                 <h3>Historique des commandes ({{ user.customerOrders | length }})</h3>
                 {% for order in user.customerOrders %}
-                    <div  class="adminusers__orders_order">
-                        <p>#{{ order.id }}</p>
-                        <p>Le {{ order.orderDate|date("m/d/Y") }} à {{ order.orderDate|date("H:i:s") }}</p>
-                        <p>{{ order.items | length }} produits</p>
-                        <p>Prix total : {{ order.totalPrice | number_format(2, ',', ' ')}} &euro;</p>
+                    {% if order.status.label == 'En attente' %}
+                        {% set status = 'warning' %}
+                    {% elseif order.status.label == 'Envoyée' %}
+                        {% set status = 'info' %}
+                    {% elseif order.status.label == 'Terminée' %}
+                        {% set status = 'success' %}
+                    {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+                        {% set status = 'danger' %}
+                    {% endif %}
+
+                    <div class="adminusers__orders_order">
+                        <p><a href="{{ path('adminorder', {'id': order.id}) }}"><i class="fas fa-caret-right"></i> Commande #{{ order.id }}</a> <span class="badge badge-{{ status }}">{{ order.status.label }}</span></p>
+                        <p class="adminusers__orders_order-date">Le {{ order.orderDate|date("m/d/Y") }} à {{ order.orderDate|date("H:i:s") }}</p>
+                        <p class="adminusers__orders_order-details">{{ order.items | length }} produits — Total : {{ order.totalPrice | number_format(2, ',', ' ')}} &euro;</p>
                     </div>
                 {% endfor %}
             {% endif %}

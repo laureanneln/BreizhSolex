@@ -2,19 +2,47 @@
 
 namespace App\Controller;
 
+use ___PHPSTORM_HELPERS\object;
+use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController {
     /**
      * @Route("/", name="homepage")
      */
-    public function index(ProductRepository $repo){
+    public function index(ProductRepository $repo, CartRepository $ca){
         $products = $repo->findAll();
 
+        $outOfStock = [];
+
+        if ($this->getUser()) {
+            foreach ($products as $product) {
+                if ($product->getQuantity() == 0) {
+                    array_push($outOfStock, $product->getId());
+                }
+                $leftQuantity = $product->getQuantity();
+    
+                $cart = $ca->findOneBy(['user' => $this->getUser()]);
+                
+                foreach($cart->getItems() as $item) {
+                    if ($item->getProduct()->getId() == $product->getId()) {
+                        
+                        $leftQuantity = $leftQuantity - $item->getQuantity();
+    
+                        if ($leftQuantity == 0) {
+                            array_push($outOfStock, $product->getId());
+                        }
+                    }
+                }
+    
+            }
+        }
+
         return $this->render('home.html.twig', [
-            'products' => $repo->findBy([], [], 12, 0)
+            'products' => $repo->findAllLimited(),
+            'outOfStock' => $outOfStock
         ]);
     }
 }

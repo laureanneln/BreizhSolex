@@ -1,3 +1,8 @@
 swiftmailer:
-    url: '%env(MAILER_URL)%'
+    transport: sendmail
+    auth_mode: login
+    port: 587
+    host: smtp.leneel.fr
+    username: laure-anne@leneel.fr
+    password: Zoelol123
     spool: { type: 'memory' }

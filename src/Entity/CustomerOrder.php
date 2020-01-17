@@ -53,6 +53,11 @@ class CustomerOrder
      */
     private $address;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $details;
+
     public function __construct()
     {
         $this->product = new ArrayCollection();
@@ -163,6 +168,18 @@ class CustomerOrder
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->details;
+    }
+
+    public function setDetails(string $details): self
+    {
+        $this->details = $details;
 
         return $this;
     }

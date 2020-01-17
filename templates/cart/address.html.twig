@@ -1,12 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adresse de livraison{% endblock %}
+{% block title %}Définir les adresses pour la commande{% endblock %}
 
 {% block body %}
 
     <section class="address flex wrap between">
 
-            <h2 class="cart__title">Adresse de livraison</h2>
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+            <h2 class="cart__title">Définir les adresses pour la commande</h2>
 
             <div class="address__recap">
                 <h3>Récapitulatif de la commande</h3>
@@ -18,36 +26,53 @@
             </div>
 
             <div class="address__choice">
-                <h3>Choisir une adresse</h3>
-
                 {% if app.user.addresses | length != 0 %}
 
                     <form action="{{ path('processpage') }}">
+
+                        <h3>Choisir une adresse de livraison</h3>
+
                         {% for address in app.user.addresses %}
-                        <label class="account_address" style="display: block; margin: 5px 0;">
-                        <input type="radio" name="address" value="{{ address.id }}"
+                            <label class="account_address" style="display: block; margin: 5px 0;">
+                            <input type="radio" name="address" value="{{ address.id }}"
                         {% if loop.first %}
                             checked
                         {% endif %}> 
-                        <strong>{{ address.postName }}</strong> – {{ address.address }} {{ address.address2 }}, {{ address.zipcode }} {{ address.city }}</label>
+                            <strong>{{ address.postName }}</strong> – {{ address.address }} {{ address.address2 }}, {{ address.zipcode }} {{ address.city }}</label>
                         {% endfor %}
-                    </ul>
 
                 {% else %}
 
                     <p>Pas d'adresse</p>
                 
                 {% endif %}
-                    <a href="#" btn btn-primary>Ajouter une adresse</a>
+                    <a href="#" id="addAddress" btn btn-primary>Ajouter une adresse de livraison</a>
+
+                    <br>
+                    <br>
+
+                    <h3>Choisir une adresse de facturation</h3>
+
+                    <p>
+                        {% if app.user.address %}
+                            {{ app.user.address }} {{ app.user.address2 }}, {{ app.user.zipCode }} {{ app.user.city }} <a href="#" id="updateAddress">Modifier</a>
+                        {% else %}
+                            <a href="#" id="updateAddress" btn btn-primary>Ajouter une adresse de facturation</a>
+                        {% endif %}
+                    </p>
 
                     <br>
 
-                    <button type="submit" class="btn btn-primary">Valider l'adresse de livraison</button>
+                    {% if app.user.addresses | length != 0 and app.user.address %}
+                        <button type="submit" class="btn btn-primary">Valider la commande</button>
+                    {% else %}
+                        <p>Veuillez renseigner une adresse de livraison et de facturation</p>
+                    {% endif %}
                 </form>
 
             </div>
 
-            <div class="address__update flex wrap">
+            <div class="address__add flex wrap">
 
                 <i class="far fa-times-circle"></i>
 
@@ -57,73 +82,141 @@
                     <div class="form__group">
                         <label>Nom</label>
                                     
-                        {% if form.post_name.vars.errors|length %}
+                        {% if formAdd.post_name.vars.errors|length %}
                             <div class="invalid">
-                                    {{ form_errors(form.post_name) }}
+                                    {{ form_errors(formAdd.post_name) }}
                                 <i class="fas fa-times"></i>
                             </div>
                         {% endif %}
                     
-                        {{ form_widget(form.post_name) }}
+                        {{ form_widget(formAdd.post_name) }}
                     </div>
 
                     <div class="form__group">
                         <label>Adresse</label>
                                     
-                        {% if form.address.vars.errors|length %}
+                        {% if formAdd.address.vars.errors|length %}
                             <div class="invalid">
-                                    {{ form_errors(form.address) }}
+                                    {{ form_errors(formAdd.address) }}
                                 <i class="fas fa-times"></i>
                             </div>
                         {% endif %}
                     
-                        {{ form_widget(form.address) }}
+                        {{ form_widget(formAdd.address) }}
                     </div>
         
                     <div class="form__group">
                         <label>Complément d'adresse</label>
                             
-                        {% if form.address2.vars.errors|length %}
+                        {% if formAdd.address2.vars.errors|length %}
                             <div class="invalid">
-                                {{ form_errors(form.address2) }}
+                                {{ form_errors(formAdd.address2) }}
                                 <i class="fas fa-times"></i>
                             </div>
                         {% endif %}
             
-                        {{ form_widget(form.address2) }}
+                        {{ form_widget(formAdd.address2) }}
                     </div>
             
                     <div class="form__group">
                         <label>Code postal</label>
             
-                        {% if form.zip_code.vars.errors|length %}
+                        {% if formAdd.zip_code.vars.errors|length %}
                             <div class="invalid">
-                                {{ form_errors(form.zip_code) }}
+                                {{ form_errors(formAdd.zip_code) }}
                                 <i class="fas fa-times"></i>
                             </div>
                         {% endif %}
             
-                        {{ form_widget(form.zip_code) }}
+                        {{ form_widget(formAdd.zip_code) }}
                     </div>
         
                     <div class="form__group">
                         <label>Ville</label>
             
-                        {% if form.city.vars.errors|length %}
+                        {% if formAdd.city.vars.errors|length %}
                             <div class="invalid">
-                                {{ form_errors(form.city) }}
+                                {{ form_errors(formAdd.city) }}
                                 <i class="fas fa-times"></i>
                             </div>
                         {% endif %}
                             
-                        {{ form_widget(form.city) }}
+                        {{ form_widget(formAdd.city) }}
                     </div>
             
                     <div class="form__group">
                         <input type="submit" value="Enregistrer">
                     </div>
         
-                    {{ form_rest(form) }}
+                    {{ form_rest(formAdd) }}
+        
+                </form>
+            </div>
+
+            <div class="address__update flex wrap">
+
+                <i class="far fa-times-circle"></i>
+
+                <form method="post" class="form">
+                    <h3>Modifier l'adresse de facturation</h3>
+
+                    <div class="form__group">
+                        <label>Adresse</label>
+                                    
+                        {% if formUp.address.vars.errors|length %}
+                            <div class="invalid">
+                                    {{ form_errors(formUp.address) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+                    
+                        {{ form_widget(formUp.address) }}
+                    </div>
+        
+                    <div class="form__group">
+                        <label>Complément d'adresse</label>
+                            
+                        {% if formUp.address2.vars.errors|length %}
+                            <div class="invalid">
+                                {{ form_errors(formUp.address2) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+            
+                        {{ form_widget(formUp.address2) }}
+                    </div>
+            
+                    <div class="form__group">
+                        <label>Code postal</label>
+            
+                        {% if formUp.zip_code.vars.errors|length %}
+                            <div class="invalid">
+                                {{ form_errors(formUp.zip_code) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+            
+                        {{ form_widget(formUp.zip_code) }}
+                    </div>
+        
+                    <div class="form__group">
+                        <label>Ville</label>
+            
+                        {% if formUp.city.vars.errors|length %}
+                            <div class="invalid">
+                                {{ form_errors(formUp.city) }}
+                                <i class="fas fa-times"></i>
+                            </div>
+                        {% endif %}
+                            
+                        {{ form_widget(formUp.city) }}
+                    </div>
+            
+                    <div class="form__group">
+                        <input type="submit" value="Enregistrer">
+                    </div>
+        
+                    {{ form_rest(formUp) }}
         
                 </form>
             </div>

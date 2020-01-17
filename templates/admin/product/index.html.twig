@@ -6,8 +6,17 @@
 
     <section class="adminproducts container listing">
 
+
         <h2>Gestion des produits</h2>
         <small>Total : {{ total }}</small>
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin: 15px 0; width: 98%;">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
 
         <a href="{{ path('adminproduct_create') }}" class="btn btn-success"><i class="fas fa-plus"></i> Ajouter un produit</a>
 
@@ -28,7 +37,7 @@
                 {% for product in products %}
                     <tr>
                         <td>{{ product.id }}</td>
-                        <td><img src="{{ product.image }}" alt="{{ product.name }}"></td>
+                        <td><img src="../images/products/{{ product.image }}" alt="{{ product.name }}"></td>
                         <td>{{ product.name }}</td>
                         <td>{{ product.reference }}</td>
                         <td>{{ product.noTaxePrice| number_format(2, ',', ' ') }} &euro;</td>

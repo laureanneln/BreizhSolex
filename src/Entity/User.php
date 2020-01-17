@@ -46,7 +46,7 @@ class User implements UserInterface, \Serializable {
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("(^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d&,.$]{8,}$)", message="Votre mot de passe doit avoir au minimum 8 caractères, une lettre et un chiffre.")
+     * @Assert\Regex("(^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d&,.$/]{8,}$)", message="Votre mot de passe doit avoir au minimum 8 caractères, une lettre et un chiffre.")
      */
     private $password;
 
@@ -54,6 +54,19 @@ class User implements UserInterface, \Serializable {
      * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas correctement confirmer votre mot de passe")
      */
     public $passwordConfirm;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $passwordRequestedAt;
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+    private $token;
 
     /**
      * @ORM\Column(type="datetime")
@@ -241,13 +254,30 @@ class User implements UserInterface, \Serializable {
         return $this;
     }
 
-    public function getRegisterDate(): ?\DateTimeInterface
+    public function getPasswordRequestedAt()
     {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt($passwordRequestedAt) {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+        return $this;
+    }
+
+    public function getToken() {
+        return $this->token;
+    }
+
+    public function setToken($token) {
+        $this->token = $token;
+        return $this;
+    }
+
+    public function getRegisterDate(): ?\DateTimeInterface {
         return $this->register_date;
     }
 
-    public function setRegisterDate(\DateTimeInterface $register_date): self
-    {
+    public function setRegisterDate(\DateTimeInterface $register_date): self {
         $this->register_date = $register_date;
 
         return $this;
@@ -311,6 +341,22 @@ class User implements UserInterface, \Serializable {
         $this->phone_number = $phone_number;
 
         return $this;
+    }
+
+    /**
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+ 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+ 
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
     
     /**

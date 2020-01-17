@@ -5,6 +5,14 @@
 {% block body %}
 
     <section class="shop">
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+         {% endfor %}
         
         <div class="shop__container container">
 

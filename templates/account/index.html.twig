@@ -7,6 +7,14 @@
 {% set user = app.user %}
 
 <section class="container account">
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+            {% for message in messages %}
+                {{ message | raw }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    
     <h2>Bonjour, {{ user.firstName }} {{ user.lastName }}</h2>
 
     <br>
@@ -39,12 +47,21 @@
             <h4>Vos adresses</h4>
 
             <div class="account__container_box-infos flex wrap between">
+                <p class="account_address"><i class="fas fa-file-invoice-dollar"></i>
+                {% if user.address %}
+                     <strong>Facturation</strong> – {{ user.address }} {{ user.address2 }}, {{ user.zipcode }} {{ user.city }} – <a href="{{ path('accountpage_editbilladdress', {'id' : user.id}) }}">Modifier</a>
+                {% else %}
+                    <a href="{{ path('accountpage_addbilladdress', {'id' : user.id}) }}">Ajouter une adresse de facturation</a>
+                {% endif %}
+                </p>
+                
                 {% if user.addresses | length != 0 %}
                     {% for address in user.addresses %} 
                         <p class="account_address"><i class="fas fa-caret-right"></i> <strong>{{ address.postName }}</strong> – {{ address.address }} {{ address.address2 }}, {{ address.zipcode }} {{ address.city }} – <a href="{{ path('accountpage_editaddress', {'id' : address.id}) }}">Modifier</a> / <a href="{{ path('accountpage_deleteaddress', {'id' : address.id}) }}">Supprimer</a></p>
                     {% endfor %}
                 {% else %}
-                    <p>Aucune adresse enregistrée</p>
+                    <br>
+                    <p>Aucune adresse de livraison enregistrée</p>
                 {% endif %}
 
             </div>
@@ -72,13 +89,15 @@
                         <p>Aucune commande</p>
                     {% else %}
                         {% for order in orders %}
-                            {% if order.status.label == 'En attente' %}
-                                {% set status = 'warning' %}
-                            {% elseif order.status.label == 'Envoyée' %}
-                                {% set status = 'info' %}
-                            {% elseif order.status.label == 'Terminée' %}
-                                {% set status = 'success' %}
-                            {% endif %}
+                        {% if order.status.label == 'En attente' %}
+                            {% set status = 'warning' %}
+                        {% elseif order.status.label == 'Envoyée' %}
+                            {% set status = 'info' %}
+                        {% elseif order.status.label == 'Terminée' %}
+                            {% set status = 'success' %}
+                        {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+                            {% set status = 'danger' %}
+                        {% endif %}
 
                             <article>
                                 <h5><i class="fas fa-caret-right"></i> Commande du {{ order.orderDate | date("d/m/Y") }}</h5>
