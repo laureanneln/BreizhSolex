@@ -8,7 +8,7 @@
 
     <section class="container account">
         {% for label, messages in app.flashes %}
-            <div class="alert alert-{{ label }}" style="margin-bottom: 15px">
+            <div class="alert alert-{{ label }}" style="margin-bottom: 15px; margin-top: 35px;">
                 {% for message in messages %}
                     {{ message | raw }}
                 {% endfor %}
@@ -36,7 +36,7 @@
                         <tr>
                             <td>Commande du {{ order.orderDate | date("d/m/Y") }}</td>
                             <td>{{ order.items | length }} article{% if order.items | length > 1 %}s{% endif %}</td>
-                            <td>{{ order.totalPrice | number_format(2, ',', ' ')}} &euro;</td>
+                            <td>{{ (order.totalPrice + order.deliveryPrice) | number_format(2, ',', ' ')}} &euro;</td>
                             <td><span class="badge badge-{{ status }}">{{ order.status.label }}</span></td>
                             <td>
                                 <a href="{{ path('accountpage_order', {'id' : order.id}) }}" class="btn btn-primary">

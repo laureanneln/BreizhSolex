@@ -49,7 +49,28 @@
             </tbody>
         </table>
 
-        <a class="btn btn-primary" style="margin: 20px auto 0;"><i class="fas fa-file-download"></i> Télécharger la facture</a>
+        <a href="{{ path('pdf', {'id': order.id}) }}" class="btn btn-primary" style="margin: 20px auto 0;"><i class="fas fa-file-download"></i> Télécharger la facture</a>
+        {% if order.status.label == 'En attente' %}
+            <button class="btn btn-danger cancel" style="padding: 10px 15px; margin: 20px auto 0;">
+                <i class="fas fa-times"></i> 
+                Annuler la commande
+            </button>
 
+            <div class="popup">
+                <div>
+                    <button><i class="fas fa-times"></i></button>
+                    <p>Êtes-vous sûr·e de vouloir annuler votre commande ?</p>
+                    <small>Vous ne pourrez pas revenir sur cette action.</small>
+                    <div class="flex">
+                        <button class="btn btn-light">
+                            Annuler
+                        </button>
+                        <a href="{{ path('adminorder_cancel', {'id' : order.id}) }}" class="btn btn-danger">
+                            Je veux annuler la commande
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </section>
 {% endblock %}

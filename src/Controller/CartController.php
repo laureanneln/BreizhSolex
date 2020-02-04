@@ -231,6 +231,20 @@ class CartController extends AbstractController {
         );
 
         $mailer->send($message);
+
+        $message = (new \Swift_Message('Nouvelle commande'))
+        ->setFrom('laure-anne@leneel.fr')
+        ->setTo('laure-anne@leneel.fr')
+        ->setBody(
+            $this->renderView(
+                'emails/orderNew.html.twig', [
+                    'order' => $order
+                ]
+            ),
+            'text/html'
+        );
+
+        $mailer->send($message);
         
         return $this->redirectToRoute("validationpage");
     }

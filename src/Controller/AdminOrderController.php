@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\CustomerOrder;
 use App\Form\OrderType;
+use App\Entity\CustomerOrder;
 use App\Repository\ItemRepository;
+use App\Repository\StatusRepository;
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CustomerOrderRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -65,4 +68,50 @@ class AdminOrderController extends AbstractController {
             'form' => $form->createView()
         ]);
         }
+
+        /**
+     * @Route("/admin/commande/{id}/cancel", name="adminorder_cancel")
+     * 
+     * 
+     * @return Response
+     */
+    public function process(Request $request, ItemRepository $item, \Swift_Mailer $mailer, StatusRepository $sta, EntityManagerInterface $manager, CustomerOrder $order, ProductRepository $pro){
+        
+        $status = $sta->findOneBy(['id' => 5]);
+
+        $order->setStatus($status);
+        
+        $manager->persist($order);
+        $manager->flush();
+        
+        foreach ($order->getItems() as $item) {
+            $product = $pro->findOneBy(['id' => $item->getProduct()->getId()]);
+            $product->setQuantity($product->getQuantity() + $item->getQuantity());
+        };
+
+        $manager->flush();
+
+        $message = (new \Swift_Message('Confirmation de l\'annulation de la commande #' . $order->getId()))
+        ->setFrom('laure-anne@leneel.fr')
+        ->setTo('laure-anne@leneel.fr')
+        ->setBody(
+            $this->renderView(
+                'emails/cancelSuccess.html.twig', [
+                    'order' => $order,
+                    'user' => $order->getUser()
+                ]
+            ),
+            'text/html'
+        );
+
+        $mailer->send($message);
+
+        $this->addFlash(
+            'success',
+            '<i class="fas fa-check-circle"></i> La commande a bien été annulée.'
+        );
+        
+        return $this->redirectToRoute("adminorders");
+    }
+
 }

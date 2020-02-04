@@ -65,14 +65,30 @@
                 <p>{{ (subTotal + 3) | number_format(2, ',', ' ') }} <span>&euro;</span></p>
             </div>
 
+            <a href="{{ path('pdf', {'id' : order.id}) }}" class="btn btn-primary">Récupérer la facture</a>
+
             {% if order.status.label == 'En attente' %}
-                <a href="{{ path('accountpage_cancel', {'id' : order.id}) }}" class="btn btn-danger">
+                <button class="btn btn-danger cancel" style="padding: 10px 15px;">
                     <i class="fas fa-times"></i> 
                     Annuler la commande
-                </a>
-            {% endif %}
+                </button>
 
-            <a href="" class="btn btn-primary">Récupérer la facture</a>
+                <div class="popup">
+                    <div>
+                        <button><i class="fas fa-times"></i></button>
+                        <p>Êtes-vous sûr·e de vouloir annuler votre commande ?</p>
+                        <small>Vous ne pourrez pas revenir sur cette action.</small>
+                        <div class="flex">
+                            <button class="btn btn-light">
+                                Annuler
+                            </button>
+                            <a href="{{ path('accountpage_cancel', {'id' : order.id}) }}" class="btn btn-danger">
+                                Je veux annuler ma commande
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
         

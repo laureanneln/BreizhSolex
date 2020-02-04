@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {# <link rel="stylesheet" href="print.css" type="text/css" media="print"> #}
+        <title>Facture n°{{ order.id }}</title>
+    </head>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10pt;
+        }
+
+        h1, h3 {
+            margin: 0 0 5px 0;
+
+            font-size: 12pt !important;
+        }
+
+        h2, p {
+            margin: 0;
+
+            font-size: 10pt !important;
+        }
+
+        .order {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .order td, .order th {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+
+        .prix {
+            text-align: right;
+        }
+
+        .quantite, .order th {
+            text-align: center;
+        }
+
+        .total {
+            font-weight: bold;
+        }
+
+        .no {
+            border: none;
+        }
+
+        .bandeau {
+            position: absolute;
+
+            background-color: rgba(255, 0, 0, .5);
+            margin: 0;
+            padding: 50px 10px 10px;
+            width: 150px;
+
+            color: #fff;
+            text-align: center;
+
+            transform: rotate(-45deg);
+            top: -50px;
+            left: -130px;
+        }
+
+    </style>
+
+    <body>
+        <main>
+            {% if order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+                <div class="bandeau">
+                    Annulée
+                </div>
+            {% endif %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%;">
+                                <div>
+                                    <img src="http://127.0.0.1:8000/images/bs_logo.png" alt="Breizh Solex" width="100%" height="auto">
+                                </div>  
+                            </td>
+                            <td style="padding: 10px 20px;">
+                                <h1 style="font-size: 14pt;">Réparation — Restauration — Vente pièces neuves et d'occasion</h1>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%;">
+                                <h2>BreizhSolex</h2>
+                                <p>N°SIREN : 528 781 719</p>
+                                <p>N°SIRET : 528 781 719 00018</p>
+                                <p>CODE APE : 9529Z</p>
+                            </td>
+
+                            <td style="width: 40%;  "></td>
+                            
+            
+                            <td style="width: 30%;">
+                                <p>BreizhSolex</p>
+                                <p>Mr GILBERT</p>
+                                <p>10 Rue de Norvège</p>
+                                <p>35200 Rennes</p>
+                                <p>06 62 85 96 70</p>
+                                <p>gilbertchristophe@sfr.fr</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr style="margin-top: 30px;">
+
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td colspan="3" style="padding: 20px 0;">
+                                <h3>Facture N°{{ order.id }}</h3>
+                                <p>Le {{ order.orderDate | date("m/d/Y à H:m") }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 30%; border: 1px solid #000; padding: 10px;">
+                                <h3>Adresse de facturation</h3>
+                                <p>{{ order.user.firstName }} {{ order.user.lastName }}</p>
+                                <p>{{ order.user.address }}</p>
+                                <p>{{ order.user.address2 }}</p>
+                                <p>{{ order.user.zipCode }} {{ order.user.city }}</p>
+                            </td>
+
+                            <td style="width: 40%;  "></td>
+
+                            {% set name = order.address|split('–') %}
+                            {% set address = name[1]|split(',') %}
+
+                            <td style="width: 30%; border: 1px solid #000; padding: 10px;">
+                                <h3>Adresse de livraison</h3>
+                                <p>{{ name[0] }}</p>
+                                {% if address|length == 3 %} 
+                                    <p>{{ address[0] }}</p>
+                                    <p>{{ address[1] }}</p>
+                                    <p>{{ address[2] }}</p>
+                                {% else %}
+                                    <p>{{ address[0] }}</p>
+                                    <p>{{ address[1] }}</p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 20px 0 10px;">
+                                <p>Commande N°{{ order.id }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <table class="order">
+                                <thead>
+                                    <tr>
+                                        <th>Référence</th>
+                                        <th>Désignation</th>
+                                        <th>Prix unitaire T.T.C</th>
+                                        <th>Quantité</th>
+                                        <th>Prix total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in order.items %}
+                                        <tr>
+                                            <td class="quantite">{{ item.product.reference }}</td>
+                                            <td>{{ item.product.name }}</td>
+                                            <td class="prix">{{ item.product.taxePrice | number_format(2, ',', ' ') }} &euro;</td>
+                                            <td class="quantite">{{ item.quantity }}</td>
+                                            <td class="prix">{{ (item.product.taxePrice * item.quantity) | number_format(2, ',', ' ') }} &euro;</td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                    <tr>
+                                        <td colspan="4" class="prix no">Total des articles H.T.</td>
+                                        <td class="prix">{{ totalHT | number_format(2, ',', ' ') }} &euro;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="prix no">Total des articles T.T.C.</td>
+                                        <td class="prix">{{ totalTTC | number_format(2, ',', ' ') }} &euro;</td>   
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="prix no">Frais de port</td>
+                                        <td class="prix">{{ order.deliveryPrice | number_format(2, ',', ' ') }} &euro;</td>
+                                    </tr>
+                                    <tr class="total">
+                                        <td colspan="4" class="prix no">Montant total de la commande</td>
+                                        <td class="prix">{{ (totalTTC + order.deliveryPrice) | number_format(2, ',', ' ') }} &euro;</td>
+                                    </tr>
+                                </tbody>
+                            </table style="width: 100%;">
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+        
+    </body>
+</html>

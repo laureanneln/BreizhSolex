@@ -109,12 +109,18 @@ ul
 
 /* Buttons */
 .btn
+    display: block
+    
+    border: none
     padding: 10px 15px
     width: fit-content
 
     color: #fff
+    font-size: 1rem
 
     transition: all .5s
+
+    cursor: pointer
 
     &:active,
     &:focus,
@@ -132,7 +138,6 @@ ul
     &-success
         background-color: #4BBF73
 
-
         &:active,
         &:focus,
         &:hover
@@ -140,7 +145,6 @@ ul
 
     &-danger
         background-color: #d9534f
-
 
         &:active,
         &:focus,
@@ -150,11 +154,20 @@ ul
     &-info
         background-color: #1F9BCF
 
-
         &:active,
         &:focus,
         &:hover
             background-color: #1a82ae
+
+    &-light
+        background-color: #eee
+
+        color: #000
+
+        &:active,
+        &:focus,
+        &:hover
+            background-color: #dbdbdb
 
 /* Badges */
 .badge
@@ -364,3 +377,64 @@ ul
         bottom: -35px
         left: -20px
         z-index: 0
+
+.popup
+    position: fixed
+
+    background-color: rgba(255, 255, 255, .6)
+    height: 100vh
+    width: 100vw !important
+
+    left: 0
+    top: 0
+
+    > div
+        position: absolute
+
+        border: 1px solid #f1f1f1
+        background-color: #fefefe
+        padding: 20px
+        width: 80% !important
+
+        left: 50%
+        top: 50%
+
+        transform: translate(-50%, -50%)
+
+        @media screen and (min-width: $bp-medium)
+            width: 60% !important
+
+        @media screen and (min-width: $bp-large)
+            width: 40% !important
+
+        > button
+            display: block
+
+            background-color: transparent
+            border: none
+            margin-left: auto
+
+            font-size: 1.2em
+
+            cursor: pointer
+
+        p
+            margin: 20px 0 0 0
+            width: 100%
+
+            text-align: center !important
+
+        small
+            display: block
+
+            margin: 0
+            width: 100%
+
+            text-align: center
+
+        div
+            margin-top: 50px !important
+
+            button
+                margin-left: auto
+                margin-right: 10px

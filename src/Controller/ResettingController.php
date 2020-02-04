@@ -58,7 +58,8 @@ class ResettingController extends Controller
 
             $message = (new \Swift_Message('Réinitialisation de votre mot de passe'))
             ->setFrom('laure-anne@leneel.fr')
-            ->setTo($user->getEmail())
+            ->setTo('laure-anne@leneel.fr')
+            // ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView(
                     'emails/resetPassword.html.twig', [
