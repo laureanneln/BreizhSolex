@@ -20,6 +20,16 @@
             
                 {{ form_widget(form.status) }}
             </div>
+
+            <div class="form__group" id="num">
+                <label>Numéro de suivi</label>
+                {{ form_widget(form.tracking) }}
+            </div>
+
+            <div class="form__group" id="exp">
+                <label>Date d'expédition</label>
+                {{ form_widget(form.delivery) }}
+            </div>
     
             <div class="form__group">
                 <input type="submit" value="Modifier">
@@ -31,4 +41,30 @@
 
     </section>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        // Cache certains statuts selon le statut
+        $(document).ready(function() {
+            console.log($("li[role='option']").attr('id'))
+        });
+        
+        $('.select2-results__option').css('display', 'none');
+            
+        // Afficher les autres champs selon le statut choisi
+        $('#num').hide();
+        $('#exp').hide();
+
+        $('#order_status').on('change', function(){
+            if($(this).val() == "3") {
+                $('#num').show();
+                $('#exp').show();
+            } else {
+                $('#num').hide();
+                $('#exp').hide();
+            }
+        });
+    </script>
 {% endblock %}

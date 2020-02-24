@@ -32,7 +32,7 @@
                     <tbody>
                         {% for item in cart.items %}
                             <tr class="cart__table_row">
-                                <td class="cart__table_row-image"><img src="{{ item.product.image }}" alt=""></td>
+                                <td class="cart__table_row-image"><div style="max-width: 70px;"><img src="images/products/{{ item.product.image }}" alt="" style="display: block; margin: 0 auto; width: 100%; height: auto;"></div></td>
                                 <td class="cart__table_row-name"><a href="{{ path("productpage", {'slug' : item.product.slug}) }}">{{ item.product.name }}</a></td>
                                 <td class="cart__table_row-price">{{ item.product.taxePrice | number_format(2, ',', ' ') }} &euro;</td>
                                 <td class="cart__table_row-quantity">

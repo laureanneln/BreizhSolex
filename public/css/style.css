@@ -190,6 +190,10 @@ ul {
   background-color: #1F9BCF;
 }
 
+.badge-great {
+  background-color: #18BC9C;
+}
+
 .badge-success {
   background-color: #4BBF73;
 }
@@ -2286,7 +2290,7 @@ small {
 }
 
 .listing table th, .listing table td {
-  padding: 20px 10px !important;
+  padding: 10px !important;
   font-size: .9em;
   text-align: center;
 }

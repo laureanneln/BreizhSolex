@@ -14,7 +14,7 @@
                             
                 {% if form.imageFile.vars.errors|length %}
                     <div class="invalid">
-                            { form_errors(form.imageFile) }}
+                            {{ form_errors(form.imageFile) }}
                         <i class="fas fa-times"></i>
                     </div>
                 {% endif %}
@@ -40,7 +40,7 @@
             </div>
     
             <div class="form__group">
-                {{ form_label(form.reference) }}
+                <label>Référence <small>(Code produit)</small></label>
     
                 {% if form.reference.vars.errors|length %}
                     <div class="invalid">
@@ -53,7 +53,7 @@
             </div>
     
             <div class="form__group" style="font-size: 0;">
-                {{ form_label(form.taxePrice) }}
+                <label>Prix <small>(T.T.C.)</small></label>
     
                 {% if form.taxePrice.vars.errors|length %}
                     <div class="invalid">
@@ -80,7 +80,7 @@
             </div>
     
             <div class="form__group">
-                {{ form_label(form.height) }}
+                <label>Hauteur <small>(Optionnel)</small></label>
     
                 {% if form.height.vars.errors|length %}
                     <div class="invalid">
@@ -94,7 +94,7 @@
             </div>
 
             <div class="form__group">
-                {{ form_label(form.width) }}
+                <label>Largeur <small>(Optionnel)</small></label>
         
                 {% if form.width.vars.errors|length %}
                     <div class="invalid">
@@ -108,7 +108,7 @@
             </div>
 
             <div class="form__group">
-                {{ form_label(form.weight) }}
+                <label>Poids <small>(Optionnel)</small></label>
     
                 {% if form.weight.vars.errors|length %}
                     <div class="invalid">

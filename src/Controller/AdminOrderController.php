@@ -57,8 +57,19 @@ class AdminOrderController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $trackingNumber = $form['tracking']->getData();
+            $deliveryDate = $form['delivery']->getData();
+
+            $order->setTrackingNumber($trackingNumber)
+                ->setDeliveryDate($deliveryDate);
+
             $manager->persist($order);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> La commande a bien été mise à jour.'
+            );
 
             return $this->redirectToRoute("adminorders");
         }

@@ -1,0 +1,44 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier l'adresse email de {{ user.firstName }} {{ user.lastName }}{% endblock %}
+
+{% block body %}
+
+    <section class="container edit">
+        <a href="{{ path('adminproducts') }}" class="btn btn-primary adminback "><i class="fas fa-arrow-left"></i> Retour à la liste des produits</a>
+        <h2>Modification de l'adresse email de {{ user.firstName }} {{ user.lastName }}</h2>
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin: 15px 0; width: 98%;">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        
+        <form method="post" class="form" enctype="multipart/form-data">
+
+            <div class="form__group">
+                {{ form_label(form.email) }}
+                    
+                {% if form.email.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.email) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+    
+                {{ form_widget(form.email) }}
+            </div>
+
+            <div class="form__group">
+                <input type="submit" value="Enregistrer la modification">
+            </div>
+
+            {{ form_rest(form) }}
+
+        </form>
+
+    </section>
+
+{% endblock %}

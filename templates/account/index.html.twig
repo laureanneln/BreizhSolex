@@ -89,15 +89,17 @@
                         <p>Aucune commande</p>
                     {% else %}
                         {% for order in orders %}
-                        {% if order.status.label == 'En attente' %}
-                            {% set status = 'warning' %}
-                        {% elseif order.status.label == 'Envoyée' %}
-                            {% set status = 'info' %}
-                        {% elseif order.status.label == 'Terminée' %}
-                            {% set status = 'success' %}
-                        {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
-                            {% set status = 'danger' %}
-                        {% endif %}
+                            {% if order.status.id == 1 %}
+                                {% set status = 'warning' %}
+                            {% elseif order.status.id == 2 %}
+                                {% set status = 'info' %}
+                            {% elseif order.status.id == 3 %}
+                                {% set status = 'great' %}
+                            {% elseif order.status.id == 4 %}
+                                {% set status = 'success' %}
+                            {% elseif order.status.id == 5 or order.status.id == 6 %}
+                                {% set status = 'danger' %}
+                            {% endif %}
 
                             <article>
                                 <h5><i class="fas fa-caret-right"></i> Commande du {{ order.orderDate | date("d/m/Y") }}</h5>

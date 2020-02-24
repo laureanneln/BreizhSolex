@@ -44,7 +44,7 @@ class CustomerOrder
     private $order_date;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="customer_order")
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="customer_order", orphanRemoval=true)
      */
     private $items;
 
@@ -57,6 +57,16 @@ class CustomerOrder
      * @ORM\Column(type="text")
      */
     private $details;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $delivery_date;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tracking_number;
 
     public function __construct()
     {
@@ -180,6 +190,30 @@ class CustomerOrder
     public function setDetails(string $details): self
     {
         $this->details = $details;
+
+        return $this;
+    }
+
+    public function getDeliveryDate(): ?\DateTimeInterface
+    {
+        return $this->delivery_date;
+    }
+
+    public function setDeliveryDate(?\DateTimeInterface $delivery_date): self
+    {
+        $this->delivery_date = $delivery_date;
+
+        return $this;
+    }
+
+    public function getTrackingNumber(): ?string
+    {
+        return $this->tracking_number;
+    }
+
+    public function setTrackingNumber(?string $tracking_number): self
+    {
+        $this->tracking_number = $tracking_number;
 
         return $this;
     }

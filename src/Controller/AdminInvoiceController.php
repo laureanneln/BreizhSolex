@@ -6,11 +6,12 @@ use App\Entity\Cart;
 use App\Entity\User;
 use App\Form\InvoiceType;
 use App\Entity\CustomerOrder;
-use App\Repository\StatusRepository;
 use App\Repository\UserRepository;
+use App\Repository\StatusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -34,8 +35,36 @@ class AdminInvoiceController extends AbstractController {
         $form = $this->createForm(InvoiceType::class);
 
         $form->handleRequest($request);
+        $items = new ArrayCollection();
+
+        foreach ($order->getItems() as $item) {
+            $items->add($item);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $subTotal = 0;
+            foreach ($items as $item) {
+                if (false === $order->getItems()->contains($item)) {
+                    // remove the Task from the Tag
+                    $item->getCustomerOrders()->removeElement($order);
+    
+                    // if it was a many-to-one relationship, remove the relationship like this
+                    // $tag->setTask(null);
+    
+                    $manager->persist($item);
+    
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    // $entityManager->remove($tag);
+                }
+            }
+            // foreach ($order->getItems() as $item){
+            //     $item->setCustomerOrder($order);
+            //     $manager->persist($item);
+
+            //     $subTotal = $subTotal + $item->getProduct()->getTaxePrice() * $item->getQuantity();
+            // }
+
             $email = $form['email']->getData();
 
             if ($user->findOneByEmail($email)) {
@@ -63,16 +92,7 @@ class AdminInvoiceController extends AbstractController {
                 $manager->flush();
             }
 
-            $subTotal = 0;
-
-            foreach ($order->getItems() as $item){
-                $item->setCustomerOrder($order);
-                $manager->persist($item);
-
-                $subTotal = $subTotal + $item->getProduct()->getTaxePrice() * $item->getQuantity();
-            }
-
-            $status = $sta->findOneByLabel('Envoyée');
+            $status = $sta->findOneByLabel('Terminée');
 
             $order->setTotalPrice($subTotal)
                     ->setDeliveryPrice(0)

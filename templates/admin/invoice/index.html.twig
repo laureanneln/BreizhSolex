@@ -69,13 +69,14 @@
                     </div>
                 </div>
 
-                    {{ form_rest(form) }}
+                    {{ form_row(form.items) }}
 
                 <div class="form__group">
                     <input type="submit" value="Créer la facture">
                 </div>
 
-            </form>
+           
+                {{ form_end(form) }}
         </div>
           
           <div id="Quote" class="tabcontent">

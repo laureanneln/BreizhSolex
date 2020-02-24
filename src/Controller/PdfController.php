@@ -31,6 +31,7 @@ class PdfController extends AbstractController
 
         $totalHT = 0;
         $totalTTC = 0;
+
         foreach ($order->getItems() as $item) {
             $totalHT = $totalHT + ($item->getQuantity() * $item->getProduct()->getNoTaxePrice());
             $totalTTC = $totalTTC + ($item->getQuantity() * $item->getProduct()->getTaxePrice());
@@ -52,10 +53,18 @@ class PdfController extends AbstractController
         // Render the HTML as PDF
         $dompdf->render();
 
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream("invoice.pdf", [
-            "Attachment" => true
-        ]);
+        if ($this->getUser()->getId() == 43) {
+            // Output the generated PDF to Browser (force download)
+            $dompdf->stream("invoice.pdf", [
+                "Attachment" => false
+            ]);
+        } else {
+            // Output the generated PDF to Browser (force download)
+            $dompdf->stream("invoice.pdf", [
+                "Attachment" => true
+            ]);
+        }
+        
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }

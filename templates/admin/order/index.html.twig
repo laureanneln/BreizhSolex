@@ -8,6 +8,14 @@
         <h2>Gestion des commandes</h2>
         <small>Total : {{ total }}</small>
 
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin: 15px 0; width: 98%;">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
         <table class="admintable">
             <thead>
                 <tr>
@@ -21,15 +29,17 @@
             </thead>
             <tbody>
                 {% for order in orders %}
-                {% if order.status.label == 'En attente' %}
-                    {% set status = 'warning' %}
-                {% elseif order.status.label == 'Envoyée' %}
-                    {% set status = 'info' %}
-                {% elseif order.status.label == 'Terminée' %}
-                    {% set status = 'success' %}
-                {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
-                    {% set status = 'danger' %}
-                {% endif %}
+                    {% if order.status.id == 1 %}
+                        {% set status = 'warning' %}
+                    {% elseif order.status.id == 2 %}
+                        {% set status = 'info' %}
+                    {% elseif order.status.id == 3 %}
+                        {% set status = 'great' %}
+                    {% elseif order.status.id == 4 %}
+                        {% set status = 'success' %}
+                    {% elseif order.status.id == 5 or order.status.id == 6 %}
+                        {% set status = 'danger' %}
+                    {% endif %}
 
                 {% set total = 0 %}
                 {% for item in order.items %}

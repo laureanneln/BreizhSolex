@@ -7,11 +7,21 @@
 
         <a href="{{ path('adminusers') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des clients</a>
 
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin: 15px 0; width: 98%;">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
         <h2>#{{ user.id }} {{ user.firstName }} {{ user.lastName }}</h2>
 
         <div>
             {% set splitArray = user.phoneNumber|split('', 2) %}
             {% set phone = splitArray|join('.') %}
+
+            <p class="flex"><i class="fas fa-envelope" style="margin-right: 5px;"></i> {{ user.email }} (<a href="{{ path('adminuser_edit', {'id': user.id}) }}">Modifier</a>)</p>
             <p class="flex"><i class="fas fa-home" style="margin-right: 5px;"></i> {{ user.address }}, {{ user.zipCode }} {{ user.city }}</p>
             {% if user.phoneNumber %}
                 <p class="flex"><i class="fas fa-phone fa-rotate-90" style="margin-right: 5px;"></i> <a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></p>
@@ -24,19 +34,21 @@
             {% else %}
                 <h3>Historique des commandes ({{ user.customerOrders | length }})</h3>
                 {% for order in user.customerOrders %}
-                    {% if order.status.label == 'En attente' %}
+                    {% if order.status.id == 1 %}
                         {% set status = 'warning' %}
-                    {% elseif order.status.label == 'Envoyée' %}
+                    {% elseif order.status.id == 2 %}
                         {% set status = 'info' %}
-                    {% elseif order.status.label == 'Terminée' %}
+                    {% elseif order.status.id == 3 %}
+                        {% set status = 'great' %}
+                    {% elseif order.status.id == 4 %}
                         {% set status = 'success' %}
-                    {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+                    {% elseif order.status.id == 5 or order.status.id == 6 %}
                         {% set status = 'danger' %}
                     {% endif %}
 
                     <div class="adminusers__orders_order">
                         <p><a href="{{ path('adminorder', {'id': order.id}) }}"><i class="fas fa-caret-right"></i> Commande #{{ order.id }}</a> <span class="badge badge-{{ status }}">{{ order.status.label }}</span></p>
-                        <p class="adminusers__orders_order-date">Le {{ order.orderDate|date("m/d/Y") }} à {{ order.orderDate|date("H:i:s") }}</p>
+                        <p class="adminusers__orders_order-date">Le {{ order.orderDate|date("d/m/Y") }} à {{ order.orderDate|date("H:i:s") }}</p>
                         <p class="adminusers__orders_order-details">{{ order.items | length }} produits — Total : {{ order.totalPrice | number_format(2, ',', ' ')}} &euro;</p>
                     </div>
                 {% endfor %}

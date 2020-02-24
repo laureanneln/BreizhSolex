@@ -31,7 +31,14 @@
                             <td>{{ user.lastName }}</td>
                             <td>{{ user.firstName }}</td>
                             <td>{{ user.email }}</td>
-                            <td><a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></td>
+                            <td>
+                                {% if user.phoneNumber %}
+                                    <a href="tel:{{ user.phoneNumber }}">{{ phone }}</a>
+                                {% else %}
+                                    Non renseigné
+                                {% endif %}
+                                
+                            </td>
                             <td>
                                 {% if user.address %}
                                     {{ user.address }} <br> {{ user.zipCode }} {{ user.city }}

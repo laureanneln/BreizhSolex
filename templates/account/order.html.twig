@@ -6,13 +6,15 @@
 
     {% set user = app.user %}
 
-    {% if order.status.label == 'En attente' %}
+    {% if order.status.id == 1 %}
         {% set status = 'warning' %}
-    {% elseif order.status.label == 'Envoyée' %}
+    {% elseif order.status.id == 2 %}
         {% set status = 'info' %}
-    {% elseif order.status.label == 'Terminée' %}
+    {% elseif order.status.id == 3 %}
+        {% set status = 'great' %}
+    {% elseif order.status.id == 4 %}
         {% set status = 'success' %}
-    {% elseif order.status.label == 'Annulée par le client' or order.status.label == 'Annulée par BreizhSolex' %}
+    {% elseif order.status.id == 5 or order.status.id == 6 %}
         {% set status = 'danger' %}
     {% endif %}
 
@@ -65,7 +67,7 @@
                 <p>{{ (subTotal + 3) | number_format(2, ',', ' ') }} <span>&euro;</span></p>
             </div>
 
-            <a href="{{ path('pdf', {'id' : order.id}) }}" class="btn btn-primary">Récupérer la facture</a>
+            <a href="{{ path('pdf', {'id' : order.id}) }}" class="btn btn-primary">Télécharger la facture</a>
 
             {% if order.status.label == 'En attente' %}
                 <button class="btn btn-danger cancel" style="padding: 10px 15px;">
