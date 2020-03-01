@@ -1,5 +1,7 @@
 symfony.lock
 composer.lock
+public/bundles
+.idea/
 
 # Cache and logs (Symfony2)
 /app/cache/*
