@@ -47,17 +47,17 @@ class ProductType extends ApplicationType
             ->add(
                 'height',
                 NumberType::class,
-                $this->getConfiguration('Hauteur', 'Hauteur du produit')
+                $this->getConfiguration('Hauteur', 'Hauteur du produit', ['required' => false])
             )
             ->add(
                 'width',
                 NumberType::class,
-                $this->getConfiguration('Largeur', 'Largeur du produit')
+                $this->getConfiguration('Largeur', 'Largeur du produit', ['required' => false])
             )
             ->add(
                 'weight',
                 NumberType::class,
-                $this->getConfiguration('Poids', 'Poids du produit')
+                $this->getConfiguration('Poids', 'Poids du produit', ['required' => false])
             )
             ->add(
                 'subcategory',

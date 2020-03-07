@@ -72,15 +72,18 @@ class ProductController extends AbstractController {
 
         $leftQuantity = $product->getQuantity();
 
-        $cart = $repo->findOneBy(['user' => $this->getUser()]);
+        if ($repo->findOneBy(['user' => $this->getUser()])) {
+            $cart = $repo->findOneBy(['user' => $this->getUser()]);
         
-        foreach($cart->getItems() as $item) {
-            if ($item->getProduct()->getId() == $product->getId()) {
-                $leftQuantity = $leftQuantity - $item->getQuantity();
+            foreach($cart->getItems() as $item) {
+                if ($item->getProduct()->getId() == $product->getId()) {
+                    $leftQuantity = $leftQuantity - $item->getQuantity();
 
-                break;
+                    break;
+                }
             }
         }
+        
 
         return $this->render('product/show.html.twig', [
             'product' => $product,

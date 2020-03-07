@@ -13,11 +13,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
-class ResettingController extends Controller
+class ResettingController extends AbstractController
 {
     /**
      * @Route("/mot-de-pass-oublie", name="passwordreset")
@@ -102,7 +103,7 @@ class ResettingController extends Controller
     }
 
     /**
-     * @Route("/{id}/{token}", name="resetting")
+     * @Route("/mot-de-pass-oublie/{id}/{token}", name="resetting")
      */
     public function resetting(User $user, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -112,7 +113,12 @@ class ResettingController extends Controller
         // le token date de plus de 10 minutes
         if ($user->getToken() === null || $token !== $user->getToken() || !$this->isRequestInTime($user->getPasswordRequestedAt()))
         {
-            throw new AccessDeniedHttpException();
+            $this->addFlash(
+                'danger',
+                'Le lien que vous avez utilisé n\'est plus valide'
+            );
+            
+            return $this->redirectToRoute("loginpage");
         }
 
         $form = $this->createForm(ResettingType::class, $user);

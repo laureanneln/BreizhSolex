@@ -5,7 +5,9 @@
                 {% if category.subcategories is not empty %}
                     <ul>
                         {% for subcategory in category.subcategories %}
-                            <li><a href="{{ path('subcategorypage', {'slug' : subcategory.slug}) }}">> {{ subcategory.name }}</a></li>
+                            {% if subcategory.products is not empty %}
+                                <li><a href="{{ path('subcategorypage', {'slug' : subcategory.slug}) }}">> {{ subcategory.name }}</a></li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 {% endif %}
