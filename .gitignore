@@ -1,3 +1,8 @@
+symfony.lock
+composer.lock
+public/bundles
+.idea/
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -54,4 +59,5 @@
 /.web-server-pid
 
 /public/bundles/
+/public/images/
 /public/images/

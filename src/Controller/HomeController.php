@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use ___PHPSTORM_HELPERS\object;
 use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
