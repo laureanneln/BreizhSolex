@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="productpage__container_product-infos flex">
-                        <div class="productpage__container_product-infos-image"><img src="../../images/products/{{ product.image }}" alt="{{ product.name }}"></div>
+                        <div class="productpage__container_product-infos-image"><img src="{{ absolute_url(path('homepage')) }}images/products/{{ product.image }}" alt="{{ product.name }}"></div>
                         
                         <div>
                             <h3 class="productpage__container_product-infos-name">{{ product.name }}</h3>

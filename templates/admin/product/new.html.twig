@@ -14,7 +14,7 @@
                             
                 {% if form.imageFile.vars.errors|length %}
                     <div class="invalid">
-                            { form_errors(form.imageFile) }}
+                            {{ form_errors(form.imageFile) }}
                         <i class="fas fa-times"></i>
                     </div>
                 {% endif %}
