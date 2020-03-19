@@ -18,6 +18,19 @@
         border-collapse: collapse
         width: 100%
 
+        th:first-of-type
+            display: none
+
+            @media screen and (min-width: $bp-medium)
+                display: block
+
+        tr
+            td:first-of-type
+                display: none
+
+                @media screen and (min-width: $bp-medium)
+                    display: block
+            
         th
             padding: 10px
 

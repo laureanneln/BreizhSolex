@@ -1576,6 +1576,26 @@ header {
   width: 100%;
 }
 
+.cart__table th:first-of-type {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .cart__table th:first-of-type {
+    display: block;
+  }
+}
+
+.cart__table tr td:first-of-type {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .cart__table tr td:first-of-type {
+    display: block;
+  }
+}
+
 .cart__table th {
   padding: 10px;
 }
@@ -1921,12 +1941,7 @@ header {
 .account__container_box {
   background-color: #f9f9f9;
   margin: 20px 0;
-}
-
-@media screen and (min-width: 400px) {
-  .account__container_box {
-    width: 100%;
-  }
+  width: 100%;
 }
 
 @media screen and (min-width: 1024px) {
@@ -1974,6 +1989,7 @@ header {
 .account__container_box-infos p {
   margin-top: 0;
   width: 48%;
+  word-break: break-word;
 }
 
 .account__container_box-infos p span {
