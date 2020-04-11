@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use Cocur\Slugify\Slugify;
 use App\Entity\Subcategory;
 use App\Form\SubcategoryType;
 use App\Repository\CategoryRepository;
@@ -84,8 +85,11 @@ class AdminSubcategoryController extends AbstractController
             $cat = $form['category']->getData();
 
             $subcategories = count($sub->findByCategory($cat));
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($form['name']->getData());
 
             $subcategory->setPosition($subcategories + 1);
+            $subcategory->setSlug($slug);
 
             $manager->persist($subcategory);
             $manager->flush();
@@ -167,6 +171,11 @@ class AdminSubcategoryController extends AbstractController
             $new = $form['position']->getData(); // Get new position
             $sub2 = $repo->findOneByPosition($new, $cat); // Find the category with this position
             $sub2->setPosition($old); // Give this category the old position
+
+            $slugify = new Slugify();
+            $slug = $slugify->slugify($form['name']->getData());
+
+            $sub->setSlug($slug);
 
             $manager->persist($sub);
             $manager->persist($sub2);

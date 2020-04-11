@@ -18,6 +18,7 @@ use App\Repository\ProductRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CustomerOrderRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,7 @@ class AccountController extends AbstractController {
     public function login(AuthenticationUtils $utils) {
         $error = $utils->getLastAuthenticationError();
         $username = $utils->getLastUsername();
+        
         
         return $this->render('account/login.html.twig', [
             'hasError' => $error !== null,

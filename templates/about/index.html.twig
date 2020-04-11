@@ -16,7 +16,7 @@
     {% for about in abouts %}
         <article id="tab_{{ about.name|replace({"'" : ""}) }}" class="about__tab">
             <div class="about__tab_content">
-                {{ about.content }}
+                {{ about.content | raw }}
             </div>
         </article>
     {% endfor %}

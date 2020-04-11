@@ -55,12 +55,17 @@ class AdminProductController extends AbstractController {
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $file = $form['imageFile']->getData();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $directory = $this->params->get('products_directory');
-            $file->move($directory, $fileName);
 
-            $product->setImage($fileName);
+            $file = $form['imageFile']->getData();
+            if ($file) {
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $directory = $this->params->get('products_directory');
+                $file->move($directory, $fileName);
+
+                $product->setImage($fileName);
+            }
+           
+
 
             $tva = $pref->findOneBy(['id' => 1])->getTaxe();
 

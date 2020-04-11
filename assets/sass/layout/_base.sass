@@ -1,8 +1,26 @@
 body 
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+
+html 
+    height: 100%
+    
+body 
+    position: relative
+
     margin: 0
+    min-height: 100%
+    padding: 0
+    padding-bottom: 90vh
     width: 100vw
 
     font-family: 'Lato', sans-serif
+
+    @media screen and (min-width: $bp-medium)
+        padding-bottom: 65vh
+
+    @media screen and (min-width: $bp-large)
+        padding-bottom: 370px
 
 main
     width: 100%
