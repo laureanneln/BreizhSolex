@@ -1,14 +1,14 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Modifier le contenu de {{ about.name }}{% endblock %}
+{% block title %}Modifier la section "{{ about.name }}"{% endblock %}
 
 {% block body %}
 
     <section class="admininfos container edit">
 
-        <a href="{{ path('admininformations') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour aux informations</a>
+        <a href="{{ path('adminabout') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour aux sections "à propos"</a>
 
-        <h2>Modifier le contenu de {{ about.name }}</h2>
+        <h2>Modifier la section "{{ about.name }}"</h2>
 
         <form method="post" class="form">
             <div class="form__group">

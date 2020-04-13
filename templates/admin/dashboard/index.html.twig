@@ -12,46 +12,33 @@
                 <h4>Commandes en attente</h4>
                 <p>{{ waiting | length }}</p>
 
-                <i class="far fa-clock"></i>
+                <i class="fas fa-clock"></i>
             </div>
 
             <div class=" box flex">
-                <h4>Commandes envoyées</h4>
-                <p>{{ sent | length }}</p>
+                <h4>Commandes en préparation</h4>
+                <p>{{ preparing | length }}</p>
 
-                <i class="far fa-envelope"></i>
+                <i class="fas fa-box-open"></i>
             </div>
-
-            <div class=" box flex">
-                <h4>Commandes terminées</h4>
-                <p>{{ finished | length }}</p>
-
-                <i class="far fa-check-square"></i>
-            </div>
+            
         </article>
 
         <article class="dashboard__numbers flex wrap around" style="margin-top: 50px;">
-                <div class=" box flex">
-                    <h4>Total de clients</h4>
-                    <p>{{ (users | length) - 1}}</p>
+            <div class=" box flex">
+                <h4>Commandes en cours d'expédition</h4>
+                <p>{{ expeding | length }}</p>
 
-                    <i class="fas fa-users"></i>
-                </div>
+                <i class="fas fa-envelope"></i>
+            </div>
 
-                <div class=" box flex">
-                    <h4>Total de commandes</h4>
-                    <p>{{ orders | length }}</p>
-    
-                    <i class="fas fa-clipboard-list"></i>
-                </div>
-
-                <div class="box flex">
-                        <h4>Total de produits</h4>
-                        <p>{{ products | length }}</p>
+            <div class="box flex">
+                <h4>Produits en stock bas</h4>
+                <p>{{ lowStock | length }}</p>
         
-                        <i class="fas fa-motorcycle"></i>
-                    </div>
-            </article>
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+        </article>
     </section>
 
 {% endblock %}

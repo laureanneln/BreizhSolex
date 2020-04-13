@@ -5,7 +5,7 @@
 {% block body %}
 
     <section class="container edit">
-        <a href="{{ path('adminproducts') }}" class="btn btn-primary adminback "><i class="fas fa-arrow-left"></i> Retour à la liste des produits</a>
+        <a href="{{ path('adminuser', {'id': user.id}) }}" class="btn btn-primary adminback "><i class="fas fa-arrow-left"></i> Retour à la fiche du client</a>
         <h2>Modification de l'adresse email de {{ user.firstName }} {{ user.lastName }}</h2>
 
         {% for label, messages in app.flashes %}

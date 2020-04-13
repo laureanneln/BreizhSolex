@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Supprimer {{ product.name }}{% endblock %}
+
+{% block body %}
+
+    <section class="container edit">
+        <a href="{{ path('adminproducts') }}" class="btn btn-primary adminback "><i class="fas fa-arrow-left"></i> Retour à la liste des produits</a>
+        <h2>Suppression d'un produit</h2>
+        
+        <form class="form">
+
+            <div class="form__group">
+                <p style="text-align: center;">Êtes-vous sûr de vouloir supprimer le produit "{{ product.name }}" ?</p>
+                <small style="text-align: center; margin: 0; width: 100%; display: block;">Vous ne pourrez pas revenir sur cette action.</small>
+                <br>
+                <a href="{{ path('adminproduct_suretodelete', {'id' : product.id}) }}" class="btn btn-danger" style="margin: 10px auto 0;">
+                    Je veux supprimer ce produit
+                </a>
+            </div>
+        </form>
+        
+
+    </section>
+
+{% endblock %}

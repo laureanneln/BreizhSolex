@@ -35,7 +35,7 @@ class AdminProductController extends AbstractController {
         $total = count($repo->findAll());
 
         return $this->render('admin/product/index.html.twig', [
-            'products' => $repo->findAll(),
+            'products' => $repo->findAllProducts(),
             'total' => $total
         ]);
     }
@@ -157,12 +157,30 @@ class AdminProductController extends AbstractController {
      * @Route("/admin/produits/{id}/supprimer", name="adminproduct_delete")
      * 
      * @param Product $product
+     * @return Response
+     */
+    public function delete(Product $product) {
+        
+        return $this->render('admin/product/delete.html.twig', [
+            'product' => $product
+        ]);
+    }
+
+    /**
+     * Permet de supprimer un produit
+     *
+     * @Route("/admin/produits/{id}/delete", name="adminproduct_suretodelete")
+     * 
+     * @param Product $product
      * @param ObjectManager $manager
      * @return Response
      */
-    public function delete(Product $product, ObjectManager $manager) {
+    public function suretodelete(Product $product, ObjectManager $manager) {
 
-        $manager->remove($product);
+        $product->setArchived(1);
+        $product->setSubcategory(null);
+        
+        $manager->persist($product);
         $manager->flush();
 
         $this->addFlash(

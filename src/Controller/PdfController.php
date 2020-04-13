@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Repository\CustomerOrderRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PdfController extends AbstractController
@@ -53,17 +54,11 @@ class PdfController extends AbstractController
         // Render the HTML as PDF
         $dompdf->render();
 
-        if ($this->getUser()->getId() == 43) {
-            // Output the generated PDF to Browser (force download)
-            $dompdf->stream("invoice.pdf", [
-                "Attachment" => false
-            ]);
-        } else {
-            // Output the generated PDF to Browser (force download)
-            $dompdf->stream("invoice.pdf", [
-                "Attachment" => true
-            ]);
-        }
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("invoice.pdf", [
+            "Attachment" => true
+        ]);
+        
         
 
         return $this->redirect($_SERVER['HTTP_REFERER']);

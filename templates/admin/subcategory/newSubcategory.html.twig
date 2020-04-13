@@ -8,7 +8,7 @@
         <a href="{{ path('admincategories') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des catégories</a>
         <h2>Ajout d'une sous-catégorie</h2>
         
-        <form method="post" class="form">
+        <form method="post" class="form select2form">
             <div class="form__group">
                 <label>Nom</label> 
                 {% if form.name.vars.errors|length %}

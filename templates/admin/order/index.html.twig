@@ -19,9 +19,9 @@
         <table class="admintable">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Numéro</th>
                     <th>Client</th>
-                    <th>Nombre de produits</th>
+                    <th>Produits</th>
                     <th>Total</th>
                     <th>Statut</th>
                     <th>Actions</th>
@@ -54,7 +54,9 @@
                         <td><span class="badge badge-{{ status }}">{{ order.status.label }}</span></td>
                         <td>
                             <a href="{{ path('adminorder', {'id': order.id}) }}" class="btn btn-success"><i class="fas fa-eye"></i> Voir</a>
-                            <a href="{{ path('adminorder_edit', {'id': order.id}) }}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                            {% if order.status.id == 1 or order.status.id == 2 or order.status.id == 3 %}
+                                <a href="{{ path('adminorder_edit', {'id': order.id}) }}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

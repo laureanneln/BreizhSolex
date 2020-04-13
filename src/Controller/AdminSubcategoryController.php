@@ -201,10 +201,24 @@ class AdminSubcategoryController extends AbstractController
      * @Route("/admin/categories/{id}/supprimer", name="admincategory_delete")
      * 
      * @param Category $category
+     * @return Response
+     */
+    public function deleteCategory(Category $category) {
+        return $this->render('admin/subcategory/deleteCategory.html.twig', [
+            'category' => $category
+        ]);
+    }
+
+    /**
+     * Permet de supprimer une catégorie
+     *
+     * @Route("/admin/categories/{id}/delete", name="admincategory_suretodelete")
+     * 
+     * @param Category $category
      * @param ObjectManager $manager
      * @return Response
      */
-    public function deleteCategory(Category $category, CategoryRepository $cat, ObjectManager $manager) {
+    public function suretodeleteCategory(Category $category, CategoryRepository $cat, ObjectManager $manager) {
         $manager->remove($category);
         
         $manager->flush();
@@ -234,10 +248,24 @@ class AdminSubcategoryController extends AbstractController
      * @Route("/admin/sous-categories/{id}/supprimer", name="adminsubcategory_delete")
      * 
      * @param Subcategory $subcategory
+     * @return Response
+     */
+    public function deleteSubcategory(Subcategory $subcategory) {
+        return $this->render('admin/subcategory/deleteSubcategory.html.twig', [
+            'subcategory' => $subcategory
+        ]);
+    }
+
+    /**
+     * Permet de supprimer une sous-catégorie
+     *
+     * @Route("/admin/sous-categories/{id}/delete", name="adminsubcategory_suretodelete")
+     * 
+     * @param Subcategory $subcategory
      * @param ObjectManager $manager
      * @return Response
      */
-    public function deleteSubcategory(Subcategory $subcategory, SubcategoryRepository $sub, ObjectManager $manager) {
+    public function surtodeleteSubcategory(Subcategory $subcategory, SubcategoryRepository $sub, ObjectManager $manager) {
         $manager->remove($subcategory);
         $category = $subcategory->getCategory();
         

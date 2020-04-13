@@ -22,6 +22,15 @@ class CustomerOrderRepository extends ServiceEntityRepository
     /**
      * @return CustomerOrder[] Returns an array of CustomerOrder objects
      */
+
+    public function findAllByDate() {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.order_date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function findByUser($value) {
         return $this->createQueryBuilder('c')
             ->andWhere('c.user = :val')

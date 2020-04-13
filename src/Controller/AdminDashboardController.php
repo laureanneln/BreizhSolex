@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\UserRepository;
 use App\Repository\StatusRepository;
 use App\Repository\ProductRepository;
+use App\Repository\PreferenceRepository;
 use App\Repository\CustomerOrderRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,24 +15,28 @@ class AdminDashboardController extends AbstractController
     /**
      * @Route("/admin", name="admindashboard")
      */
-    public function index(ProductRepository $products, CustomerOrderRepository $orders, UserRepository $users, StatusRepository $status) {
+    public function index(ProductRepository $products, CustomerOrderRepository $orders, UserRepository $users, StatusRepository $status,  PreferenceRepository $pref) {
         
         $waitingStatus = $status->find(1);
         $waitingOrders = $waitingStatus->getCustomerOrders();
         
-        $sentStatus = $status->find(2);
-        $sentOrders = $sentStatus->getCustomerOrders();
+        $preparingStatus = $status->find(2);
+        $preparingOrders = $preparingStatus->getCustomerOrders();
         
-        $finishedStatus = $status->find(3);
-        $finishedOrders = $finishedStatus->getCustomerOrders();
+        $expedingStatus = $status->find(3);
+        $expedingOrders = $expedingStatus->getCustomerOrders();
+
+        $min = $pref->findOneBy(array('id' => 1));
+        $lowStock = $products->findLowStock($min->getMinStock());
 
         return $this->render('admin/dashboard/index.html.twig', [
             'waiting' => $waitingOrders,
-            'sent' => $sentOrders,
-            'finished' => $finishedOrders,
+            'preparing' => $preparingOrders,
+            'expeding' => $expedingOrders,
             'users' => $users->findAll(),
             'orders' => $orders->findAll(),
-            'products' => $products->findAll()
+            'products' => $products->findAll(),
+            'lowStock' => $lowStock
         ]);
     }
 }

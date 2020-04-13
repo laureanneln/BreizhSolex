@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Supprimer {{ about.name }}{% endblock %}
+
+{% block body %}
+
+    <section class="container edit">
+        <a href="{{ path('adminabout') }}" class="btn btn-primary adminback "><i class="fas fa-arrow-left"></i> Retour aux sections "à propos"</a>
+        <h2>Suppression d'une section</h2>
+        
+        <form class="form">
+
+            <div class="form__group">
+                <p style="text-align: center;">Êtes-vous sûr de vouloir supprimer la section "{{ about.name }}" ?</p>
+                <small style="text-align: center; margin: 0; width: 100%; display: block;">Vous ne pourrez pas revenir sur cette action.</small>
+                <br>
+                <a href="{{ path('adminabout_suretodelete', {'id' : about.id}) }}" class="btn btn-danger" style="margin: 10px auto 0;">
+                    Je veux supprimer cette section
+                </a>
+            </div>
+        </form>
+        
+
+    </section>
+
+{% endblock %}

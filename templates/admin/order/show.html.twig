@@ -34,7 +34,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID produit</th>
+                    <th>Référence</th>
                     <th>Image</th>
                     <th>Nom</th>
                     <th>Quantité</th>
@@ -44,8 +44,8 @@
             <tbody>
                 {% for item in order.items %}
                     <tr>
-                        <td>{{ item.product.id }}</td>
-                        <td><img src="{{ item.product.image }}" alt=""></td>
+                        <td>{{ item.product.reference }}</td>
+                        <td><img src="{ absolute_url(path('homepage')) }}images/products/{{ item.product.image }}" alt=""></td>
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ (item.product.taxePrice * item.quantity) | number_format(2, ',', ' ')}} &euro;</td>
@@ -54,8 +54,8 @@
             </tbody>
         </table>
 
-        <a href="{{ path('pdf', {'id': order.id}) }}" class="btn btn-primary" style="margin: 20px auto 0;"><i class="fas fa-file-eye"></i> Voir la facture</a>
-        {% if order.status.label == 'En attente' %}
+        <a href="{{ path('pdf', {'id': order.id}) }}" class="btn btn-primary" style="margin: 20px auto 0;"><i class="fas fa-file-eye"></i> Télécharger la facture</a>
+        {% if order.status.id == 1 or order.status.id == 2%}
             <button class="btn btn-danger cancel" style="padding: 10px 15px; margin: 20px auto 0;">
                 <i class="fas fa-times"></i> 
                 Annuler la commande

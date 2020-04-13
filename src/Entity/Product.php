@@ -103,6 +103,11 @@ class Product
      */
     private $items;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $archived;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -309,6 +314,18 @@ class Product
                 $item->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): self
+    {
+        $this->archived = $archived;
 
         return $this;
     }

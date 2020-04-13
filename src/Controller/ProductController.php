@@ -23,7 +23,7 @@ class ProductController extends AbstractController {
      */
     public function index(ProductRepository $pro, CategoryRepository $cat, CartRepository $repo) {
 
-        $products = $pro->findAll();
+        $products = $pro->findAllProducts();
         $categories = $cat->findAll();
 
         $outOfStock = [];

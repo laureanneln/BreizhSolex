@@ -10,7 +10,7 @@
 
         <h2>Modifier le numéro de téléphone</h2>
 
-        <form method="post" class="form flex">
+        <form method="post" class="form">
             <div class="form__group">
                                 
                 {% if form.phone.vars.errors|length %}
@@ -24,7 +24,7 @@
             </div>
         
             <div class="form__group">
-                <input type="submit" value="Modifier">
+                <input type="submit" value="Valider">
             </div>
     
             {{ form_rest(form) }}

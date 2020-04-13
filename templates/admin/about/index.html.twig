@@ -6,6 +6,14 @@
 
     <section class="admininfos adminabout container">
 
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" style="margin: 15px 0; width: 98%;">
+                {% for message in messages %}
+                    {{ message | raw }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
         <h2>Gestion de la page "À propos"</h2>
 
         <a href="{{ path('adminabout_create') }}" class="btn btn-success" style="margin: 10px 0 0 auto"><i class="fas fa-plus"></i> Ajouter</a>

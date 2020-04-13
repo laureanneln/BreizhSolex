@@ -4,10 +4,21 @@
 
 {% block body %}
 
+    <style>
+        select {
+            background-color: #fff;
+            height: 30px;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+
     <section class="container edit">
         <a href="{{ path('adminorders') }}" class="adminback btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste des produits</a>
         
         <h2>Modifier le status de la commande #{{ order.id }}</h2>
+
+        <p class="status-id">{{ order.status.id }}</p>
         
         <form method="post" class="form">
             <div class="form__group">
@@ -46,12 +57,21 @@
 {% block javascripts %}
     <script>
 
+        // Cache les statuts annulés
+        $('#order_status option[value="5"]').hide()
+        $('#order_status option[value="6"]').hide()
+
         // Cache certains statuts selon le statut
-        $(document).ready(function() {
-            console.log($("li[role='option']").attr('id'))
-        });
+        $('.status-id').hide();
+        let id = $('.status-id').text();
+
+        if (id == 2) {
+            $('#order_status option[value="1"]').hide()
+        } else if (id == 3) {
+            $('#order_status option[value="1"]').hide()
+            $('#order_status option[value="2"]').hide()
+        }
         
-        $('.select2-results__option').css('display', 'none');
             
         // Afficher les autres champs selon le statut choisi
         $('#num').hide();

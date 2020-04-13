@@ -41,6 +41,11 @@ class AdminAboutController extends AbstractController
             $manager->persist($about);
             $manager->flush();
 
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> La section a bien été ajoutée.'
+            );
+
             return $this->redirectToRoute('adminabout');
         };
 
@@ -64,6 +69,11 @@ class AdminAboutController extends AbstractController
             $manager->persist($about);
             $manager->flush();
 
+            $this->addFlash(
+                'success',
+                '<i class="fas fa-check-circle"></i> La section a bien été modifiée.'
+            );
+
             return $this->redirectToRoute("adminabout");
         }
 
@@ -74,19 +84,39 @@ class AdminAboutController extends AbstractController
     }
 
     /**
-     * Permet de supprimer un onflet
+     * Permet de supprimer un onglet
      *
      * @Route("/admin/a-propos/{id}/supprimer", name="adminabout_delete")
+     * 
+     * @param About $about
+     * @return Response
+     */
+    public function delete(About $about) {
+        
+        return $this->render('admin/about/delete.html.twig', [
+            'about' => $about
+        ]);
+    }
+
+    /**
+     * Permet de supprimer un onglet
+     *
+     * @Route("/admin/a-propos/{id}/delete", name="adminabout_suretodelete")
      * 
      * @param About $product
      * @param ObjectManager $manager
      * @return Response
      */
-    public function delete(About $about, ObjectManager $manager) {
+    public function suretodelete(About $about, ObjectManager $manager) {
 
         $manager->remove($about);
         $manager->flush();
 
-    return $this->redirectToRoute('adminabout');
-}
+        $this->addFlash(
+            'success',
+            '<i class="fas fa-check-circle"></i> La section a bien été supprimée.'
+        );
+
+        return $this->redirectToRoute('adminabout');
+    }
 }

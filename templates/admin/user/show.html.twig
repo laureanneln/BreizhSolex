@@ -21,7 +21,7 @@
             {% set splitArray = user.phoneNumber|split('', 2) %}
             {% set phone = splitArray|join('.') %}
 
-            <p class="flex"><i class="fas fa-envelope" style="margin-right: 5px;"></i> {{ user.email }} (<a href="{{ path('adminuser_edit', {'id': user.id}) }}">Modifier</a>)</p>
+            <p class="flex"><i class="fas fa-envelope" style="margin-right: 5px;"></i> {{ user.email }} <a href="{{ path('adminuser_edit', {'id': user.id}) }}" class="btn btn-primary" style="margin-left: 10px;">Modifier</a></p>
             <p class="flex"><i class="fas fa-home" style="margin-right: 5px;"></i> {{ user.address }}, {{ user.zipCode }} {{ user.city }}</p>
             {% if user.phoneNumber %}
                 <p class="flex"><i class="fas fa-phone fa-rotate-90" style="margin-right: 5px;"></i> <a href="tel:{{ user.phoneNumber }}">{{ phone }}</a></p>

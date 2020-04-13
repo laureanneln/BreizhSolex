@@ -24,7 +24,7 @@ class AdminStockController extends AbstractController
         $total = count($repo->findAll());
 
         return $this->render('admin/stock/index.html.twig', [
-            'products' => $repo->findAll(),
+            'products' => $repo->findAllProducts(),
             'total' => $total,
             'pref' => $pref->findOneBy(array('id' => 1))
         ]);

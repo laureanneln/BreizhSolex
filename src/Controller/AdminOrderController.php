@@ -25,7 +25,7 @@ class AdminOrderController extends AbstractController {
         $total = count($repo->findAll());
 
         return $this->render('admin/order/index.html.twig', [
-                'orders' => $repo->findAll(),
+                'orders' => $repo->findAllByDate(),
                 'total' => $total
             ]);
     }

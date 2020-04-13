@@ -22,12 +22,34 @@ class ProductRepository extends ServiceEntityRepository
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
+
+    public function findAllProducts()
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.archived = 0')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     public function findAllLimited()
     {
         return $this->createQueryBuilder('p')
+            ->andWhere('p.archived = 0')
             ->orderBy('p.id', 'DESC')
             ->setMaxResults(12)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findLowStock($min)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.quantity < :min')
+            ->andWhere('p.archived = 0')
+            ->setParameter('min', $min)
             ->getQuery()
             ->getResult()
         ;

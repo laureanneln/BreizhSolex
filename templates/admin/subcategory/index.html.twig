@@ -31,7 +31,16 @@
                     <td>Total</td>
                     <td class="flex">
                         <a href="{{ path('admincategory_edit', {id : category.id})}}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Modifier</a>
-                        <a  {% if category.subcategories|length == 0 %}href="{{ path('admincategory_delete', {id : category.id})}}"{% endif %} class="btn btn-danger {% if category.subcategories|length >= 1 %}disabled"{% endif %} " style="margin-left: 10px"><i class="fas fa-trash-alt"></i> Supprimer</a>
+                        <a  
+                        {% if category.subcategories|length == 0 %}
+                            href="{{ path('admincategory_delete', {id : category.id})}}"
+                        {% endif %} 
+                        {% if category.subcategories|length >= 1 %}
+                        class="btn btn-danger disabled"
+                        {% else %}
+                        class="btn btn-danger"
+                        {% endif %} 
+                        style="margin-left: 10px"><i class="fas fa-trash-alt"></i> Supprimer</a>
                     </td>
                 </tr>
                 {% for subcategory in category.subcategories %}

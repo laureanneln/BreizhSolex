@@ -23,10 +23,9 @@
         <table class="admintable">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Référence</th>
                     <th>Image</th>
                     <th>Nom</th>
-                    <th>Reference</th>
                     <th>Prix H.T.</th>
                     <th>Prix T.T.C.</th>
                     <th>Sous-catégorie</th>
@@ -36,10 +35,9 @@
             <tbody>
                 {% for product in products %}
                     <tr>
-                        <td>{{ product.id }}</td>
+                        <td>{{ product.reference }}</td>
                         <td><img src="../images/products/{{ product.image }}" alt="{{ product.name }}"></td>
                         <td>{{ product.name }}</td>
-                        <td>{{ product.reference }}</td>
                         <td>{{ product.noTaxePrice| number_format(2, ',', ' ') }} &euro;</td>
                         <td>{{ product.taxePrice| number_format(2, ',', ' ') }} &euro;</td>
                         <td>{{ product.subcategory.name }}</td>
@@ -51,6 +49,8 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        
 
     </section>
 
