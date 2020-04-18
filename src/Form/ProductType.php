@@ -68,6 +68,11 @@ class ProductType extends ApplicationType
                 ],
                 $this->getConfiguration('Sous-catégorie', 'Sous-catégorie')
             )
+            ->add(
+                'quantity',
+                NumberType::class, 
+                $this->getConfiguration('Quantité', 'Quantité en stock')
+            )
         ;
     }
 

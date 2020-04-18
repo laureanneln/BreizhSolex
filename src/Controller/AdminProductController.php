@@ -76,17 +76,18 @@ class AdminProductController extends AbstractController {
             $slugify = new Slugify();
             $slug = $slugify->slugify($name);
 
-            $product->setQuantity(1);
+            $product->setQuantity($form['quantity']->getData());
             $product->setNoTaxePrice($noTaxePrice);
             $product->setAddedDate(new \DateTime('now'));
             $product->setSlug($slug);
+            $product->setArchived(false);
 
             $manager->persist($product);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                '<i class="fas fa-check-circle"></i> Le produit a bien été ajouté. La quantité peut maintenant être modifiée dans la page "stock".'
+                '<i class="fas fa-check-circle"></i> Le produit a bien été ajouté.'
             );
 
             return $this->redirectToRoute('adminproducts');

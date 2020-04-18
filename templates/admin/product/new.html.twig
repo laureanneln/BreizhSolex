@@ -129,6 +129,19 @@
                         
                 {{ form_widget(form.subcategory) }}
             </div>
+
+            <div class="form__group">
+                <label>Quantité</label>
+        
+                {% if form.quantity.vars.errors|length %}
+                    <div class="invalid">
+                        {{ form_errors(form.quantity) }}
+                        <i class="fas fa-times"></i>
+                    </div>
+                {% endif %}
+                        
+                {{ form_widget(form.quantity) }}
+            </div>
     
             <div class="form__group">
                 <input type="submit" value="Ajouter le produit">
@@ -138,9 +151,6 @@
 
         </form>
 
-        <div class="alert alert-info">
-            <i class="fas fa-question-circle"></i> La quantité sera automatiquement mise à 1. Elle pourra être modifiée dans la page "stock".
-        </div>
 
     </section>
 

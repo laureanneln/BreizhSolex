@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 {% for user in users %}
-                    {% if user.registerDate|date("m/d/Y") != '01/01/1970' %} <!-- Exclude Admin -->
+                    {% if user.id != 1 %} <!-- Exclude Admin -->
                         {% set splitArray = user.phoneNumber|split('', 2) %}
                         {% set phone = splitArray|join('.') %}
                         <tr>

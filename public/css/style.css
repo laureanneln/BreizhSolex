@@ -492,28 +492,9 @@ header {
   background-color: #003672;
 }
 
-#admin {
-  position: fixed;
-  background-color: #003672;
-  border-left: 1px solid #fff;
-  border-top: 1px solid #fff;
-  border-top-left-radius: 10px;
-  padding: 15px;
-  color: #fff;
-  font-size: 1.5em;
-  bottom: 0;
-  right: 0;
-  z-index: 200;
-  transition: all .5s;
-}
-
-#admin:hover {
-  color: #FCC200;
-  transition: all .5s;
-}
-
 /* Navbar */
 .nav {
+  margin: 0 auto;
   padding: 20px 5%;
   /* If checkbox is checked */
   /* Burger icon */

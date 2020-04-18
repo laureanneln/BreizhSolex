@@ -1,6 +1,3 @@
-{% if app.user and app.user.id == 1 %}
-    <a href="{{ path('admindashboard') }}" id="admin">> Accéder à l'administration</a>
-{% endif %}
 
 <nav role="navigation" class="nav container flex between">
 
@@ -18,7 +15,12 @@
         <li><a href="{{ path('productspage') }}">Produits</a></li>
         <li><a href="{{ path('contactpage') }}">Contact</a></li>
         {% if app.user %}
-            <li><a href="{{ path('accountpage') }}">Compte</a></li>
+            {% if app.user.id == 1 %}
+                <li><a href="{{ path('admindashboard') }}">Administration</a></li>
+            {% else %}
+                <li><a href="{{ path('accountpage') }}">Compte</a></li>
+            {% endif %}
+            
             <li><a href="{{ path('logoutpage') }}">Déconnexion</a></li>
         {% else %}
             <li><a href="{{ path('loginpage') }}">Connexion</a></li>
